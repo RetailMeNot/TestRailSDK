@@ -1,0 +1,47 @@
+    [
+    {
+        "id": 1,
+        "name": "RetailMeNot",
+        "announcement": null,
+        "show_announcement": false,
+        "is_completed": false,
+        "completed_on": null,
+        "url": "https://rmn.testrail.com/index.php?/projects/overview/1"
+    },
+    {
+        "id": 2,
+        "name": "Sandbox",
+        "announcement": null,
+        "show_announcement": false,
+        "is_completed": false,
+        "completed_on": null,
+        "url": "https://rmn.testrail.com/index.php?/projects/overview/2"
+    },
+    {
+        "id": 3,
+        "name": "Mobile Native Apps",
+        "announcement": null,
+        "show_announcement": false,
+        "is_completed": false,
+        "completed_on": null,
+        "url": "https://rmn.testrail.com/index.php?/projects/overview/3"
+    },
+    {
+        "id": 4,
+        "name": "API",
+        "announcement": "The RetailMeNot public, private, and feed APIs",
+        "show_announcement": true,
+        "is_completed": false,
+        "completed_on": null,
+        "url": "https://rmn.testrail.com/index.php?/projects/overview/4"
+    },
+    {
+        "id": 5,
+        "name": "ISS",
+        "announcement": null,
+        "show_announcement": false,
+        "is_completed": false,
+        "completed_on": null,
+        "url": "https://rmn.testrail.com/index.php?/projects/overview/5"
+    }
+]

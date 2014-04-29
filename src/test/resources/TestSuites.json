@@ -1,0 +1,303 @@
+[
+    {
+        "id": 8,
+        "name": "Footer",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/8"
+    },
+    {
+        "id": 9,
+        "name": "Store Page",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/9"
+    },
+    {
+        "id": 12,
+        "name": "Find a Home",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/12"
+    },
+    {
+        "id": 14,
+        "name": "Marketing Campaigns",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/14"
+    },
+    {
+        "id": 15,
+        "name": "Outclicks and Cookies",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/15"
+    },
+    {
+        "id": 16,
+        "name": "Admin",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/16"
+    },
+    {
+        "id": 18,
+        "name": "Coupon Dates",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/18"
+    },
+    {
+        "id": 20,
+        "name": "My Account",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/20"
+    },
+    {
+        "id": 22,
+        "name": "Search",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/22"
+    },
+    {
+        "id": 23,
+        "name": "Mobile Web",
+        "description": "Please check CHROME and NATIVE BROWSERS for both iOS and Android. ",
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/23"
+    },
+    {
+        "id": 27,
+        "name": "zz temp-mh",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/27"
+    },
+    {
+        "id": 28,
+        "name": "zz Deprecated Test Cases",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/28"
+    },
+    {
+        "id": 56,
+        "name": "Homepage",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/56"
+    },
+    {
+        "id": 57,
+        "name": "Header",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/57"
+    },
+    {
+        "id": 58,
+        "name": "Coupon Submission",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/58"
+    },
+    {
+        "id": 59,
+        "name": "Category Page",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/59"
+    },
+    {
+        "id": 60,
+        "name": "Community",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/60"
+    },
+    {
+        "id": 62,
+        "name": "Error Pages",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/62"
+    },
+    {
+        "id": 63,
+        "name": "Redirects",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/63"
+    },
+    {
+        "id": 64,
+        "name": "RSS Feeds",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/64"
+    },
+    {
+        "id": 65,
+        "name": "Special Event Pages",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/65"
+    },
+    {
+        "id": 66,
+        "name": "Landing Pages",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/66"
+    },
+    {
+        "id": 67,
+        "name": "Grocery Coupons Page",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/67"
+    },
+    {
+        "id": 68,
+        "name": "Contact Us Page",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/68"
+    },
+    {
+        "id": 69,
+        "name": "HTTP Headers and Tags",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/69"
+    },
+    {
+        "id": 70,
+        "name": "Merchant Page",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/70"
+    },
+    {
+        "id": 71,
+        "name": "Printable Coupons Page",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/71"
+    },
+    {
+        "id": 72,
+        "name": "Security",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/72"
+    },
+    {
+        "id": 73,
+        "name": "Offers Portal Page",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/73"
+    },
+    {
+        "id": 74,
+        "name": "SEO",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/74"
+    },
+    {
+        "id": 75,
+        "name": "Top Coupons",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/75"
+    },
+    {
+        "id": 76,
+        "name": "Carousel Offers",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/76"
+    },
+    {
+        "id": 77,
+        "name": "Real Deal",
+        "description": "Real Deal Blog",
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/77"
+    },
+    {
+        "id": 126,
+        "name": "Web Analytics",
+        "description": "Omniture and Google Analytics tests",
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/126"
+    },
+    {
+        "id": 162,
+        "name": "A/B Testing",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/162"
+    },
+    {
+        "id": 417,
+        "name": "Newsletter and Alerts",
+        "description": "Testcases for newsletter and alerts.",
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/417"
+    },
+    {
+        "id": 490,
+        "name": "Tablet Optimized Site",
+        "description": "RetailMeNot has recently released a tablet-specific set of pages which deserve their own set of test-cases.",
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/490"
+    },
+    {
+        "id": 631,
+        "name": "knr preserve",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/631"
+    },
+    {
+        "id": 669,
+        "name": "zz Migrate",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/669"
+    },
+    {
+        "id": 670,
+        "name": "Infographic Behavior",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/670"
+    },
+    {
+        "id": 678,
+        "name": "Country Codes",
+        "description": null,
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/678"
+    },
+    {
+        "id": 844,
+        "name": "Ways To Save",
+        "description": "Detail requirements __Ways To Save__ page are described here [RMN-8113](https://jira.whalesharkmedia.com/browse/RMN-8113)",
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/844"
+    },
+    {
+        "id": 924,
+        "name": "zz Mobile Web Deprecated Test Cases",
+        "description": "Old design test cases",
+        "project_id": 1,
+        "url": "https://rmn.testrail.com/index.php?/suite/view/924"
+    }
+]
