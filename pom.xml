@@ -34,8 +34,8 @@
     <scm>
         <url>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</url>
         <connection>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</connection>
-        <developerConnection>git@github.com:RetailMeNot/TestRailSDK.git</developerConnection>
-        <tag>1.0</tag>
+        <developerConnection>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</developerConnection>
+        <tag>0.8</tag>
     </scm>
 
 	<dependencies>
