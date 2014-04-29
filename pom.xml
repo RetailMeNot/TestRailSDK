@@ -6,13 +6,37 @@
 	<version>0.8-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>TestRail SDK</name>
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>A package for managing your TestRail information</description>
     <url>https://github.com/RetailMeNot/TestRailSDK</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <licenses>
+        <license>
+            <name>The MIT License (MIT)</name>
+            <url>http://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Marcus Merrell</name>
+            <email>mmerrell@rmn.com</email>
+            <organization>RetailMeNot, inc</organization>
+            <organizationUrl>https://github.com/mmerrell</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</url>
+        <connection>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</connection>
+        <developerConnection>git@github.com:RetailMeNot/TestRailSDK.git</developerConnection>
+        <tag>1.0</tag>
+    </scm>
 
 	<dependencies>
 		<dependency>
@@ -97,19 +121,4 @@
             </plugin>
         </plugins>
 	</build>
-
-    <licenses>
-        <license>
-            <name>The MIT License (MIT)</name>
-            <url>http://opensource.org/licenses/MIT</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <url>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</url>
-       	<connection>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</connection>
-        <developerConnection>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</developerConnection>
-        <tag>1.0</tag>
-    </scm>
 </project>
