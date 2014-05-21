@@ -294,6 +294,21 @@ public class TestRailService implements Serializable {
             throw new RuntimeException(String.format("TestResult was not properly added to TestInstance [%d]: %s", testId, response.getStatusLine().getReasonPhrase()));
         }
     }
+    
+    /**
+     * Add a TestRun via a slimmed down new QuickTestRun entity to get around non-obvious json serialization problems
+     * with the TestRun entity
+     * @param projectId the id of the project to bind the test run to
+     * @param result One or more TestResult entities you wish to add to this TestInstance
+     */
+    public HttpResponse addTestRun(int projectId, MasterTestRun run) {
+        HttpResponse response = postRESTBody(TestRailCommand.ADD_RUN.getCommand(), Integer.toString(projectId), run);
+        if (response.getStatusLine().getStatusCode() != 200) {
+            throw new RuntimeException(String.format("TestRun was not properly added to Project [%d]: %s", projectId, response.getStatusLine().getReasonPhrase()));
+        }
+        
+        return response;
+    }
 
     /**
      * Change the Type of a test case (Manual, Automated, etc--must match the string exactly from the drop-down in TestRail. This will be project-specific)
@@ -378,6 +393,7 @@ public class TestRailService implements Serializable {
             HttpResponse response = httpClient.execute(request);
             if (response.getStatusLine().getStatusCode() != 200) {
                 Error error = JSONUtils.getMappedJsonObject(Error.class, utils.getContentsFromHttpResponse(response));
+                log.error("Response code: {}", response.getStatusLine().getStatusCode());
                 log.error("TestRails reported an error message: {}", error.getError());
             }
             return response;
