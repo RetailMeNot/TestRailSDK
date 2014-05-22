@@ -296,15 +296,29 @@ public class TestRailService implements Serializable {
     }
     
     /**
-     * Add a TestRun via a slimmed down new QuickTestRun entity to get around non-obvious json serialization problems
+     * Add a TestRun via a slimmed down new TestRunCreator entity to get around non-obvious json serialization problems
      * with the TestRun entity
      * @param projectId the id of the project to bind the test run to
      * @param result One or more TestResult entities you wish to add to this TestInstance
      */
-    public HttpResponse addTestRun(int projectId, MasterTestRun run) {
+    public HttpResponse addTestRun(int projectId, TestRunCreator run) {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RUN.getCommand(), Integer.toString(projectId), run);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestRun was not properly added to Project [%d]: %s", projectId, response.getStatusLine().getReasonPhrase()));
+        }
+        
+        return response;
+    }
+    
+    /**
+     * Complete a TestRun via a slimmed down new TestRunCloser entity
+     * @param testRunId the id of the test you wish to complete
+     * @param result TestRunCloser entity you wish to use to Complete the TestRun
+     */
+    public HttpResponse completeTestRun(TestRun run) {
+        HttpResponse response = postRESTBody(TestRailCommand.COMPLETE_RUN.getCommand(), Integer.toString(run.getId()), run);
+        if (response.getStatusLine().getStatusCode() != 200) {
+            throw new RuntimeException(String.format("TestRun was not properly Completed to Project [%d]: %s", run.getId(), response.getStatusLine().getReasonPhrase()));
         }
         
         return response;

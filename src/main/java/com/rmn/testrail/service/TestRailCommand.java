@@ -21,7 +21,8 @@ public enum TestRailCommand {
     GET_RESULTS("get_results"),
     ADD_RESULT("add_result"),
     ADD_RESULTS("add_results"),
-    ADD_RUN("add_run");
+    ADD_RUN("add_run"),
+    COMPLETE_RUN("close_run");
 
     private String command;
     private TestRailCommand(String command) {
