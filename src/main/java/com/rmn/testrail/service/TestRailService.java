@@ -311,14 +311,14 @@ public class TestRailService implements Serializable {
     }
     
     /**
-     * Complete a TestRun via a slimmed down new TestRunCloser entity
-     * @param testRunId the id of the test you wish to complete
-     * @param result TestRunCloser entity you wish to use to Complete the TestRun
+     * Complete a TestRun
+     * @param testRunId the id of the test you wish to close
+     * @param result TestRun entity you wish to use to close the TestRun
      */
-    public HttpResponse completeTestRun(TestRun run) {
-        HttpResponse response = postRESTBody(TestRailCommand.COMPLETE_RUN.getCommand(), Integer.toString(run.getId()), run);
+    public HttpResponse closeTestRun(TestRun run) {
+        HttpResponse response = postRESTBody(TestRailCommand.CLOSE_RUN.getCommand(), Integer.toString(run.getId()), run);
         if (response.getStatusLine().getStatusCode() != 200) {
-            throw new RuntimeException(String.format("TestRun was not properly Completed to Project [%d]: %s", run.getId(), response.getStatusLine().getReasonPhrase()));
+            throw new RuntimeException(String.format("TestRun was not properly closed, TestRunID [%d]: %s", run.getId(), response.getStatusLine().getReasonPhrase()));
         }
         
         return response;
