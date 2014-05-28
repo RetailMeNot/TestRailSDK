@@ -14,6 +14,7 @@ public enum TestRailCommand {
     GET_PLAN("get_plan"),
     GET_SECTIONS("get_sections"),
     GET_RUNS("get_runs"),
+    GET_RUN("get_run"),
     GET_CASES("get_cases"),
     GET_CASE("get_case"),
     UPDATE_CASE("update_case"),

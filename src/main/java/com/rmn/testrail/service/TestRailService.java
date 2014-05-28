@@ -4,12 +4,16 @@ import com.rmn.testrail.entity.*;
 import com.rmn.testrail.entity.Error;
 import com.rmn.testrail.util.HTTPUtils;
 import com.rmn.testrail.util.JSONUtils;
+
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.slf4j.Logger;
@@ -206,6 +210,15 @@ public class TestRailService implements Serializable {
     public List<TestRun> getTestRuns(int projectId) {
         return getEntityList(TestRun.class, TestRailCommand.GET_RUNS.getCommand(), Integer.toString(projectId));
     }
+    
+    /**
+     * Returns TestRun associated with the specific TestRun ID passed in (assuming you know it)
+     * @param testRunId The id of the TestRun requested
+     * @return The TestRun active for this TestRun ID
+     */
+    public TestRun getTestRun(int testRunId) {
+        return getEntitySingle(TestRun.class, TestRailCommand.GET_RUN.getCommand(), Integer.toString(testRunId));
+    }
 
     /**
      * Get the list of test cases in this TestSuite for the Section indicated
@@ -300,14 +313,13 @@ public class TestRailService implements Serializable {
      * with the TestRun entity
      * @param projectId the id of the project to bind the test run to
      * @param result One or more TestResult entities you wish to add to this TestInstance
+     * @returns The newly created TestRun object
+     * @throws IOException 
      */
-    public HttpResponse addTestRun(int projectId, TestRunCreator run) {
-        HttpResponse response = postRESTBody(TestRailCommand.ADD_RUN.getCommand(), Integer.toString(projectId), run);
-        if (response.getStatusLine().getStatusCode() != 200) {
-            throw new RuntimeException(String.format("TestRun was not properly added to Project [%d]: %s", projectId, response.getStatusLine().getReasonPhrase()));
-        }
-        
-        return response;
+    public TestRun addTestRun(int projectId, TestRunCreator run) throws IOException {
+        TestRun newSkeletonTestRun = (TestRun) postRESTBodyReturn(TestRailCommand.ADD_RUN.getCommand(), Integer.toString(projectId), run, new TestRun());
+        TestRun realNewlyCreatedTestRun = getTestRun(newSkeletonTestRun.getId());
+        return realNewlyCreatedTestRun;
     }
     
     /**
@@ -418,6 +430,49 @@ public class TestRailService implements Serializable {
         } finally {
             httpClient.getConnectionManager().shutdown();
         }
+    }
+    
+    /**
+     * Posts the given String to the given TestRails end-point
+     * @param apiCall The end-point that expects to receive the entities (e.g. "add_result")
+     * @param urlParams The remainder of the URL required for the POST. It is up to you to get this part right
+     * @param entity The BaseEntity object to use at the POST body
+     * @return The Content of the HTTP Response
+     */
+    private BaseEntity postRESTBodyReturn(String apiCall, String urlParams, BaseEntity entity, BaseEntity returningEntityType) {
+        HttpClient httpClient = new DefaultHttpClient();
+        String completeUrl = buildRequestURL( apiCall, urlParams );
+
+        try {
+            HttpPost request = new HttpPost( completeUrl );
+            String authentication = HTTPUtils.encodeAuthenticationBase64(username, password);
+            request.addHeader("Authorization", "Basic " + authentication);
+            request.addHeader("Content-Type", "application/json");
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+            String body = mapper.writeValueAsString(entity);
+            request.setEntity(new StringEntity(body));
+
+            HttpResponse response = httpClient.execute(request);
+            if (response.getStatusLine().getStatusCode() != 200) {
+                Error error = JSONUtils.getMappedJsonObject(Error.class, utils.getContentsFromHttpResponse(response));
+                log.error("Response code: {}", response.getStatusLine().getStatusCode());
+                log.error("TestRails reported an error message: {}", error.getError());
+            } else if (response.getStatusLine().getStatusCode() == 200) {
+            	log.info("Returning a JSON mapped object from calling api intergration point");
+            	return JSONUtils.getMappedJsonObject(returningEntityType.getClass(), utils.getContentsFromHttpResponse(response));
+            } else {
+            	log.error("Unhandled return code for postRESTBodyReturn");
+            }
+        }
+        catch (Exception e) {
+            log.error(String.format("An IOException was thrown while trying to process a REST Request against URL: [%s]", completeUrl), e.toString());
+            throw new RuntimeException(String.format("Connection is null, check URL: %s", completeUrl));
+        } finally {
+            httpClient.getConnectionManager().shutdown();
+        }
+		return null;
     }
 }
 
