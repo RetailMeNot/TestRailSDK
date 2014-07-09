@@ -80,7 +80,7 @@ public class TestRailService implements Serializable {
      *           this will be taken care of
      * @return A List of the Entity you're trying to get from the Service
      */
-    private <T extends BaseEntity> List<T> getEntityList(Class<T> clazz, String apiCall, String param) {
+    protected  <T extends BaseEntity> List<T> getEntityList(Class<T> clazz, String apiCall, String param) {
         HttpURLConnection connection = getRESTRequest(apiCall, param);
         log.debug("");
         String contents = utils.getContentsFromConnection(connection);
@@ -102,7 +102,7 @@ public class TestRailService implements Serializable {
      *           this will be taken care of
      * @return The Entity you're trying to get from the Service
      */
-    private <T extends BaseEntity> T getEntitySingle(Class<T> clazz, String apiCall, String param) {
+    protected  <T extends BaseEntity> T getEntitySingle(Class<T> clazz, String apiCall, String param) {
         HttpURLConnection connection = getRESTRequest(apiCall, param);
         String contents = utils.getContentsFromConnection(connection);
         T entity = JSONUtils.getMappedJsonObject(clazz, contents);
