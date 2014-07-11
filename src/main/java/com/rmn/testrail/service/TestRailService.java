@@ -264,11 +264,23 @@ public class TestRailService implements Serializable {
      * @return A List of TestResults in descending chronological order (i.e. most recent first)
      */
     public List<TestResult> getTestResults(int testInstanceId, int limit) {
-        List<TestResult> results = getEntityList(TestResult.class, TestRailCommand.GET_RESULTS.getCommand(), String.format("/%d&limit=%d", testInstanceId, 1));
+        List<TestResult> results = getEntityList(TestResult.class, TestRailCommand.GET_RESULTS.getCommand(), String.format("%d&limit=%d", testInstanceId, 1));
         if (null == results) {
             return null;
         }
-        return getEntityList(TestResult.class, TestRailCommand.GET_RESULTS.getCommand(), String.format("/%d&limit=%d", testInstanceId, limit));
+        return getEntityList(TestResult.class, TestRailCommand.GET_RESULTS.getCommand(), String.format("%d&limit=%d", testInstanceId, limit));
+    }
+
+    /**
+     * Returns a List of the ALL TestResults associated with the indicated TestInstance, most recent first
+     * @param testInstanceId The TestInstance id
+     * @return A List of TestResults in descending chronological order (i.e. most recent first)
+     */
+    public List<TestResult> getTestResults(int testInstanceId) {
+        if (null == getTestResults(testInstanceId,1)) {
+            return null;
+        }
+        return getEntityList(TestResult.class, TestRailCommand.GET_RESULTS.getCommand(), String.format("%d", testInstanceId));
     }
 
     /**

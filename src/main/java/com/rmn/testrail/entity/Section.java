@@ -35,11 +35,15 @@ public class Section extends BaseEntity {
     public Integer getSuiteId() { return suiteId; }
     public void setSuiteId(Integer suiteId) { this.suiteId = suiteId; }
 
+    public Integer getProjectId() {
+        return getTestRailService().getTestSuite(getSuiteId()).getProjectId();
+    }
+
     /**
      * Returns the complete list of TestCases within this Section
      * @return the complete list of TestCases within this Section
      */
     public List<TestCase> getTestCases() {
-        return getTestRailService().getTestCases(getSuiteId(), this.getId());
+        return getTestRailService().getTestCases(getProjectId(),getSuiteId(), this.getId());
     }
 }
