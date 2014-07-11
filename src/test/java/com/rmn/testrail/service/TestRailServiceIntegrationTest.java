@@ -1,6 +1,14 @@
 package com.rmn.testrail.service;
 
-import com.rmn.testrail.entity.*;
+import com.rmn.testrail.entity.TestCase;
+import com.rmn.testrail.entity.TestInstance;
+import com.rmn.testrail.entity.TestPlan;
+import com.rmn.testrail.entity.TestResult;
+import com.rmn.testrail.entity.TestResults;
+import com.rmn.testrail.entity.TestRun;
+import com.rmn.testrail.entity.TestRunCreator;
+import com.rmn.testrail.entity.TestStatus;
+import com.rmn.testrail.entity.TestSuite;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Ignore;
@@ -42,7 +50,7 @@ public class TestRailServiceIntegrationTest {
         Assume.assumeTrue(TestIntegrationSuite.project != null);
         Assume.assumeTrue(TestIntegrationSuite.testPlan != null);
 
-        List<TestPlan> plans = TestIntegrationSuite.service.getTestPlans(TestIntegrationSuite.project.getId());
+        List<TestPlan> plans = TestIntegrationSuite.getService().getTestPlans(TestIntegrationSuite.project.getId());
         Assert.assertNotNull("The TestPlans should not be null", plans);
         for (TestPlan testPlan: plans) {
             if (!testPlan.getId().equals(TestIntegrationSuite.testPlan.getId())) {
@@ -61,7 +69,7 @@ public class TestRailServiceIntegrationTest {
         Assume.assumeTrue(TestIntegrationSuite.project != null);
         Assume.assumeTrue(TestIntegrationSuite.testRun != null);
 
-        List<TestRun> runs = TestIntegrationSuite.service.getTestRuns(TestIntegrationSuite.project.getId());
+        List<TestRun> runs = TestIntegrationSuite.getService().getTestRuns(TestIntegrationSuite.project.getId());
         Assert.assertNotNull("The TestRuns should not be null", runs);
         for (TestRun testRun: runs) {
             if (!testRun.getId().equals(TestIntegrationSuite.testRun.getId())) {
@@ -79,7 +87,7 @@ public class TestRailServiceIntegrationTest {
     public void testGetTestPlanEntries() {
         Assume.assumeTrue(TestIntegrationSuite.testPlan != null);
 
-        TestPlan plan = TestIntegrationSuite.service.getTestPlan(TestIntegrationSuite.testPlan.getId());
+        TestPlan plan = TestIntegrationSuite.getService().getTestPlan(TestIntegrationSuite.testPlan.getId());
         Assert.assertNotNull("The TestPlan should not be null", plan);
         Assert.assertEquals("The TestPlan should be the same in singular context as in plural", TestIntegrationSuite.testPlan.getId(), plan.getId());
         Assert.assertEquals("The TestPlan name should match the name from the init data", TestIntegrationSuite.testPlan.getName(), plan.getName());
@@ -116,7 +124,7 @@ public class TestRailServiceIntegrationTest {
         Assume.assumeTrue(TestIntegrationSuite.testSuite != null);
         Assume.assumeTrue(TestIntegrationSuite.testCase != null);
 
-        List<TestCase> cases = TestIntegrationSuite.service.getTestCases(TestIntegrationSuite.project.getId(), TestIntegrationSuite.testSuite.getId());
+        List<TestCase> cases = TestIntegrationSuite.getService().getTestCases(TestIntegrationSuite.project.getId(), TestIntegrationSuite.testSuite.getId());
         Assert.assertNotNull("The list of TestCases should not be null", cases);
         Assert.assertEquals("The TestCase should match the init data", TestIntegrationSuite.testCase.getId(), cases.get(0).getId());
     }
@@ -141,7 +149,7 @@ public class TestRailServiceIntegrationTest {
         Assume.assumeTrue(TestIntegrationSuite.testSuite != null);
         Assume.assumeTrue(TestIntegrationSuite.section != null);
 
-        List<TestCase> cases = TestIntegrationSuite.service.getTestCases(TestIntegrationSuite.project.getId(), TestIntegrationSuite.testSuite.getId(), TestIntegrationSuite.section.getId());
+        List<TestCase> cases = TestIntegrationSuite.getService().getTestCases(TestIntegrationSuite.project.getId(), TestIntegrationSuite.testSuite.getId(), TestIntegrationSuite.section.getId());
         Assert.assertNotNull("The TestCases should not be null", cases);
     }
 
@@ -152,7 +160,7 @@ public class TestRailServiceIntegrationTest {
     public void testGetTestCase() {
         Assume.assumeTrue(TestIntegrationSuite.testCase != null);
 
-        TestCase singleTestCase = TestIntegrationSuite.service.getTestCase(TestIntegrationSuite.testCase.getId());
+        TestCase singleTestCase = TestIntegrationSuite.getService().getTestCase(TestIntegrationSuite.testCase.getId());
         Assert.assertNotNull("The TestCases should not be null", singleTestCase);
     }
 
@@ -164,7 +172,7 @@ public class TestRailServiceIntegrationTest {
         Assume.assumeTrue(TestIntegrationSuite.project != null);
         Assume.assumeTrue(TestIntegrationSuite.testSuite != null);
 
-        List<TestCase> cases = TestIntegrationSuite.service.getTestCases(TestIntegrationSuite.project.getId(), TestIntegrationSuite.testSuite.getId());
+        List<TestCase> cases = TestIntegrationSuite.getService().getTestCases(TestIntegrationSuite.project.getId(), TestIntegrationSuite.testSuite.getId());
         Assert.assertNotNull(cases);
         Assert.assertTrue(cases.size() > 0);
     }
@@ -187,7 +195,7 @@ public class TestRailServiceIntegrationTest {
     public void testGetMostRecentResult() {
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
-        TestResult testResult = TestIntegrationSuite.service.getTestResult(TestIntegrationSuite.testInstance.getId());
+        TestResult testResult = TestIntegrationSuite.getService().getTestResult(TestIntegrationSuite.testInstance.getId());
         Assert.assertNotNull(testResult);
     }
 
@@ -200,7 +208,7 @@ public class TestRailServiceIntegrationTest {
     public void testTestResultsReturnLatestToEarliest() {
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
-        List<TestResult> testResults = TestIntegrationSuite.service.getTestResults(TestIntegrationSuite.testInstance.getId(), 0);
+        List<TestResult> testResults = TestIntegrationSuite.getService().getTestResults(TestIntegrationSuite.testInstance.getId(), 0);
         Assert.assertNotNull(testResults);
         TestResult currentTestResult = testResults.get(0);
         for (int index = 1; index < testResults.size(); index++) {
@@ -210,6 +218,20 @@ public class TestRailServiceIntegrationTest {
         }
     }
 
+    @Test
+    public void testAddTestRun() {
+        Assume.assumeTrue(TestIntegrationSuite.testSuite != null);
+
+        //The TestRun we want to create
+        TestRunCreator testRunCreator = new TestRunCreator();
+        testRunCreator.setName("An awesome TestRun");
+        testRunCreator.setDescription("This is a test TestRun");
+        testRunCreator.setSuiteId(TestIntegrationSuite.testSuite.getId());
+
+        TestRun actualTestRun = TestIntegrationSuite.getService().addTestRun(TestIntegrationSuite.project.getId(), testRunCreator);
+        Assert.assertEquals("The newly created test run should have the same description as the one we created", testRunCreator.getDescription(), actualTestRun.getDescription());
+    }
+
     /**
      * Test the getTestResults (plural) method
      */
@@ -217,7 +239,7 @@ public class TestRailServiceIntegrationTest {
     public void testGetResults() {
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
-        List<TestResult> testResults = TestIntegrationSuite.service.getTestResults(TestIntegrationSuite.testInstance.getId(), 5);
+        List<TestResult> testResults = TestIntegrationSuite.getService().getTestResults(TestIntegrationSuite.testInstance.getId(), 5);
         Assert.assertNotNull(testResults);
         Assert.assertTrue(testResults.size() <= 5);
     }
@@ -232,7 +254,7 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Passed");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("PASS result worked!!");
-        TestIntegrationSuite.service.addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
     }
 
     @Test
@@ -263,7 +285,7 @@ public class TestRailServiceIntegrationTest {
         result3.setComment("Blocked result worked!!");
         results.addResult(result3);
 
-        TestIntegrationSuite.service.addTestResults(TestIntegrationSuite.testRun.getId(), results);
+        TestIntegrationSuite.getService().addTestResults(TestIntegrationSuite.testRun.getId(), results);
     }
 
     @Test
@@ -276,7 +298,7 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Failed");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("FAIL result worked!!");
-        TestIntegrationSuite.service.addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
     }
 
     @Test
@@ -289,7 +311,7 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Blocked");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("BLOCKED result worked!!");
-        TestIntegrationSuite.service.addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
     }
 
     @Test
@@ -302,7 +324,7 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Untested");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("UNTESTED result worked!!");
-        TestIntegrationSuite.service.addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
     }
 
     @Test
@@ -315,7 +337,7 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Retest");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("RETEST result worked!!");
-        TestIntegrationSuite.service.addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
     }
 
     @Test
@@ -330,6 +352,6 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Skipped");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("SKIPPED result worked!!");
-        TestIntegrationSuite.service.addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
     }
 }

@@ -23,6 +23,8 @@ public class TestIntegrationSuite {
 
     //The setUp method initializes the list of projects, and the rest of the suite uses information from there
     protected static TestRailService service = new TestRailService();
+    public static TestRailService getService() { return service; }
+
     protected static Project project;
     protected static TestPlan testPlan;
     protected static TestRun testRun;
@@ -66,9 +68,9 @@ public class TestIntegrationSuite {
         String password = properties.getProperty("password");
         Assume.assumeNotNull(password);
 
-        service.setClientId(clientId);
-        service.setUsername(username);
-        service.setPassword(password);
+        getService().setClientId(clientId);
+        getService().setUsername(username);
+        getService().setPassword(password);
 
         //We have to report any test results against a user. That will be gathered from the properties file. If it's not there,
         // don't run the tests that report results, regardless of the value set on destructiveTestsOk
@@ -81,7 +83,7 @@ public class TestIntegrationSuite {
         }
 
         //Verify that we can actually talk to the service
-        Assume.assumeTrue(service.verifyCredentials());
+        Assume.assumeTrue(getService().verifyCredentials());
 
         //Initialize the Projects data used throughout the test. Each test will make an assumption about the data available, and if it's not, the test will be skipped
         initScenario();
@@ -97,7 +99,7 @@ public class TestIntegrationSuite {
     }
 
     private static void initProject() {
-        for (Project currentProject: service.getProjects()) {
+        for (Project currentProject: getService().getProjects()) {
             if (currentProject.isCompleted()) {
                 continue;
             }
@@ -125,11 +127,11 @@ public class TestIntegrationSuite {
                         testInstance = currentTestInstance;
                         log.debug("Using TestInstance [{}] for testing", testInstance.getId());
 
-                        testCase = service.getTestCase(testInstance.getCaseId());
+                        testCase = getService().getTestCase(testInstance.getCaseId());
                         log.debug("Using TestCase [{}] for testing", testCase.getTitle());
 
-                        testSuite = service.getTestSuite(testCase.getSuiteId());
-                        section = service.getSections(project.getId(), testSuite.getId()).get(0);
+                        testSuite = getService().getTestSuite(testCase.getSuiteId());
+                        section = getService().getSections(project.getId(), testSuite.getId()).get(0);
                         break;
                     }
                     if (testCase != null) {
