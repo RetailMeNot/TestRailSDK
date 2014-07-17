@@ -83,6 +83,11 @@ public class TestCase extends BaseEntity {
     public Integer getSuiteId() { return suiteId; }
     public void setSuiteId(Integer suiteId) { this.suiteId = suiteId; }
 
+    @JsonProperty("custom_state")
+    private Integer customState;
+    public Integer getCustomState() { return customState; }
+    public void setCustomState(Integer customState) { this.customState = customState; }
+
     /**
      * Update the type for this TestCase--NOTE: This method actually makes the request to TestRails. Use it carefully!
      * @param type The type id for the TestCase. This value is determined by your specific TestRails implementation. Consult your
