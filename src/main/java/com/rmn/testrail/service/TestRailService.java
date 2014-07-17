@@ -521,7 +521,7 @@ public class TestRailService implements Serializable {
             	log.error("Unhandled return code for postRESTBodyReturn");
             }
         }
-        catch (Exception e) {
+        catch (IOException e) {
             log.error(String.format("An IOException was thrown while trying to process a REST Request against URL: [%s]", completeUrl), e.toString());
             throw new RuntimeException(String.format("Connection is null, check URL: %s", completeUrl));
         } finally {
