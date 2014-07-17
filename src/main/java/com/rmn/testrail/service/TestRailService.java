@@ -347,15 +347,32 @@ public class TestRailService implements Serializable {
         return realNewlyCreatedTestRun;
     }
 
-
+    /**
+     * Adds a Milestone in TestRails
+     * @param projectId the ID of the project to add the Milestone to
+     * @param milestone the skeleton Milestone object the TestRails Milestone will be based off of
+     * @return the completed Milestone created in TestRails
+     */
     public Milestone addMilestone(int projectId, Milestone milestone) {
         return postRESTBodyReturn(TestRailCommand.ADD_MILESTONE.getCommand(), Integer.toString(projectId), milestone, Milestone.class);
     }
 
+    /**
+     * Adds a Test Plan in TestRails
+     * @param projectId the ID of the project to add the Test Plan to
+     * @param testPlan the skeleton Test Plan object the TestRails Test Plan will be based off of
+     * @return the completed Test Plan created in TestRails
+     */
     public TestPlan addTestPlan(int projectId, TestPlanCreator testPlan) {
         return postRESTBodyReturn(TestRailCommand.ADD_PLAN.getCommand(), Integer.toString(projectId), testPlan, TestPlan.class);
     }
 
+    /**
+     * Adds a Test Plan Entry in TestRails
+     * @param planId the ID of the Test Plan to add the Test Plan Entry to
+     * @param planEntry the skeleton Plane Entry object the TestRails Plan Entry (Test Run) will be based off of
+     * @return the completed Plan Entry created in TestRails
+     */
     public PlanEntry addTestPlanEntry(int planId, PlanEntry planEntry) {
         return postRESTBodyReturn(TestRailCommand.ADD_PLAN_ENTRY.getCommand(), Integer.toString(planId), planEntry, PlanEntry.class);
     }
