@@ -432,7 +432,7 @@ public class TestRailService implements Serializable {
             log.debug("url: {}", completeUrl);
 
             //Add the application/json header
-            Map<String, String> headers = new HashMap<>();
+            Map<String, String> headers = new HashMap<String, String>();
             headers.put("Content-Type", "application/json");
 
             //Log the curl call for easy reproduction
