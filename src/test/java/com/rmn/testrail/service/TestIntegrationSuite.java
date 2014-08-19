@@ -100,10 +100,16 @@ public class TestIntegrationSuite {
 
     private static void initProject() {
         for (Project currentProject: getService().getProjects()) {
-            if (currentProject.isCompleted()) {
+            if (currentProject.getName().equals("Sandbox")) {
+                project = currentProject;
+            } else {
                 continue;
             }
-            project = currentProject;
+
+            if (project == null || project.isCompleted()) {
+                throw new RuntimeException("There was no 'Sandbox' project associated with this account, or the Sandbox project was already marked as 'Complete'. Please ensure there is an open Sandbox project in this account");
+            }
+
             log.debug("Using Project [{}] for testing", project.getName());
 
             for (TestPlan currentTestPlan: currentProject.getTestPlans()) {
