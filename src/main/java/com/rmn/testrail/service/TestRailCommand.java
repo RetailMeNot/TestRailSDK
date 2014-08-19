@@ -23,7 +23,12 @@ public enum TestRailCommand {
     ADD_RESULT("add_result"),
     ADD_RESULTS("add_results"),
     ADD_RUN("add_run"),
-    CLOSE_RUN("close_run");
+    CLOSE_RUN("close_run"),
+    ADD_PLAN("add_plan"),
+    ADD_PLAN_ENTRY("add_plan_entry"),
+    ADD_MILESTONE("add_milestone"),
+    GET_MILESTONE("get_milestone"),
+    GET_MILESTONES("get_milestones");
 
     private String command;
     private TestRailCommand(String command) {

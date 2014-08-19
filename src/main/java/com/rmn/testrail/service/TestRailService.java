@@ -1,17 +1,7 @@
 package com.rmn.testrail.service;
 
-import com.rmn.testrail.entity.BaseEntity;
+import com.rmn.testrail.entity.*;
 import com.rmn.testrail.entity.Error;
-import com.rmn.testrail.entity.Project;
-import com.rmn.testrail.entity.Section;
-import com.rmn.testrail.entity.TestCase;
-import com.rmn.testrail.entity.TestInstance;
-import com.rmn.testrail.entity.TestPlan;
-import com.rmn.testrail.entity.TestResult;
-import com.rmn.testrail.entity.TestResults;
-import com.rmn.testrail.entity.TestRun;
-import com.rmn.testrail.entity.TestRunCreator;
-import com.rmn.testrail.entity.TestSuite;
 import com.rmn.testrail.util.HTTPUtils;
 import com.rmn.testrail.util.JSONUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -303,6 +293,24 @@ public class TestRailService implements Serializable {
     }
 
     /**
+     * Returns the Milestone object with the given ID
+     * @param milestoneId the ID of the Milestone you're interested in
+     * @return The Milestone object
+     */
+    public Milestone getMilestone(int milestoneId) {
+        return getEntitySingle(Milestone.class, TestRailCommand.GET_MILESTONE.getCommand(), Integer.toString(milestoneId));
+    }
+
+    /**
+     * Returns a list of all the Milestones in the given project ID
+     * @param projectId the ID of project you want the Milestones from
+     * @return the list of all the Milestones in the project
+     */
+    public List<Milestone> getMilestones(int projectId) {
+        return getEntityList(Milestone.class, TestRailCommand.GET_MILESTONES.getCommand(), Integer.toString(projectId));
+    }
+
+    /**
      * Add a TestResult to a particular TestInstance, given the TestInstance id
      * @param runId The id of the TestRun to which you would like to add a TestResults entity
      * @param results A TestResults entity (which can include multiple TestResult entities) you wish to add to this TestRun
@@ -337,6 +345,36 @@ public class TestRailService implements Serializable {
         TestRun newSkeletonTestRun = postRESTBodyReturn(TestRailCommand.ADD_RUN.getCommand(), Integer.toString(projectId), run, TestRun.class);
         TestRun realNewlyCreatedTestRun = getTestRun(newSkeletonTestRun.getId());
         return realNewlyCreatedTestRun;
+    }
+
+    /**
+     * Adds a Milestone in TestRails
+     * @param projectId the ID of the project to add the Milestone to
+     * @param milestone the skeleton Milestone object the TestRails Milestone will be based off of
+     * @return the completed Milestone created in TestRails
+     */
+    public Milestone addMilestone(int projectId, Milestone milestone) {
+        return postRESTBodyReturn(TestRailCommand.ADD_MILESTONE.getCommand(), Integer.toString(projectId), milestone, Milestone.class);
+    }
+
+    /**
+     * Adds a Test Plan in TestRails
+     * @param projectId the ID of the project to add the Test Plan to
+     * @param testPlan the skeleton Test Plan object the TestRails Test Plan will be based off of
+     * @return the completed Test Plan created in TestRails
+     */
+    public TestPlan addTestPlan(int projectId, TestPlanCreator testPlan) {
+        return postRESTBodyReturn(TestRailCommand.ADD_PLAN.getCommand(), Integer.toString(projectId), testPlan, TestPlan.class);
+    }
+
+    /**
+     * Adds a Test Plan Entry in TestRails
+     * @param planId the ID of the Test Plan to add the Test Plan Entry to
+     * @param planEntry the skeleton Plane Entry object the TestRails Plan Entry (Test Run) will be based off of
+     * @return the completed Plan Entry created in TestRails
+     */
+    public PlanEntry addTestPlanEntry(int planId, PlanEntry planEntry) {
+        return postRESTBodyReturn(TestRailCommand.ADD_PLAN_ENTRY.getCommand(), Integer.toString(planId), planEntry, PlanEntry.class);
     }
     
     /**
