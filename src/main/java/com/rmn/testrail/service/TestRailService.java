@@ -484,8 +484,8 @@ public class TestRailService implements Serializable {
             }
         }
         catch (IOException e) {
-            log.error(String.format("An IOException was thrown while trying to process a REST Request against URL: [%s]", completeUrl), e.toString());
-            throw new RuntimeException(String.format("Connection is null, check URL: %s", completeUrl));
+            log.error(String.format("An IOException was thrown while trying to process a REST Request against URL: [%s]", completeUrl), e);
+            throw new RuntimeException(String.format("Connection is null, check URL: %s", completeUrl), e);
         } finally {
             httpClient.getConnectionManager().shutdown();
         }
