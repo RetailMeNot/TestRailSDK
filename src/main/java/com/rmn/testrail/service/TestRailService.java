@@ -401,6 +401,27 @@ public class TestRailService implements Serializable {
     }
 
     /**
+     * Get the entire list of users from the API
+     */
+    public List<User> getUsers() {
+        return getEntityList(User.class, TestRailCommand.GET_USERS.getCommand(), "");
+    }
+
+    /**
+     * Get a user by id
+     */
+    public User getUserById(int id) {
+        return getEntitySingle(User.class, TestRailCommand.GET_USER_BY_ID.getCommand(), "" + id);
+    }
+
+    /**
+     * Get a user by email address
+     */
+    public User getUserByEmail(String email) {
+        return getEntitySingle(User.class, TestRailCommand.GET_USER_BY_EMAIL.getCommand(), "&email=" + email);
+    }
+
+    /**
      * Builds the proper TestRails request URL based on the type and number of parameters. It tries to be smart about how to add
      * parameters to calls that require 0, 1, or 2 arguments
      * @param apiCall The end-point you wish to request

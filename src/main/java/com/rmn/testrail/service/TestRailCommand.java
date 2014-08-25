@@ -1,8 +1,8 @@
 package com.rmn.testrail.service;
 
 /**
- * A set of TestRails end-points
- * User: mmerrell
+ * TestRails end-points
+ * @author mmerrell
  * Date: 10/28/13
  */
 public enum TestRailCommand {
@@ -28,7 +28,10 @@ public enum TestRailCommand {
     ADD_PLAN_ENTRY("add_plan_entry"),
     ADD_MILESTONE("add_milestone"),
     GET_MILESTONE("get_milestone"),
-    GET_MILESTONES("get_milestones");
+    GET_MILESTONES("get_milestones"),
+    GET_USERS("get_users"),
+    GET_USER_BY_ID("get_user"),
+    GET_USER_BY_EMAIL("get_user_by_email");
 
     private String command;
     private TestRailCommand(String command) {

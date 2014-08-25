@@ -9,6 +9,7 @@ import com.rmn.testrail.entity.TestRun;
 import com.rmn.testrail.entity.TestRunCreator;
 import com.rmn.testrail.entity.TestStatus;
 import com.rmn.testrail.entity.TestSuite;
+import com.rmn.testrail.entity.User;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Ignore;
@@ -354,4 +355,28 @@ public class TestRailServiceIntegrationTest {
         result.setComment("SKIPPED result worked!!");
         TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
     }
+
+    @Test
+    public void testGetUsers() {
+        List<User> users = TestIntegrationSuite.getService().getUsers();
+        for (User user: users) {
+            log.info("Examining user [{}]: [{}]", user.getId(), user.getName());
+        }
+    }
+
+    /**
+     * The methods below are commented out because they are not currently (or easily) discoverable at
+     * runtime. We should build them into the static map that gets initialized with the test suite
+     */
+//    @Test
+//    public void testGetUserById() {
+//        User user = TestIntegrationSuite.getService().getUserById(0);
+//        Assert.assertEquals("The email address should be correct", "someone@testdomain.com", user.getEmail());
+//    }
+//
+//    @Test
+//    public void testGetUserByEmail() {
+//        User user = TestIntegrationSuite.getService().getUserByEmail("someone@testdomain.com");
+//        Assert.assertEquals("The user id should be correct", new Integer(0), user.getId());
+//    }
 }
