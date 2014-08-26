@@ -358,6 +358,9 @@ public class TestRailServiceIntegrationTest {
 
     @Test
     public void testGetUsers() {
+        Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
+        Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
+
         List<User> users = TestIntegrationSuite.getService().getUsers();
         for (User user: users) {
             log.info("Examining user [{}]: [{}]", user.getId(), user.getName());
