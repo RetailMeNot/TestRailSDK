@@ -4,6 +4,9 @@ import com.rmn.testrail.service.TestRailService;
 
 import java.io.Serializable;
 
+/**
+ * @author mmerrell
+ */
 public class BaseEntity implements Serializable {
     private static final long serialVersionUID = -3770248751816746138L;
 

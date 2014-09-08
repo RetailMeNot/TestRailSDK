@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @author mmerrell
+ *
  * Represents a list of TestResults entities
- * Created by mmerrell on 3/12/14
  */
 public class TestResults extends BaseEntity {
     @JsonProperty("results")

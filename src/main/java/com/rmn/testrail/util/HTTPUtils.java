@@ -13,6 +13,9 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author mmerrell
+ */
 public class HTTPUtils implements Serializable {
     public HTTPUtils() {}
 

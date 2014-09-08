@@ -7,6 +7,9 @@ import org.codehaus.jackson.map.type.TypeFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author mmerrell
+ */
 public class JSONUtils {
 
     /**

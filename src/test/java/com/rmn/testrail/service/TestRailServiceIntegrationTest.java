@@ -10,6 +10,7 @@ import com.rmn.testrail.entity.TestRunCreator;
 import com.rmn.testrail.entity.TestStatus;
 import com.rmn.testrail.entity.TestSuite;
 import com.rmn.testrail.entity.User;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Ignore;
@@ -17,7 +18,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
+import java.util.Properties;
 
 public class TestRailServiceIntegrationTest {
     private static Logger log = LoggerFactory.getLogger(TestRailServiceIntegrationTest.class.getSimpleName());
@@ -365,6 +370,35 @@ public class TestRailServiceIntegrationTest {
         for (User user: users) {
             log.info("Examining user [{}]: [{}]", user.getId(), user.getName());
         }
+    }
+
+    @Test
+    public void testFullURL() throws IOException {
+        Properties properties = new Properties();
+        InputStream resource = TestRailServiceIntegrationTest.class.getClassLoader().getResourceAsStream("testrails.properties");
+        if (null == resource) {
+            Assert.fail("Cannot run full-url test against your TestRail instance--properties file is blank!");
+        }
+        properties.load(resource);
+
+        //Set up all the credentials
+        String apiEndpoint = properties.getProperty("api_endpoint");
+        Assume.assumeNotNull(apiEndpoint);
+
+        String username = properties.getProperty("username");
+        Assume.assumeNotNull(username);
+
+        String password = properties.getProperty("password");
+        Assume.assumeNotNull(password);
+
+        TestRailService service = new TestRailService();
+        service.setApiEndpoint(new URL(apiEndpoint));
+        service.setUsername(username);
+        service.setPassword(password);
+
+        //Verify that we can actually talk to the service
+        Assume.assumeTrue(service.verifyCredentials());
+
     }
 
     /**

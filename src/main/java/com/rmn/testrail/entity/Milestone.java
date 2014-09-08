@@ -3,7 +3,7 @@ package com.rmn.testrail.entity;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * Created by jsteigel on 7/14/14.
+ * @author jsteigel
  */
 public class Milestone extends BaseEntity {
     @JsonProperty("id")

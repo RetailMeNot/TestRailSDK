@@ -5,9 +5,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.List;
 
 /**
+ * @author mmerrell
+ *
  * This object represents the entity you get in a TestRun under the "entries" element. It's not there when you query lists of TestRuns, only when you query individual TestRuns
- * User: mmerrell
- * Date: 10/24/13
  */
 public class TestRunGroup extends BaseEntity {
     @JsonProperty("id")

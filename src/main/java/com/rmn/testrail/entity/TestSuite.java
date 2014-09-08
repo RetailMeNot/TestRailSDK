@@ -4,6 +4,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.List;
 
+/**
+ * @author mmerrell
+ */
 public class TestSuite extends BaseEntity {
     @JsonProperty("id")
     private Integer id;

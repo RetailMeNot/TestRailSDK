@@ -5,7 +5,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.List;
 
 /**
- * Created by jsteigel on 7/14/14.
+ * @author jsteigel
  */
 public class PlanEntry extends BaseEntity {
     @JsonProperty("suite_id")

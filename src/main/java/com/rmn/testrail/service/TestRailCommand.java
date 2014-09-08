@@ -3,7 +3,6 @@ package com.rmn.testrail.service;
 /**
  * TestRails end-points
  * @author mmerrell
- * Date: 10/28/13
  */
 public enum TestRailCommand {
     GET_PROJECTS("get_projects"),

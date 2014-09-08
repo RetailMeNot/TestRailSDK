@@ -5,6 +5,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.List;
 
+/**
+ * @author mmerrell
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestRun extends BaseEntity {
     @JsonProperty("id")

@@ -1,7 +1,7 @@
 package com.rmn.testrail.entity;
 
 /**
- * Created by mmerrell on 3/12/14
+ * @author mmerrell
  */
 public class Error {
     private String error;

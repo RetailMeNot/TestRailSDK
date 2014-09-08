@@ -1,4 +1,16 @@
+##################################
+# api_endpoint - the FULL URL of the TestRail instance (e.g. "https://service-ip/testrail/") you must use when hosting a TestRail Instance locally
+# clientId - the client ID you use when using a "hosted" version of TestRail (e.g. (https://somecompany.testrail.com/")
+#
+# Use either api_endpoint or clientId. If you use both, api_endpoint will be ignored, and the code will assume you're using clientId in a "hosted" TestRail Instance
+
+api_endpoint=<api_endpoint>
 clientId=<cliendId>
+
+# Username and password. These are clear text, so it is recommended to create a test user in TestRail, which will have permissions to run these tests
 username=<username>
 password=<password>
+
+# Set this to "true" if it this username/password has the correct credentials to make changes in your TestRail project, and that you desire to let the tests do so.
+# If this if "false", the tests will not run. It is only recommended to enable this if you're adding/updating entities in the SDK in order to make real changes.
 destructiveTestsOk=false

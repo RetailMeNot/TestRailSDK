@@ -2,6 +2,7 @@ package com.rmn.testrail.service;
 
 import com.rmn.testrail.entity.*;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -11,10 +12,12 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 /**
- * Created by mmerrell on 3/17/14
+ * @author mmerrell
  */
 @RunWith(value = Suite.class)
 @Suite.SuiteClasses(value = { TestRailServiceIntegrationTest.class })
@@ -58,19 +61,9 @@ public class TestIntegrationSuite {
             destructiveTestsOk = Boolean.valueOf(destructiveTestsOkProperty);
         }
 
-        //Set up all the credentials
-        String clientId = properties.getProperty("clientId");
-        Assume.assumeNotNull(clientId);
+        //Call the method that will extract the correct properties into the correct place within the Service
+        initService(properties);
 
-        String username = properties.getProperty("username");
-        Assume.assumeNotNull(username);
-
-        String password = properties.getProperty("password");
-        Assume.assumeNotNull(password);
-
-        getService().setClientId(clientId);
-        getService().setUsername(username);
-        getService().setPassword(password);
 
         //We have to report any test results against a user. That will be gathered from the properties file. If it's not there,
         // don't run the tests that report results, regardless of the value set on destructiveTestsOk
@@ -87,6 +80,41 @@ public class TestIntegrationSuite {
 
         //Initialize the Projects data used throughout the test. Each test will make an assumption about the data available, and if it's not, the test will be skipped
         initScenario();
+    }
+
+    /**
+     * This will pull the correct properties into the correct attributes for the service, based on how you have them defined in the properties files.
+     * It will use the clientId method by default, but if clientId is null, it will try to pull in the api_endpoint property. You can manipulate the
+     * properties files to have this take the path you want. It will (currently) not run both, just to prevent a heavy load on the server. There are
+     * two integration tests in place already to test them in isolation (assuming you have one or both set up correctly).
+     *
+     * If both clientId and apiEndpoint are present, apiEndpoint will be ignored in favor of using the clientId for the "hosted" TestRail Instance
+     * @param properties
+     */
+    private static void initService(Properties properties) throws MalformedURLException {
+        //Set up all the credentials
+
+        //If clientId isn't in there or it's blank, look for api_endpoint. If it's there and not null, that means we have a "local" TestRail Instance.
+        // Set the service's apiEndpoint accordingly for the remainder of the test.
+        //If both properties are defined, api_endpoint will be ignored
+        String clientId = properties.getProperty("clientId");
+        if (null == clientId || clientId.isEmpty()) {
+            String apiEndpoint = properties.getProperty("api_endpoint");
+            Assume.assumeNotNull(apiEndpoint);
+            getService().setApiEndpoint(new URL(apiEndpoint));
+        } else {
+            //If clientID wasn't null after all, set it, and use the "hosted" TestRail Instance code path
+            getService().setClientId(clientId);
+        }
+
+        String username = properties.getProperty("username");
+        Assume.assumeNotNull(username);
+
+        String password = properties.getProperty("password");
+        Assume.assumeNotNull(password);
+
+        getService().setUsername(username);
+        getService().setPassword(password);
     }
 
     private static void initScenario() {

@@ -1,7 +1,21 @@
 package com.rmn.testrail.service;
 
-import com.rmn.testrail.entity.*;
+import com.rmn.testrail.entity.BaseEntity;
 import com.rmn.testrail.entity.Error;
+import com.rmn.testrail.entity.Milestone;
+import com.rmn.testrail.entity.PlanEntry;
+import com.rmn.testrail.entity.Project;
+import com.rmn.testrail.entity.Section;
+import com.rmn.testrail.entity.TestCase;
+import com.rmn.testrail.entity.TestInstance;
+import com.rmn.testrail.entity.TestPlan;
+import com.rmn.testrail.entity.TestPlanCreator;
+import com.rmn.testrail.entity.TestResult;
+import com.rmn.testrail.entity.TestResults;
+import com.rmn.testrail.entity.TestRun;
+import com.rmn.testrail.entity.TestRunCreator;
+import com.rmn.testrail.entity.TestSuite;
+import com.rmn.testrail.entity.User;
 import com.rmn.testrail.util.HTTPUtils;
 import com.rmn.testrail.util.JSONUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,14 +32,28 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author mmerrell
+ */
 public class TestRailService implements Serializable {
     private Logger log = LoggerFactory.getLogger(getClass());
 
-    private String clientId;
+    /**
+     * This might not last forever--we'll need to make "v2" a variable at some point--but this works for the moment
+     */
+    private static final String ENDPOINT_SUFFIX = "index.php?/api/v2/%s%s";
+
+    /**
+     * Used this way, the default implementation will assume that the TestRail instance is hoted by TestRail on their server. As such, you pass in
+     * your "client ID", and it will get put into the correct place. If you're hosting a local instance, you'll have to use the (URL, String, String)
+     * constructor in order to pass the full URL for your instance
+     */
+    private String apiEndpoint = "https://%s.testrail.com/";
     private String username;
     private String password;
     private HTTPUtils utils = new HTTPUtils();
@@ -39,9 +67,31 @@ public class TestRailService implements Serializable {
      * @param password The password to use with this account
      */
     public TestRailService(String clientId, String username, String password) {
-        this.clientId = clientId;
+        this.apiEndpoint = String.format(apiEndpoint, clientId) + ENDPOINT_SUFFIX;
         this.username = username;
         this.password = password;
+    }
+
+    /**
+     * Construct a new TestRailService against a local instance. This requires you to pass the FULL URL of the local instance, including your client ID
+     * @param apiEndpoint The full URL of the service you are using (only the domain, not the "index.php" part. It should look like "https://server-ip/testRail/",
+     *                    including the final '/')
+     * @param username The username you will use to communicate with the API. It is recommended to create an account with minimal privileges, specifically for API use
+     * @param password The password to use with this account
+     */
+    public TestRailService(URL apiEndpoint, String username, String password) {
+        this.apiEndpoint = apiEndpoint.toString();
+        this.username = username;
+        this.password = password;
+    }
+
+    /**
+     * Sets the "API Endpoint" for the TestRails service--this if for locally-hosted instances of TestRail, and should
+     * include the full base URL, e.g. "https://secure-ip/testrail/", including the final forward-slash "/"
+     * @param apiEndpoint Your API end-point (including the Client ID)
+     */
+    public void setApiEndpoint(URL apiEndpoint) {
+        this.apiEndpoint = apiEndpoint.toString() + ENDPOINT_SUFFIX;
     }
 
     /**
@@ -49,7 +99,7 @@ public class TestRailService implements Serializable {
      * domain, e.g. http://[foo].testrail.com...
      * @param clientId Your Client ID (provided by TestRails)
      */
-    public void setClientId(String clientId) { this.clientId = clientId; }
+    public void setClientId(String clientId) { this.apiEndpoint = String.format(apiEndpoint, clientId) + ENDPOINT_SUFFIX; }
 
     /**
      * The user name for the API-enabled user
@@ -436,7 +486,7 @@ public class TestRailService implements Serializable {
         }
 
         //Build the complete url
-        return String.format("https://%s.testrail.com/index.php?/api/v2/%s%s", clientId, apiCall, argString);
+        return String.format(apiEndpoint, apiCall, argString);
     }
 
     /**

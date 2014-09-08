@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @author mmerrell
+ *
  * Test Status (often represented as "Verdict" or "Pass/Fail"). By default, this includes only "Passed", "Blocked",
  *  "Failed", "Untested", or "Retest". To represent a custom status (e.g. "skipped", "warning", etc.), invoke the
  *  "addStatus(String, Integer)" method, which will require you to map the String name of the field to the id TestRails
  *  requires in order to set the status
- * Created by mmerrell on 3/10/14
  */
 public class TestStatus {
     private static Map<String, Integer> allStatus = new HashMap<String, Integer>();

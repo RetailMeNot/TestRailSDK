@@ -127,7 +127,8 @@ If you choose to build locally from IDEA, Eclipse, or even command line, you'll 
 **Important! These integration tests will first query your TestRail account in order to build a hierarchy of queryable items. It will, in some cases, alter data in your account unless you follow the instructions below!**
 
 * Open testrails.properties.sample
-* Edit the 3 fields inside to set up the `clientId` (usually your <companyname>.testrail.com address), `username`, and `password`
+* Edit 3 fields inside to set up the `clientId` (usually your <companyname>.testrail.com address), `username`, and `password`
+ * For those with LOCAL instances of TestRail: there's a new field called "api_endpoint" to put in the properties file (e.g. "https://secure-ip/testrail/"). Be sure to include the final forward slash ("/")!
 * Locate the `destructiveTestsOk` field and set it to `true` or `false`--this will determine whether it runs only the read-only tests or will also execute tests that update test cases, add test results, etc
 * The assignedToId field is the id of the user you wish to use for reporting TestResults in the unit tests. It is recommended to use an account dedicated to automation, which leaves a nice audit trail and allows you to quickly determine what has been altered by these tests
 * Execute the following command to build the project and run the unit tests:

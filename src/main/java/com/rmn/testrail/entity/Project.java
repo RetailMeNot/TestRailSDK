@@ -5,6 +5,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.List;
 
 /**
+ * @author mmerrell
+ *
  * A Project as defined within the API. This object offers some convenience methods, which will remove some of the busy work about re-querying that
  *  you would have to handle otherwise.
  *

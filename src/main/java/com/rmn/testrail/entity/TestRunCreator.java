@@ -3,6 +3,9 @@ package com.rmn.testrail.entity;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * @author Colin McCormack
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestRunCreator extends BaseEntity {
 
