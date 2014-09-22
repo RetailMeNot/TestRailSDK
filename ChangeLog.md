@@ -2,6 +2,9 @@
 
 There are no breaking API changes. The new features introduced are all backward compatible. Please let the project team know if this turns out not to be the case (open an issue on github)
 
+ * (issue #9) `suite_mode` added to Project entity
+ * (issue #9) `description` added to Section entity
+ * (issue #9) `completed_on`, `is_completed`, `is_baseline`, `is_master` added to TestSuite entity
  * `add_run` endpoint support - allows you to create new TestRun entities
  * `add_plan` endpoint support - allows you to create new TestPlan entities
  * `add_milestone` endpoint support - allows you to create new Milestones
@@ -15,8 +18,6 @@ There are no breaking API changes. The new features introduced are all backward 
  * (issue #5) Downgraded to Java 1.6 at a user's request
  * Made integration tests query for a "Sandbox" project in which to perform the destructive tests
  * (issue #8) Added support for those with local TestRail instance to be able to do so (previous version only supported hosted installations, e.g. "https://mycompany.testrail.com/")
+ * Unit tests updated accordingly (but not 100% coverage yet)
  
-``` java
-
-
-```
+ 

@@ -26,14 +26,14 @@ public class TestRailServiceTest {
     public void testGetProjects() {
         TestRailService service = getTestRailsEntities("Projects.json");
         List<Project> projects = service.getProjects();
-        Assert.assertEquals("RetailMeNot", projects.get(0).getName());
+        Assert.assertEquals("Sandbox", projects.get(0).getName());
     }
 
     @Test
     public void testGetTestSuites() {
         TestRailService service = getTestRailsEntities("TestSuites.json");
         List<TestSuite> suites = service.getTestSuites(0);
-        Assert.assertEquals("Footer", suites.get(0).getName());
+        Assert.assertEquals("Test Suite", suites.get(0).getName());
     }
 
     @Test
