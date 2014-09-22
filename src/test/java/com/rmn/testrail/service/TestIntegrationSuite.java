@@ -1,8 +1,13 @@
 package com.rmn.testrail.service;
 
-import com.rmn.testrail.entity.*;
+import com.rmn.testrail.entity.Project;
+import com.rmn.testrail.entity.Section;
+import com.rmn.testrail.entity.TestCase;
+import com.rmn.testrail.entity.TestInstance;
+import com.rmn.testrail.entity.TestPlan;
+import com.rmn.testrail.entity.TestRun;
+import com.rmn.testrail.entity.TestSuite;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -45,6 +50,7 @@ public class TestIntegrationSuite {
         Properties properties = new Properties();
         InputStream resource = TestRailServiceIntegrationTest.class.getClassLoader().getResourceAsStream("testrails.properties");
         if (null == resource) {
+            log.info("Your testrails.properties file is blank--shutting off destructive tests");
             destructiveTestsOk = false;
             return;
         }
@@ -57,8 +63,10 @@ public class TestIntegrationSuite {
         String destructiveTestsOkProperty = properties.getProperty("destructiveTestsOk");
         if (StringUtils.isEmpty(destructiveTestsOkProperty)) {
             destructiveTestsOk = false;
+            log.info("Your testrails.properties file does not contain the 'destructiveTestsOk' property--shutting off destructive tests");
         } else {
             destructiveTestsOk = Boolean.valueOf(destructiveTestsOkProperty);
+            log.info("Located 'destructiveTestsOk' property--setting to " + destructiveTestsOk);
         }
 
         //Call the method that will extract the correct properties into the correct place within the Service
@@ -71,8 +79,10 @@ public class TestIntegrationSuite {
         if (StringUtils.isEmpty(assignedToIdProperty)) {
             assignedToId = 0;
             destructiveTestsOk = false;
+            log.info("'assignedToId' property is missing--shutting off destructive tests");
         } else {
             assignedToId = Integer.valueOf(assignedToIdProperty);
+            log.info("Using 'assignedToId' value: " + assignedToId);
         }
 
         //Verify that we can actually talk to the service

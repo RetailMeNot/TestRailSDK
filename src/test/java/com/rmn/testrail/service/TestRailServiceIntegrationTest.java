@@ -10,7 +10,6 @@ import com.rmn.testrail.entity.TestRunCreator;
 import com.rmn.testrail.entity.TestStatus;
 import com.rmn.testrail.entity.TestSuite;
 import com.rmn.testrail.entity.User;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Ignore;

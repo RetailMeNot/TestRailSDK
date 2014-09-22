@@ -33,6 +33,26 @@ public class TestSuite extends BaseEntity {
     public String getUrl() { return url; }
     public void setUrl(String url) { this.url = url; }
 
+    @JsonProperty("completed_on")
+    private String completedOn;
+    public String getCompletedOn() { return completedOn; }
+    public void setCompletedOn(String completedOn) { this.completedOn = completedOn; }
+
+    @JsonProperty("is_completed")
+    private Boolean isCompleted;
+    public Boolean isCompleted() { return isCompleted; }
+    public void setCompleted(Boolean isCompleted) { this.isCompleted = isCompleted; }
+
+    @JsonProperty("is_baseline")
+    private Boolean isBaseline;
+    public Boolean isBaseline() { return isBaseline; }
+    public void setBaseline(Boolean isBaseline) { this.isBaseline = isBaseline; }
+
+    @JsonProperty("is_master")
+    private Boolean isMaster;
+    public Boolean isMaster() { return isMaster; }
+    public void setMaster(Boolean isMaster) { this.isMaster = isMaster; }
+
     /**
      * Returns the list of Section entities contained within this TestSuite
      * @return the list of Section entities contained within this TestSuite

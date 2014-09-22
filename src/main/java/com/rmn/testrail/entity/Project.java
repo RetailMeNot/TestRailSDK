@@ -52,6 +52,11 @@ public class Project extends BaseEntity {
     public String getCompletedOn() { return completedOn; }
     public void setCompletedOn(String completedOn) { this.completedOn = completedOn; }
 
+    @JsonProperty("suite_mode")
+    private Integer suiteMode;
+    public Integer getSuiteMode() { return suiteMode; }
+    public void setSuiteMode(Integer suiteMode) { this.suiteMode = suiteMode; }
+
     /**
      * Returns all TestSuites listed under this project
      * @return The list of TestSuites for this project
