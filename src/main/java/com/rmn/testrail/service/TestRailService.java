@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -537,14 +538,15 @@ public class TestRailService implements Serializable {
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
-            String body = mapper.writeValueAsString(entity);
-            request.setEntity(new StringEntity(body));
+            byte[] body = mapper.writeValueAsBytes(entity);
+            request.setEntity(new ByteArrayEntity(body));
 
             HttpResponse response = httpClient.execute(request);
             if (response.getStatusLine().getStatusCode() != 200) {
                 Error error = JSONUtils.getMappedJsonObject(Error.class, utils.getContentsFromHttpResponse(response));
                 log.error("Response code: {}", response.getStatusLine().getStatusCode());
                 log.error("TestRails reported an error message: {}", error.getError());
+                request.addHeader("Encoding", "UTF-8");
             }
             return response;
         }
@@ -574,11 +576,12 @@ public class TestRailService implements Serializable {
             String authentication = HTTPUtils.encodeAuthenticationBase64(username, password);
             request.addHeader("Authorization", "Basic " + authentication);
             request.addHeader("Content-Type", "application/json");
+            request.addHeader("Encoding", "UTF-8");
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
-            String body = mapper.writeValueAsString(entity);
-            request.setEntity(new StringEntity(body));
+            byte[] body = mapper.writeValueAsBytes(entity);
+            request.setEntity(new ByteArrayEntity(body));
 
             HttpResponse response = httpClient.execute(request);
             if (response.getStatusLine().getStatusCode() != 200) {
