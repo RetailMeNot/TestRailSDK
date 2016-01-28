@@ -35,7 +35,6 @@ public class HTTPUtils implements Serializable {
         connection.setRequestProperty("Authorization", "Basic " + authentication);
 
         log.debug("Attempting to get {}", completeUrl);
-    
         //Add a new header for each entry in the collection
         if (headers != null) {
             for (String key: headers.keySet()) {
@@ -44,7 +43,60 @@ public class HTTPUtils implements Serializable {
                 connection.setRequestProperty(key, value);
             }
         }
-        return submitRequestFromConnection(connection);
+        return submitRequestFromConnectionWithRetry(connection, 2);
+    }
+
+    /**
+     * Take a fully-baked connection and send it to the server with retry
+     * @param connection
+     * @return
+     * @throws IOException
+     */
+    private HttpURLConnection submitRequestFromConnectionWithRetry(HttpURLConnection connection, int retries) throws IOException {
+        boolean connected = false;
+        int RETRY_DELAY_MS = 500; // initial default value
+        int retryDelayInMS;
+
+        connection.setDoOutput(true);
+        connection.setReadTimeout(REQUEST_TIMEOUT);
+        connection.setConnectTimeout(REQUEST_TIMEOUT);
+
+        outer: for (int retry = 0; retry < retries && !connected; retry++) {
+            if (retry > 0) {
+                log.warn("retry " + retry + "/" + retries);
+                try {
+                    log.debug("Sleeping for retry: " + RETRY_DELAY_MS);
+                    Thread.sleep(RETRY_DELAY_MS);
+                    RETRY_DELAY_MS = 500; // reset to default value
+                } catch (InterruptedException e) {
+                    // lets ignore this
+                }
+            }
+
+            // try connect
+            connection.connect();
+            switch (connection.getResponseCode()) {
+                case HttpURLConnection.HTTP_OK:
+                    log.debug(" **OK**");
+                    return connection;
+                case HttpURLConnection.HTTP_GATEWAY_TIMEOUT:
+                    log.warn(" **gateway timeout**");
+                    break;// retry
+                case 429: // 429 isn't available in any of the enums
+                    log.warn(" **429**");
+                    retryDelayInMS = Integer.parseInt(connection.getHeaderField("Retry-After")) * 1000; // seconds to ms
+                    RETRY_DELAY_MS = retryDelayInMS;
+                    break;// retry
+                case HttpURLConnection.HTTP_UNAVAILABLE:
+                    log.warn("**unavailable**");
+                    break;// retry, server is unstable
+                default:
+                    log.error(" **unknown response code**.");
+                    break outer; // abort
+            }
+        }
+
+        return connection;
     }
     
     /**
@@ -62,6 +114,7 @@ public class HTTPUtils implements Serializable {
         log.debug("Sending request...");
         connection.connect();
         log.debug("Response: {}, {}", connection.getResponseCode(), connection.getResponseMessage());
+
         return connection;
     }
     
