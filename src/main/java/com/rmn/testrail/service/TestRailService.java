@@ -23,7 +23,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -541,7 +540,7 @@ public class TestRailService implements Serializable {
             byte[] body = mapper.writeValueAsBytes(entity);
             request.setEntity(new ByteArrayEntity(body));
 
-            HttpResponse response = httpClient.execute(request);
+            HttpResponse response = executeRequestWithRetry(request, 2);
             if (response.getStatusLine().getStatusCode() != 200) {
                 Error error = JSONUtils.getMappedJsonObject(Error.class, utils.getContentsFromHttpResponse(response));
                 log.error("Response code: {}", response.getStatusLine().getStatusCode());
@@ -583,7 +582,7 @@ public class TestRailService implements Serializable {
             byte[] body = mapper.writeValueAsBytes(entity);
             request.setEntity(new ByteArrayEntity(body));
 
-            HttpResponse response = httpClient.execute(request);
+            HttpResponse response = executeRequestWithRetry(request, 2);
             if (response.getStatusLine().getStatusCode() != 200) {
                 Error error = JSONUtils.getMappedJsonObject(Error.class, utils.getContentsFromHttpResponse(response));
                 log.error("Response code: {}", response.getStatusLine().getStatusCode());
@@ -602,6 +601,45 @@ public class TestRailService implements Serializable {
             httpClient.getConnectionManager().shutdown();
         }
 		return null;
+    }
+
+    /**
+     * Execute POST request with retry
+     * @param request
+     * @param retries
+     * @return
+     * @throws IOException
+     */
+    private HttpResponse executeRequestWithRetry(HttpPost request, int retries) throws IOException {
+        boolean connected = false;
+        int RETRY_DELAY_MS = 0;
+        int retryDelayInMS;
+
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpResponse response = null;
+
+        for (int retry = 0; retry < retries && !connected; retry++) {
+            if (retry > 0) {
+                log.warn("retry " + retry + "/" + retries);
+                try {
+                    log.debug("Sleeping for retry: " + RETRY_DELAY_MS);
+                    Thread.sleep(RETRY_DELAY_MS);
+                } catch (InterruptedException e) {
+                    // lets ignore this
+                }
+            }
+
+            // try posting request
+            response = httpClient.execute(request);
+            if (response.getStatusLine().getStatusCode() == 429) {
+                log.warn(" **429 for POST**");
+                retryDelayInMS = Integer.parseInt(response.getFirstHeader("Retry-After").getValue()) * 1000; // sec to ms
+                RETRY_DELAY_MS = retryDelayInMS;  // set delay and retry
+            } else {
+                break; // if not 429, break
+            }
+        }
+        return response;
     }
 }
 
