@@ -3,7 +3,7 @@
 
 	<groupId>com.retailmenot</groupId>
 	<artifactId>testrailsdk</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>0.9.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -35,7 +35,7 @@
         <url>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</url>
         <connection>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</connection>
         <developerConnection>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</developerConnection>
-        <tag>0.8</tag>
+        <tag>testrailsdk-0.9.1</tag>
     </scm>
 
 	<dependencies>
@@ -112,6 +112,9 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
+                                <configuration>
+                                    <additionalparam>-Xdoclint:none</additionalparam>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
