@@ -2,6 +2,7 @@
 
 There are no breaking API changes. The new features introduced are all backward compatible. Please let the project team know if this turns out not to be the case (open an issue on github)
 
+ * (issue #22) Adding retry for 429 response
  * (issue #9) `suite_mode` added to Project entity
  * (issue #9) `description` added to Section entity
  * (issue #9) `completed_on`, `is_completed`, `is_baseline`, `is_master` added to TestSuite entity
