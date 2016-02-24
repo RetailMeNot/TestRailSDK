@@ -14,7 +14,7 @@ public enum ApiFilter {
     UPDATED_BY("updated_by"),
 
     //Request filter for get_milestones
-    IS_COMPLETED("IS_COMPLETED");
+    IS_COMPLETED("is_completed");
 
     public final String filter;
     ApiFilter(String filter) {

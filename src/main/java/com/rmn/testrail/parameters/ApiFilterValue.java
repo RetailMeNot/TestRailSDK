@@ -9,6 +9,6 @@ public class ApiFilterValue {
     }
 
     public String append() {
-        return this.apiFilter.filter + value;
+        return "&" + this.apiFilter.filter + "=" + value;
     }
 }
