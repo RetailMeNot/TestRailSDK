@@ -305,6 +305,14 @@ public class TestRailService implements Serializable {
         postRESTBody(TestRailCommand.UPDATE_CONFIG_GROUP.getCommand(), Integer.toString(configGroupId), configuration);
     }
 
+    /**
+     * Updates an existing configuration.
+     * @param configId The ID of the configuration
+     */
+    public void updateConfig(Configuration configuration, int configId) {
+        postRESTBody(TestRailCommand.UPDATE_CONFIG.getCommand(), Integer.toString(configId), configuration);
+    }
+
     //API: Milestones-------------------------------------------------
 
     /**
