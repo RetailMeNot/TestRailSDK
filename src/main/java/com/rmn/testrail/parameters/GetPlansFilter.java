@@ -1,12 +1,13 @@
 package com.rmn.testrail.parameters;
 
 public enum GetPlansFilter implements ApiFilter{
+    //Request filter for get_plans
     CREATED_AFTER("created_after"),
     CREATED_BEFORE("created_before"),
     CREATED_BY("created_by"),
     IS_COMPLETED("is_completed"),
     LIMIT("limit"),
-    MILESTONE_ID("milestone_id"),
+    MILESTONE_ID("milestone_id");
 
     private String filter;
     GetPlansFilter(String filter) { this.filter = filter; }

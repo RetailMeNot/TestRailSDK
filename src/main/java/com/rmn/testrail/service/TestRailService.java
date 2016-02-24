@@ -370,7 +370,7 @@ public class TestRailService implements Serializable {
      * @return the list of all the Milestones in the project
      */
     public List<Milestone> getMilestones(int projectId, ApiFilterValue... isCompleted) {
-        return getEntityList(Milestone.class, TestRailCommand.GET_MILESTONES.getCommand(), Integer.toString(projectId) + isCompleted[0].append());
+        return getEntityList(Milestone.class, TestRailCommand.GET_MILESTONES.getCommand(), Integer.toString(projectId) + (isCompleted.length > 0 ? isCompleted[0].append() : null));
     }
 
     /**
@@ -457,7 +457,7 @@ public class TestRailService implements Serializable {
      * @return the updated plan entry
      */
     public PlanEntry updateTestPlanEntry(int planId, int entryId, UpdatePlanEntry updatePlanEntry) {
-        return postRESTBodyReturn(TestRailCommand.UPDATE_PLAN_ENTRY.getCommand(), Integer.toString(planId) + "/" + Integer.toString(entryId), updatePlanEntry, PlanEntry.class)
+        return postRESTBodyReturn(TestRailCommand.UPDATE_PLAN_ENTRY.getCommand(), Integer.toString(planId) + "/" + Integer.toString(entryId), updatePlanEntry, PlanEntry.class);
     }
 
     /**
