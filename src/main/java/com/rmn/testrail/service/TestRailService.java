@@ -313,6 +313,22 @@ public class TestRailService implements Serializable {
         postRESTBody(TestRailCommand.UPDATE_CONFIG.getCommand(), Integer.toString(configId), configuration);
     }
 
+    /**
+     * Updates an existing configuration group.
+     * @param configGroupId The ID of the configuration group
+     */
+    public void deleteConfigGroup(ConfigurationGroup configuration, int configGroupId) {
+        postRESTBody(TestRailCommand.DELETE_CONFIG_GROUP.getCommand(), Integer.toString(configGroupId), configuration);
+    }
+
+    /**
+     * Updates an existing configuration.
+     * @param configId The ID of the configuration
+     */
+    public void deleteConfig(Configuration configuration, int configId) {
+        postRESTBody(TestRailCommand.DELETE_CONFIG.getCommand(), Integer.toString(configId), configuration);
+    }
+
     //API: Milestones-------------------------------------------------
 
     /**
