@@ -16,6 +16,7 @@ import com.rmn.testrail.entity.TestRun;
 import com.rmn.testrail.entity.TestRunCreator;
 import com.rmn.testrail.entity.TestSuite;
 import com.rmn.testrail.entity.User;
+import com.rmn.testrail.parameters.ApiFilterValue;
 import com.rmn.testrail.parameters.ApiParameter;
 import com.rmn.testrail.parameters.ApiParameters;
 import com.rmn.testrail.util.HTTPUtils;
@@ -192,8 +193,8 @@ public class TestRailService implements Serializable {
      * Get the complete list of all test cases in this Project (if the project is operating in single suite mode)
      * @return the List of TestCase entities associated with this TestSuite
      */
-    public List<TestCase> getTestCasesSingleSuiteMode(int projectId) {
-        return getTestCases(projectId, -1, -1);
+    public List<TestCase> getTestCasesSingleSuiteMode(int projectId, ApiFilterValue... apiFilters) {
+        return getTestCases(projectId, -1, -1, apiFilters);
     }
 
     /**
@@ -201,8 +202,8 @@ public class TestRailService implements Serializable {
      * @param sectionId The Section ID
      * @return the List of TestCase entities associated with this TestSuite
      */
-    public List<TestCase> getTestCasesSingleSuiteMode(int projectId, int sectionId) {
-        return getTestCases(projectId, -1, sectionId);
+    public List<TestCase> getTestCasesSingleSuiteMode(int projectId, int sectionId, ApiFilterValue... apiFilters) {
+        return getTestCases(projectId, -1, sectionId, apiFilters);
     }
 
     /**
@@ -210,8 +211,8 @@ public class TestRailService implements Serializable {
      * @param suiteId The Suite ID (in TestRails, this will be something like 'S7', but just provide the 7)
      * @return the List of TestCase entities associated with this TestSuite
      */
-    public List<TestCase> getTestCases(int projectId, int suiteId) {
-        return getTestCases(projectId, suiteId, -1);
+    public List<TestCase> getTestCases(int projectId, int suiteId, ApiFilterValue... apiFilters) {
+        return getTestCases(projectId, suiteId, -1, apiFilters);
     }
 
     /**
@@ -220,13 +221,16 @@ public class TestRailService implements Serializable {
      * @param sectionId The Section ID
      * @return A List of the TestCases in this Suite
      */
-    public List<TestCase> getTestCases(int projectId, int suiteId, int sectionId) {
+    public List<TestCase> getTestCases(int projectId, int suiteId, int sectionId, ApiFilterValue... apiFilters) {
         String params = Integer.toString(projectId);
         if (suiteId > 0) {
             params += ApiParameters.append(ApiParameter.SUITE_ID, suiteId);
         }
         if (sectionId > 0) {
             params += ApiParameters.append(ApiParameter.SECTION_ID, sectionId);
+        }
+        for (ApiFilterValue apiFilter : apiFilters) {
+            params += apiFilter.append();
         }
         return getEntityList(TestCase.class, TestRailCommand.GET_CASES.getCommand(), params);
     }
