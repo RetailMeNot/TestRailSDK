@@ -244,14 +244,13 @@ public class TestRailService implements Serializable {
     }
 
     /**
-     * Change the Type of a test case (Manual, Automated, etc--must match the string exactly from the drop-down in TestRail. This will be project-specific)
-     * @param id The id of the TestCase you wish to edit
-     * @param type The index for the "type" of TestCase you wish to set (the value depends on your customization, see your administrator for details)
+     * Updates an existing test case (partial updates are supported, i.e. you can submit and update specific fields only).
+     * @param testCase a TestCase object with fields to be updated set. (i.e. TestCase updateCase = new TestCase(); updateCase.setPriorityId(2); )
+     * @param caseId The ID of the test case
+     * @return
      */
-    public void updateTestCaseType(int id, int type) {
-        TestCase testCase = getTestCase(id);
-        testCase.setTypeId(type);
-        postRESTBody(TestRailCommand.UPDATE_CASE.getCommand(), Integer.toString(id), null);
+    public TestCase updateTestCase(TestCase testCase, int caseId) {
+        return postRESTBodyReturn(TestRailCommand.UPDATE_CASE.getCommand(), Integer.toString(caseId), testCase, TestCase.class);
     }
 
 
