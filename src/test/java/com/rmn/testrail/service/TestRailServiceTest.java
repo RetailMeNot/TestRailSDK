@@ -88,6 +88,13 @@ public class TestRailServiceTest {
     }
 
     @Test
+    public void testGetCaseTypes() {
+        TestRailService service = getTestRailsEntities("TestCaseTypes.json");
+        String customFields = service.getCaseTypes();
+        Assert.assertEquals(customFields, "[  {    \"id\": 1,    \"is_default\": false,    \"name\": \"Automated\"  },  {    \"id\": 2,    \"is_default\": false,    \"name\": \"Functionality\"  },  {    \"id\": 6,    \"is_default\": true,    \"name\": \"Other\"  }]");
+    }
+
+    @Test
     public void testGetTestRuns() {
         TestRailService service = getTestRailsEntities("TestRuns.json");
         List<TestRun> testRuns = service.getTestRuns(0);

@@ -275,7 +275,14 @@ public class TestRailService implements Serializable {
 
     //API: Case Types-------------------------------------------------
 
-
+    /**
+     * Returns a list of available case types.
+     * @return String with JSON response, you must parse the string yourself
+     */
+    public String getCaseTypes() {
+        HttpURLConnection connection = getRESTRequest(TestRailCommand.GET_CASE_TYPES.getCommand(), null);
+        return utils.getContentsFromConnection(connection);
+    }
     //API: Configurations---------------------------------------------
 
 
