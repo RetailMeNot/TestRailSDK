@@ -410,8 +410,12 @@ public class TestRailService implements Serializable {
      * @param projectId The id of the project you're interested in
      * @return A List of TestPlan entities for the indicated Project
      */
-    public List<TestPlan> getTestPlans( int projectId ) {
-        return getEntityList(TestPlan.class, TestRailCommand.GET_PLANS.getCommand(), Integer.toString(projectId));
+    public List<TestPlan> getTestPlans(int projectId, ApiFilterValue... apiFilters) {
+        String params = Integer.toString(projectId);
+        for (ApiFilterValue apiFilter : apiFilters) {
+            params += apiFilter.append();
+        }
+        return getEntityList(TestPlan.class, TestRailCommand.GET_PLANS.getCommand(), params);
     }
 
     /**

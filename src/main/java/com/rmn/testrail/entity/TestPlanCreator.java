@@ -18,10 +18,10 @@ public class TestPlanCreator extends BaseEntity {
     public Integer getMilestoneId() { return milestoneId; }
     public void setMilestoneId(Integer milestoneId) { this.milestoneId = milestoneId; }
 
-    @JsonProperty("assignedTo_id")
-    private Integer assignedToId;
-    public Integer getAssignedToId() { return assignedToId; }
-    public void setAssignedToId(Integer assignedToId) { this.assignedToId = assignedToId; }
+    @JsonProperty("description")
+    private String description;
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
     @JsonProperty("entries")
     private List<PlanEntry> entries;

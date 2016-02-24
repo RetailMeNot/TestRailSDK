@@ -3,7 +3,7 @@
 ## Test Cases
 ### Get Test Cases:
 Now supports single suite mode. To omit `suiteId`, call `getTestCasesSingleSuiteMode`.
-Now supports custom filters. To add a filter, call `getTestCases` with extra `ApiFilterValue` parameters like so: `getTestCases(projectId, suiteId, sectionId, parameter1, parameter2, ... parameterN)`. To create an ApiFilterValue parameter, declare a `new ApiFilterValue(GetCasesFilter.<ENUM>, <VALUE>);`
+Now supports request filters. To add a filter, call `getTestCases` with extra `ApiFilterValue` parameters like so: `getTestCases(projectId, suiteId, sectionId, parameter1, parameter2, ... parameterN)`. To create an ApiFilterValue parameter, declare a `new ApiFilterValue(GetCasesFilter.<ENUM>, <VALUE>);`
 
 ### TestCase Object:
 now supports property `templateId`
@@ -58,3 +58,14 @@ Now uses `EmptyMilestone` type for creating milestones. This will not allow user
 
 ### Update Milestone:
 Now supports updating a milestone. Method is `updateMilestone(int milestoneId, boolean isCompleted);`
+
+## Plans
+### Get Plans:
+Now supports request filters. To add a filter, call `getTestPlans` with extra `ApiFilterValue` parameters like so: `getTestCases(projectId, suiteId, sectionId, parameter1, parameter2, ... parameterN)`. To create an ApiFilterValue parameter, declare a `new ApiFilterValue(GetPlansFilter.<ENUM>, <VALUE>);`
+
+### Add Plan:
+Now supports description field in TestPlanCreator object.
+Remove no longer present field `assignedTo_id`
+
+### Add Plan Entry:
+Now supports description field in PlanEntry object.
