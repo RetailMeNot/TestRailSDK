@@ -64,19 +64,19 @@ public class TestCase extends BaseEntity {
     public void setCreatedBy(Integer createdBy) { this.createdBy = createdBy; }
 
     @JsonProperty("created_on")
-    private String createdOn;
-    public String getCreatedOn() { return createdOn; }
-    public void setCreatedOn(String createdOn) { this.createdOn = createdOn; }
+    private Integer createdOn;
+    public Integer getCreatedOn() { return createdOn; }
+    public void setCreatedOn(Integer createdOn) { this.createdOn = createdOn; }
 
     @JsonProperty("updated_by")
-    private String updatedBy;
-    public String getUpdatedBy() { return updatedBy; }
-    public void setUpdatedBy(String updatedBy) { this.updatedBy = updatedBy; }
+    private Integer updatedBy;
+    public Integer getUpdatedBy() { return updatedBy; }
+    public void setUpdatedBy(Integer updatedBy) { this.updatedBy = updatedBy; }
 
     @JsonProperty("updated_on")
-    private String updatedOn;
-    public String getUpdatedOn() { return updatedOn; }
-    public void setUpdatedOn(String updatedOn) { this.updatedOn = updatedOn; }
+    private Integer updatedOn;
+    public Integer getUpdatedOn() { return updatedOn; }
+    public void setUpdatedOn(Integer updatedOn) { this.updatedOn = updatedOn; }
 
     @JsonProperty("suite_id")
     private Integer suiteId;

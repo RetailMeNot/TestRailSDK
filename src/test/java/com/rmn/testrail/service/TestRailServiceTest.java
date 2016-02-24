@@ -1,7 +1,6 @@
 package com.rmn.testrail.service;
 
 import com.rmn.testrail.entity.*;
-import com.rmn.testrail.parameters.ApiParameters;
 import com.rmn.testrail.util.MockHTTPUtils;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -44,6 +43,26 @@ public class TestRailServiceTest {
         Assert.assertEquals("All Test Cases",  sections.get(0).getName());
     }
 
+    @Test
+    public void testGetTestCase() {
+        TestRailService service = getTestRailsEntities("TestCase.json");
+        TestCase testCase = service.getTestCase(0);
+        Assert.assertEquals(new Integer(5), testCase.getCreatedBy());
+        Assert.assertEquals(new Integer(1392300984), testCase.getCreatedOn());
+        Assert.assertEquals("1m 5s", testCase.getEstimate());
+        Assert.assertEquals(null, testCase.getEstimateForecast());
+        Assert.assertEquals(new Integer(1), testCase.getId());
+        Assert.assertEquals(new Integer(7), testCase.getMilestoneId());
+        Assert.assertEquals(new Integer(2), testCase.getPriorityId());
+        Assert.assertEquals("RF-1, RF-2", testCase.getRefs());
+        Assert.assertEquals(new Integer(1), testCase.getSectionId());
+        Assert.assertEquals(new Integer(1), testCase.getSuiteId());
+        Assert.assertEquals("Change document attributes (author, title, organization)", testCase.getTitle());
+        Assert.assertEquals(new Integer(4), testCase.getTypeId());
+        Assert.assertEquals(new Integer(1), testCase.getUpdatedBy());
+        Assert.assertEquals(new Integer(1393586511), testCase.getUpdatedOn());
+    }
+    
     @Test
     public void testGetTestCases() {
         TestRailService service = getTestRailsEntities("TestCases.json");
