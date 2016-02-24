@@ -1,6 +1,7 @@
 package com.rmn.testrail.service;
 
 import com.rmn.testrail.entity.*;
+import com.rmn.testrail.parameters.ApiParameters;
 import com.rmn.testrail.util.MockHTTPUtils;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -47,6 +48,12 @@ public class TestRailServiceTest {
     public void testGetTestCases() {
         TestRailService service = getTestRailsEntities("TestCases.json");
         List<TestCase> testCases = service.getTestCases(0, 0);
+        Assert.assertEquals("Test Case",  testCases.get(0).getTitle());
+        testCases = service.getTestCases(0, 0, 0);
+        Assert.assertEquals("Test Case",  testCases.get(0).getTitle());
+        testCases = service.getTestCasesSingleSuiteMode(0);
+        Assert.assertEquals("Test Case",  testCases.get(0).getTitle());
+        testCases = service.getTestCasesSingleSuiteMode(0, 0);
         Assert.assertEquals("Test Case",  testCases.get(0).getTitle());
     }
 
