@@ -253,6 +253,14 @@ public class TestRailService implements Serializable {
         return postRESTBodyReturn(TestRailCommand.UPDATE_CASE.getCommand(), Integer.toString(caseId), testCase, TestCase.class);
     }
 
+    /**
+     * WARNING: Permanently an existing test case. Please note: Deleting a test case cannot be undone and also permanently deletes all test results in active test runs (i.e. test runs that haven't been closed (archived) yet).
+     * @param caseId The ID of the test case
+     */
+    public void deleteTestCase(int caseId) {
+        postRESTBody(TestRailCommand.DELETE_CASE.getCommand(), Integer.toString(caseId), null);
+    }
+
 
     //API: Case Fields------------------------------------------------
 
