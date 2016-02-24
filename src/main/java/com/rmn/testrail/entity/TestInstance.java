@@ -1,5 +1,7 @@
 package com.rmn.testrail.entity;
 
+import com.rmn.testrail.parameters.ApiFilterValue;
+import com.rmn.testrail.parameters.GetResultsFilter;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -69,7 +71,7 @@ public class TestInstance extends BaseEntity {
      * @return The number of TestResults specified by the limit, in descending chron order (i.e. newest to oldest)
      */
     public List<TestResult> getResults(int limit) {
-        return getTestRailService().getTestResults(this.getId(), limit);
+        return getTestRailService().getTestResults(this.getId(), new ApiFilterValue(GetResultsFilter.LIMIT, Integer.toString(limit)));
     }
 
     /**

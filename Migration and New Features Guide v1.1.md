@@ -101,3 +101,7 @@ Now supports updating a project. Method is `updateProject(int projectId, final b
 
 ### Delete Project
 Now supports deleting a project. Method is `deleteProject(int projectId);` **Please note: Deleting a project cannot be undone and also permanently deletes all test suites & cases, test runs & results and everything else that is part of the project.**
+
+## Results
+### Get Results
+Now supports request filters. To add a filter, call `getTestResults` with extra `ApiFilterValue` parameters like so: `getTestCases(testInstanceId, parameter1, parameter2, ... parameterN)`. To create an ApiFilterValue parameter, declare a `new ApiFilterValue(GetResultsFilter.<ENUM>, <VALUE>);`

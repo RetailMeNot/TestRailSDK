@@ -587,7 +587,7 @@ public class TestRailService implements Serializable {
      * @return The most recent TestResult for the given TestInstance
      */
     public TestResult getTestResult(int testInstanceId) {
-        List<TestResult> results = getTestResults(testInstanceId, 1);
+        List<TestResult> results = getTestResults(testInstanceId, new ApiFilterValue(GetResultsFilter.LIMIT, "1"));
         if (null == results || results.size() == 0) {
             return null;
         }
@@ -595,29 +595,21 @@ public class TestRailService implements Serializable {
     }
 
     /**
-     * Returns a List of the ALL TestResults associated with the indicated TestInstance, most recent first
-     * @param testInstanceId The TestInstance id
-     * @return A List of TestResults in descending chronological order (i.e. most recent first)
-     */
-    public List<TestResult> getTestResults(int testInstanceId) {
-        if (null == getTestResults(testInstanceId,1)) {
-            return null;
-        }
-        return getEntityList(TestResult.class, TestRailCommand.GET_RESULTS.getCommand(), String.format("%d", testInstanceId));
-    }
-
-    /**
      * Returns a List of the TestResults (up to the 'limit' parameter provided) associated with the indicated TestInstance, most recent first
      * @param testInstanceId The TestInstance id
-     * @param limit The upper number of TestResults you want to see for this particular TestInstance
+     * @param apiFilters one or more request filters built on GetResultsFilter enums
      * @return A List of TestResults in descending chronological order (i.e. most recent first)
      */
-    public List<TestResult> getTestResults(int testInstanceId, int limit) {
-        List<TestResult> results = getEntityList(TestResult.class, TestRailCommand.GET_RESULTS.getCommand(), String.format("%d&limit=%d", testInstanceId, 1));
+    public List<TestResult> getTestResults(int testInstanceId, ApiFilterValue... apiFilters) {
+        List<TestResult> results = getEntityList(TestResult.class, TestRailCommand.GET_RESULTS.getCommand(), Integer.toString(testInstanceId) + new ApiFilterValue(GetResultsFilter.LIMIT, "1").append());
         if (null == results) {
             return null;
         }
-        return getEntityList(TestResult.class, TestRailCommand.GET_RESULTS.getCommand(), String.format("%d&limit=%d", testInstanceId, limit));
+        String params = Integer.toString(testInstanceId);
+        for (ApiFilterValue apiFilter : apiFilters) {
+            params += apiFilter.append();
+        }
+        return getEntityList(TestResult.class, TestRailCommand.GET_RESULTS.getCommand(), params);
     }
 
     /**

@@ -10,6 +10,8 @@ import com.rmn.testrail.entity.TestRunCreator;
 import com.rmn.testrail.entity.TestStatus;
 import com.rmn.testrail.entity.TestSuite;
 import com.rmn.testrail.entity.User;
+import com.rmn.testrail.parameters.ApiFilterValue;
+import com.rmn.testrail.parameters.GetResultsFilter;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Ignore;
@@ -213,7 +215,7 @@ public class TestRailServiceIntegrationTest {
     public void testTestResultsReturnLatestToEarliest() {
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
-        List<TestResult> testResults = TestIntegrationSuite.getService().getTestResults(TestIntegrationSuite.testInstance.getId(), 0);
+        List<TestResult> testResults = TestIntegrationSuite.getService().getTestResults(TestIntegrationSuite.testInstance.getId(), new ApiFilterValue(GetResultsFilter.LIMIT, "1"));
         Assert.assertNotNull(testResults);
         TestResult currentTestResult = testResults.get(0);
         for (int index = 1; index < testResults.size(); index++) {
@@ -244,7 +246,7 @@ public class TestRailServiceIntegrationTest {
     public void testGetResults() {
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
-        List<TestResult> testResults = TestIntegrationSuite.getService().getTestResults(TestIntegrationSuite.testInstance.getId(), 5);
+        List<TestResult> testResults = TestIntegrationSuite.getService().getTestResults(TestIntegrationSuite.testInstance.getId(), new ApiFilterValue(GetResultsFilter.LIMIT, "5"));
         Assert.assertNotNull(testResults);
         Assert.assertTrue(testResults.size() <= 5);
     }
