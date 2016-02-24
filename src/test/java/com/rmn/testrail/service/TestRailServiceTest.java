@@ -81,6 +81,13 @@ public class TestRailServiceTest {
     }
 
     @Test
+    public void testGetCaseFields() {
+        TestRailService service = getTestRailsEntities("TestCaseCustomFields.json");
+        String customFields = service.getCaseFields();
+        Assert.assertEquals(customFields, "[  {    \"configs\": [      {        \"context\": {          \"is_global\": true,          \"project_ids\": null        },        \"id\": \"..\",        \"options\": {          \"default_value\": \"\",          \"format\": \"markdown\",          \"is_required\": false,          \"rows\": \"5\"        }      }    ],    \"description\": \"The preconditions of this test case. ..\",    \"display_order\": 1,    \"id\": 1,    \"label\": \"Preconditions\",    \"name\": \"preconds\",    \"system_name\": \"custom_preconds\",    \"type_id\": 3  },  {    \"configs\": [      {        \"context\": {          \"is_global\": false,          \"project_ids\": null        },        \"id\": \"..\",        \"options\": {          \"default_value\": \"\",          \"format\": \"markdown\",          \"is_required\": false,          \"rows\": \"5\"        }      }    ],    \"description\": \"The custom test field of this test case. ..\",    \"display_order\": 1,    \"id\": 1,    \"label\": \"Preconditions\",    \"name\": \"testfield\",    \"system_name\": \"custom_test\",    \"type_id\": 3  }]");
+    }
+
+    @Test
     public void testGetTestRuns() {
         TestRailService service = getTestRailsEntities("TestRuns.json");
         List<TestRun> testRuns = service.getTestRuns(0);
