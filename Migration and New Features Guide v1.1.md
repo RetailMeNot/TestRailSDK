@@ -55,3 +55,6 @@ Now supports `isCompleted` filter. To use call `getMilestones` with additional `
 
 ### Add Milestone:
 Now uses `EmptyMilestone` type for creating milestones. This will not allow user to add parameters that are not accepted. Method is `public Milestone addMilestone(EmptyMilestone milestone, int projectId);`
+
+### Update Milestone:
+Now supports updating a milestone. Method is `updateMilestone(int milestoneId, boolean isCompleted);`

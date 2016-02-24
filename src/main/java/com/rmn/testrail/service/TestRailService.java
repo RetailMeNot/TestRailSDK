@@ -13,6 +13,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.slf4j.Logger;
@@ -359,6 +360,17 @@ public class TestRailService implements Serializable {
     public Milestone addMilestone(EmptyMilestone milestone, int projectId) {
         return postRESTBodyReturn(TestRailCommand.ADD_MILESTONE.getCommand(), Integer.toString(projectId), milestone, Milestone.class);
     }
+
+    public Milestone updateMilestone(int milestoneId, final boolean isCompleted) {
+        return postRESTBodyReturn(TestRailCommand.UPDATE_MILESTONE.getCommand(),
+                Integer.toString(milestoneId),
+                new BaseEntity() {
+                    @JsonProperty("is_completed")
+                    private String isCompletedBoolean = isCompleted ? "1":"0";
+                },
+                Milestone.class);
+    }
+
 
     //API: Plans------------------------------------------------------
 
