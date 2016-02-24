@@ -284,50 +284,72 @@ public class TestRailService implements Serializable {
 
     /**
      * Creates a new configuration group.
+     * @param name The name of the configuration group
      * @param projectId The ID of the project the configuration group should be added to
      */
-    public void addConfigGroup(ConfigurationGroup configurationGroup, int projectId) {
-        postRESTBody(TestRailCommand.ADD_CONFIG_GROUP.getCommand(), null, configurationGroup);
+    public void addConfigGroup(final String name, int projectId) {
+        postRESTBody(TestRailCommand.ADD_CONFIG_GROUP.getCommand(), null,
+                new BaseEntity() {
+                    @JsonProperty("name")
+                    private String nameString = name;
+                });
     }
 
     /**
      * Creates a new configuration group.
+     * @param name The name of the configuration
      * @param configGroupId The ID of the configuration group the configuration should be added to
      */
-    public void addConfig(Configuration configuration, int configGroupId) {
-        postRESTBody(TestRailCommand.ADD_CONFIG.getCommand(), Integer.toString(configGroupId), configuration);
+    public void addConfig(final String name, int configGroupId) {
+        postRESTBody(TestRailCommand.ADD_CONFIG.getCommand(), Integer.toString(configGroupId),
+                new BaseEntity() {
+                    @JsonProperty("name")
+                    private String nameString = name;
+                });
     }
 
     /**
      * Updates an existing configuration group.
+     * @param name The new name of the configuration group
      * @param configGroupId The ID of the configuration group
      */
-    public void updateConfigGroup(ConfigurationGroup configuration, int configGroupId) {
-        postRESTBody(TestRailCommand.UPDATE_CONFIG_GROUP.getCommand(), Integer.toString(configGroupId), configuration);
+    public void updateConfigGroup(final String name, int configGroupId) {
+        postRESTBody(TestRailCommand.UPDATE_CONFIG_GROUP.getCommand(), Integer.toString(configGroupId),
+                new BaseEntity() {
+                    @JsonProperty("name")
+                    private String nameString = name;
+                });
     }
 
     /**
      * Updates an existing configuration.
+     * @param name The new name of the configuration
      * @param configId The ID of the configuration
      */
-    public void updateConfig(Configuration configuration, int configId) {
-        postRESTBody(TestRailCommand.UPDATE_CONFIG.getCommand(), Integer.toString(configId), configuration);
+    public void updateConfig(final String name, int configId) {
+        postRESTBody(TestRailCommand.UPDATE_CONFIG.getCommand(), Integer.toString(configId),
+                new BaseEntity() {
+                    @JsonProperty("name")
+                    private String nameString = name;
+                });
     }
 
     /**
      * Updates an existing configuration group.
+     * Please note: Deleting a configuration group cannot be undone and also permanently deletes all configurations in this group. It does not, however, affect closed test plans/runs, or active test plans/runs unless they are updated.
      * @param configGroupId The ID of the configuration group
      */
-    public void deleteConfigGroup(ConfigurationGroup configuration, int configGroupId) {
-        postRESTBody(TestRailCommand.DELETE_CONFIG_GROUP.getCommand(), Integer.toString(configGroupId), configuration);
+    public void deleteConfigGroup(int configGroupId) {
+        postRESTBody(TestRailCommand.DELETE_CONFIG_GROUP.getCommand(), Integer.toString(configGroupId), null);
     }
 
     /**
-     * Updates an existing configuration.
+     * Deletes an existing configuration.
+     * Please note: Deleting a configuration cannot be undone. It does not, however, affect closed test plans/runs, or active test plans/runs unless they are updated.
      * @param configId The ID of the configuration
      */
-    public void deleteConfig(Configuration configuration, int configId) {
-        postRESTBody(TestRailCommand.DELETE_CONFIG.getCommand(), Integer.toString(configId), configuration);
+    public void deleteConfig(int configId) {
+        postRESTBody(TestRailCommand.DELETE_CONFIG.getCommand(), Integer.toString(configId), null);
     }
 
     //API: Milestones-------------------------------------------------

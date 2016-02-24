@@ -32,22 +32,22 @@ Now supports getting test case types. Method is `getCaseTypes();`
 Now supports getting configurations. Method is `getConfigurations();`
 
 ### Add Configuration:
-Now supports adding a configuration. Method is `public void addConfig(Configuration configuration, int configGroupId);`
+Now supports adding a configuration. Method is `public void addConfig(String name, int configGroupId);`
 
 ### Add Configuration Group:
-Now supports adding a configuration group. Method is `getConfigGroup(ConfigurationGroup configurationGroup, int projectId);`
+Now supports adding a configuration group. Method is `getConfigGroup(String name, int projectId);`
 
 ### Update Configuration Group:
-Now supports updating a configuration group. Method is `updateConfigGroup(ConfigurationGroup configuration, int configGroupId);`
+Now supports updating a configuration group. Method is `updateConfigGroup(String name, int configGroupId);`
 
 ### Update Configuration:
-Now supports updating a configuration. Method is `updateConfig(Configuration configuration, int configId);`
+Now supports updating a configuration. Method is `updateConfig(String name, int configId);`
 
 ### Delete Configuration Group:
-Now supports deleting a configuration group. Method is `deleteConfigGroup(ConfigurationGroup configuration, int configGroupId);` **Please note: Deleting a configuration group cannot be undone and also permanently deletes all configurations in this group. It does not, however, affect closed test plans/runs, or active test plans/runs unless they are updated.**
+Now supports deleting a configuration group. Method is `deleteConfigGroup(int configGroupId);` **Please note: Deleting a configuration group cannot be undone and also permanently deletes all configurations in this group. It does not, however, affect closed test plans/runs, or active test plans/runs unless they are updated.**
 
 ### Delete Configuration:
-Now supports deleting a configuration. Method is `deleteConfig(Configuration configuration, int configId);` **Please note: Deleting a configuration cannot be undone. It does not, however, affect closed test plans/runs, or active test plans/runs unless they are updated.**
+Now supports deleting a configuration. Method is `deleteConfig(int configId);` **Please note: Deleting a configuration cannot be undone. It does not, however, affect closed test plans/runs, or active test plans/runs unless they are updated.**
 
 ## Milestones
 ### Get Milestone:
