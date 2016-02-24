@@ -3,7 +3,7 @@
 ## Test Cases
 ### Get Test Cases:
 Now supports single suite mode. To omit `suiteId`, call `getTestCasesSingleSuiteMode`.
-Now supports custom filters. To add a filter, call `getTestCases` with extra `ApiFilterValue` parameters like so: `getTestCases(projectId, suiteId, sectionId, parameter1, parameter2, ... parameterN)`. To create an ApiFilterValue parameter, declare a `new ApiFilterValue(ApiFilter.<ENUM>, <VALUE>);`
+Now supports custom filters. To add a filter, call `getTestCases` with extra `ApiFilterValue` parameters like so: `getTestCases(projectId, suiteId, sectionId, parameter1, parameter2, ... parameterN)`. To create an ApiFilterValue parameter, declare a `new ApiFilterValue(GetCasesFilter.<ENUM>, <VALUE>);`
 
 ### TestCase Object:
 now supports property `templateId`
@@ -51,7 +51,7 @@ Now supports deleting a configuration. Method is `deleteConfig(int configId);` *
 
 ## Milestones
 ### Get Milestone:
-Now supports `isCompleted` filter. To use call `getMilestones` with additional `ApiFilterValue` parameter.
+Now supports `isCompleted` filter. To use call `getMilestones` with additional `ApiFilterValue` parameter. Method declaring a new ApiFilterValue is `new ApiFilterValue(GetMilestonesFilter.IS_COMPLETED, {"true"|"false"});`
 
 ### Add Milestone:
 Now uses `EmptyMilestone` type for creating milestones. This will not allow user to add parameters that are not accepted. Method is `public Milestone addMilestone(EmptyMilestone milestone, int projectId);`
