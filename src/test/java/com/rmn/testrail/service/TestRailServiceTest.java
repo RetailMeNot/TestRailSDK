@@ -62,18 +62,22 @@ public class TestRailServiceTest {
         Assert.assertEquals(new Integer(1), testCase.getUpdatedBy());
         Assert.assertEquals(new Integer(1393586511), testCase.getUpdatedOn());
     }
-    
+
     @Test
     public void testGetTestCases() {
         TestRailService service = getTestRailsEntities("TestCases.json");
         List<TestCase> testCases = service.getTestCases(0, 0);
         Assert.assertEquals("Test Case",  testCases.get(0).getTitle());
+        Assert.assertEquals("Steve - First Test Case",  testCases.get(1).getTitle());
         testCases = service.getTestCases(0, 0, 0);
         Assert.assertEquals("Test Case",  testCases.get(0).getTitle());
+        Assert.assertEquals("Steve - First Test Case",  testCases.get(1).getTitle());
         testCases = service.getTestCasesSingleSuiteMode(0);
         Assert.assertEquals("Test Case",  testCases.get(0).getTitle());
+        Assert.assertEquals("Steve - First Test Case",  testCases.get(1).getTitle());
         testCases = service.getTestCasesSingleSuiteMode(0, 0);
         Assert.assertEquals("Test Case",  testCases.get(0).getTitle());
+        Assert.assertEquals("Steve - First Test Case",  testCases.get(1).getTitle());
     }
 
     @Test
