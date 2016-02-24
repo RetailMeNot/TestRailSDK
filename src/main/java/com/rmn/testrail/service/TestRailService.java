@@ -43,7 +43,7 @@ public class TestRailService implements Serializable {
      * your "client ID", and it will get put into the correct place. If you're hosting a local instance, you'll have to use the (URL, String, String)
      * constructor in order to pass the full URL for your instance
      */
-    private String apiEndpoint = "https://%s.testrail.com/";
+    private String apiEndpoint = "http://testrail.com/";
     private String username;
     private String password;
     private HTTPUtils utils = new HTTPUtils();
@@ -530,10 +530,43 @@ public class TestRailService implements Serializable {
      * Returns all Project entities related to this account
      * @return The List of ALL Projects available to this user
      */
-    public List<Project> getProjects() {
-        return getEntityList(Project.class, TestRailCommand.GET_PROJECTS.getCommand(), "");
+    public List<Project> getProjects(ApiFilterValue... isCompleted) {
+        return getEntityList(Project.class, TestRailCommand.GET_PROJECTS.getCommand(), isCompleted.length > 0 ? isCompleted[0].append() : null);
     }
 
+    /**
+     * Creates a new project (admin status required).
+     * @param newProject project information of new project to add
+     * @return new project that was created
+     */
+    public Project addProject(ProjectNew newProject) {
+        return postRESTBodyReturn(TestRailCommand.ADD_PROJECT.getCommand(), null, newProject, Project.class);
+    }
+
+    /**
+     * Updates an existing project (admin status required; partial updates are supported, i.e. you can submit and update specific fields only).
+     * @param projectId The ID of the project
+     * @param isCompleted Specifies whether a project is considered completed or not
+     * @return
+     */
+    public Project updateProject(int projectId, final boolean isCompleted) {
+        return postRESTBodyReturn(TestRailCommand.ADD_PROJECT.getCommand(),
+                Integer.toString(projectId),
+                new BaseEntity() {
+                    @JsonProperty("is_completed")
+                    private String isCompletedBoolean = isCompleted ? "1":"0";
+                },
+                Project.class);
+    }
+
+    /**
+     * Deletes an existing project (admin status required).
+     * Please note: Deleting a project cannot be undone and also permanently deletes all test suites & cases, test runs & results and everything else that is part of the project.
+     * @param projectId The ID of the project
+     */
+    public void deleteProject(int projectId) {
+        postRESTBody(TestRailCommand.DELETE_PROJECT.getCommand(), Integer.toString(projectId), null);
+    }
 
     //API: Results----------------------------------------------------
 

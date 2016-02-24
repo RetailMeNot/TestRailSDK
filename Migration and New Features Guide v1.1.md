@@ -51,7 +51,7 @@ Now supports deleting a configuration. Method is `deleteConfig(int configId);` *
 
 ## Milestones
 ### Get Milestone:
-Now supports `isCompleted` filter. To use call `getMilestones` with additional `ApiFilterValue` parameter. Method declaring a new ApiFilterValue is `new ApiFilterValue(GetMilestonesFilter.IS_COMPLETED, {"true"|"false"});`
+Now supports `isCompleted` filter. To use call `getMilestones` with additional `ApiFilterValue` parameter. Method declaring a new ApiFilterValue is `new ApiFilterValue(GetMilestonesFilter.IS_COMPLETED, {"1"|"0"});`
 
 ### Add Milestone:
 Now uses `EmptyMilestone` type for creating milestones. This will not allow user to add parameters that are not accepted. Method is `public Milestone addMilestone(EmptyMilestone milestone, int projectId);`
@@ -88,3 +88,16 @@ Now supports deleting a plan. Method is `deleteTestPlanEntry(int planId, int ent
 ## Priorities
 ### Get Priorities
 Now supports getting priorities. Method is `getPriorities();`
+
+## Projects
+### Get Projects
+Now supports `isCompleted` filter. To use call `getProjects` with additional `ApiFilterValue` parameter. Method declaring a new ApiFilterValue is `new ApiFilterValue(GetProjectsFilter.IS_COMPLETED, {"1"|"0"});`
+
+### Add Project
+Now supports adding a project. Method is `addProject(ProjectNew newProject);`
+
+### Update Project
+Now supports updating a project. Method is `updateProject(int projectId, final boolean isCompleted);`
+
+### Delete Project
+Now supports deleting a project. Method is `deleteProject(int projectId);` **Please note: Deleting a project cannot be undone and also permanently deletes all test suites & cases, test runs & results and everything else that is part of the project.**
