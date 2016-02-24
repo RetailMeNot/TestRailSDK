@@ -343,9 +343,10 @@ public class TestRailService implements Serializable {
     /**
      * Returns a list of all the Milestones in the given project ID
      * @param projectId the ID of project you want the Milestones from
+     * @param isCompleted only accepts ApiFilter.IS_COMPLETED (numerical boolean {0|1})
      * @return the list of all the Milestones in the project
      */
-    public List<Milestone> getMilestones(int projectId) {
+    public List<Milestone> getMilestones(int projectId, ApiFilterValue... isCompleted) {
         return getEntityList(Milestone.class, TestRailCommand.GET_MILESTONES.getCommand(), Integer.toString(projectId));
     }
 

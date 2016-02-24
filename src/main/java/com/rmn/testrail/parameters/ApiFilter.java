@@ -1,6 +1,7 @@
 package com.rmn.testrail.parameters;
 
 public enum ApiFilter {
+    //Request filters for get_cases
     CREATED_AFTER("created_after"),
     CREATED_BEFORE("created_before"),
     CREATED_BY("created_by"),
@@ -10,7 +11,10 @@ public enum ApiFilter {
     TYPE_ID("type_id"),
     UPDATED_AFTER("updated_after"),
     UPDATED_BEFORE("updated_before"),
-    UPDATED_BY("updated_by");
+    UPDATED_BY("updated_by"),
+
+    //Request filter for get_milestones
+    IS_COMPLETED("IS_COMPLETED");
 
     public final String filter;
     ApiFilter(String filter) {
