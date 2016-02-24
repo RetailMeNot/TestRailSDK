@@ -84,14 +84,21 @@ public class TestRailServiceTest {
     public void testGetCaseFields() {
         TestRailService service = getTestRailsEntities("TestCaseCustomFields.json");
         String customFields = service.getCaseFields();
-        Assert.assertEquals(customFields, "[  {    \"configs\": [      {        \"context\": {          \"is_global\": true,          \"project_ids\": null        },        \"id\": \"..\",        \"options\": {          \"default_value\": \"\",          \"format\": \"markdown\",          \"is_required\": false,          \"rows\": \"5\"        }      }    ],    \"description\": \"The preconditions of this test case. ..\",    \"display_order\": 1,    \"id\": 1,    \"label\": \"Preconditions\",    \"name\": \"preconds\",    \"system_name\": \"custom_preconds\",    \"type_id\": 3  },  {    \"configs\": [      {        \"context\": {          \"is_global\": false,          \"project_ids\": null        },        \"id\": \"..\",        \"options\": {          \"default_value\": \"\",          \"format\": \"markdown\",          \"is_required\": false,          \"rows\": \"5\"        }      }    ],    \"description\": \"The custom test field of this test case. ..\",    \"display_order\": 1,    \"id\": 1,    \"label\": \"Preconditions\",    \"name\": \"testfield\",    \"system_name\": \"custom_test\",    \"type_id\": 3  }]");
+        Assert.assertEquals("[  {    \"configs\": [      {        \"context\": {          \"is_global\": true,          \"project_ids\": null        },        \"id\": \"..\",        \"options\": {          \"default_value\": \"\",          \"format\": \"markdown\",          \"is_required\": false,          \"rows\": \"5\"        }      }    ],    \"description\": \"The preconditions of this test case. ..\",    \"display_order\": 1,    \"id\": 1,    \"label\": \"Preconditions\",    \"name\": \"preconds\",    \"system_name\": \"custom_preconds\",    \"type_id\": 3  },  {    \"configs\": [      {        \"context\": {          \"is_global\": false,          \"project_ids\": null        },        \"id\": \"..\",        \"options\": {          \"default_value\": \"\",          \"format\": \"markdown\",          \"is_required\": false,          \"rows\": \"5\"        }      }    ],    \"description\": \"The custom test field of this test case. ..\",    \"display_order\": 1,    \"id\": 1,    \"label\": \"Preconditions\",    \"name\": \"testfield\",    \"system_name\": \"custom_test\",    \"type_id\": 3  }]", customFields);
     }
 
     @Test
     public void testGetCaseTypes() {
         TestRailService service = getTestRailsEntities("TestCaseTypes.json");
         String customFields = service.getCaseTypes();
-        Assert.assertEquals(customFields, "[  {    \"id\": 1,    \"is_default\": false,    \"name\": \"Automated\"  },  {    \"id\": 2,    \"is_default\": false,    \"name\": \"Functionality\"  },  {    \"id\": 6,    \"is_default\": true,    \"name\": \"Other\"  }]");
+        Assert.assertEquals("[  {    \"id\": 1,    \"is_default\": false,    \"name\": \"Automated\"  },  {    \"id\": 2,    \"is_default\": false,    \"name\": \"Functionality\"  },  {    \"id\": 6,    \"is_default\": true,    \"name\": \"Other\"  }]", customFields);
+    }
+
+    @Test
+    public void testGetConfigurations() {
+        TestRailService service = getTestRailsEntities("Configurations.json");
+        String customFields = service.getCaseTypes();
+        Assert.assertEquals("[  {    \"configs\": [      {        \"group_id\": 1,        \"id\": 1,        \"name\": \"Chrome\"      },      {        \"group_id\": 1,        \"id\": 2,        \"name\": \"Firefox\"      },      {        \"group_id\": 1,        \"id\": 3,        \"name\": \"Internet Explorer\"      }    ],    \"id\": 1,    \"name\": \"Browsers\",    \"project_id\": 1  },  {    \"configs\": [      {        \"group_id\": 2,        \"id\": 6,        \"name\": \"Ubuntu 12\"      },      {        \"group_id\": 2,        \"id\": 4,        \"name\": \"Windows 7\"      },      {        \"group_id\": 2,        \"id\": 5,        \"name\": \"Windows 8\"      }    ],    \"id\": 2,    \"name\": \"Operating Systems\",    \"project_id\": 1  }]", customFields);
     }
 
     @Test
