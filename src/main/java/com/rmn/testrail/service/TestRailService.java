@@ -192,8 +192,17 @@ public class TestRailService implements Serializable {
      * Get the complete list of all test cases in this Project (if the project is operating in single suite mode)
      * @return the List of TestCase entities associated with this TestSuite
      */
-    public List<TestCase> getTestCases(int projectId) {
+    public List<TestCase> getTestCasesSingleSuiteMode(int projectId) {
         return getTestCases(projectId, -1, -1);
+    }
+
+    /**
+     * Get the complete list of all test cases in this Project (if the project is operating in single suite mode)
+     * @param sectionId The Section ID
+     * @return the List of TestCase entities associated with this TestSuite
+     */
+    public List<TestCase> getTestCasesSingleSuiteMode(int projectId, int sectionId) {
+        return getTestCases(projectId, -1, sectionId);
     }
 
     /**
