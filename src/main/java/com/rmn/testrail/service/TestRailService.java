@@ -264,6 +264,14 @@ public class TestRailService implements Serializable {
 
     //API: Case Fields------------------------------------------------
 
+    /**
+     * Returns a list of available test case custom fields.
+     * @return String with JSON response, you must parse the string yourself
+     */
+    public String getCaseFields() {
+        HttpURLConnection connection = getRESTRequest(TestRailCommand.GET_CASE_FIELDS.getCommand(), null);
+        return utils.getContentsFromConnection(connection);
+    }
 
     //API: Case Types-------------------------------------------------
 
