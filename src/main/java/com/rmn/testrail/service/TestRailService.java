@@ -236,6 +236,14 @@ public class TestRailService implements Serializable {
     }
 
     /**
+     * Creates a new test case.
+     * @param sectionId The ID of the section the test case should be added to
+     */
+    public TestCase addTestCase(TestCase testCase, int sectionId) {
+        return postRESTBodyReturn(TestRailCommand.ADD_CASE.getCommand(), Integer.toString(sectionId), testCase, TestCase.class);
+    }
+
+    /**
      * Change the Type of a test case (Manual, Automated, etc--must match the string exactly from the drop-down in TestRail. This will be project-specific)
      * @param id The id of the TestCase you wish to edit
      * @param type The index for the "type" of TestCase you wish to set (the value depends on your customization, see your administrator for details)
