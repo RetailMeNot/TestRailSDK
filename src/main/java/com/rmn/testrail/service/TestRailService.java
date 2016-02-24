@@ -52,7 +52,7 @@ public class TestRailService implements Serializable {
     private static final String ENDPOINT_SUFFIX = "index.php?/api/v2/%s%s";
 
     /**
-     * Used this way, the default implementation will assume that the TestRail instance is hoted by TestRail on their server. As such, you pass in
+     * Used this way, the default implementation will assume that the TestRail instance is hosted by TestRail on their server. As such, you pass in
      * your "client ID", and it will get put into the correct place. If you're hosting a local instance, you'll have to use the (URL, String, String)
      * constructor in order to pass the full URL for your instance
      */
