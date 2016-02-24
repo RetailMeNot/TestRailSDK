@@ -16,6 +16,8 @@ import com.rmn.testrail.entity.TestRun;
 import com.rmn.testrail.entity.TestRunCreator;
 import com.rmn.testrail.entity.TestSuite;
 import com.rmn.testrail.entity.User;
+import com.rmn.testrail.parameters.ApiParameter;
+import com.rmn.testrail.parameters.ApiParameters;
 import com.rmn.testrail.util.HTTPUtils;
 import com.rmn.testrail.util.JSONUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -210,12 +212,12 @@ public class TestRailService implements Serializable {
      * @return A List of the TestCases in this Suite
      */
     public List<TestCase> getTestCases(int projectId, int suiteId, int sectionId) {
-        String params = String.format("%d", projectId);
+        String params = Integer.toString(projectId);
         if (suiteId > 0) {
-            params += String.format("&suite_id=%d", suiteId);
+            params += ApiParameters.append(ApiParameter.SUITE_ID, suiteId);
         }
         if (sectionId > 0) {
-            params += String.format("&section_id=%d", sectionId);
+            params += ApiParameters.append(ApiParameter.SECTION_ID, sectionId);
         }
         return getEntityList(TestCase.class, TestRailCommand.GET_CASES.getCommand(), params);
     }
