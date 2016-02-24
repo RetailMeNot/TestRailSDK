@@ -5,6 +5,7 @@ import com.rmn.testrail.entity.Error;
 import com.rmn.testrail.parameters.ApiFilterValue;
 import com.rmn.testrail.parameters.ApiParameter;
 import com.rmn.testrail.parameters.ApiParameters;
+import com.rmn.testrail.parameters.GetResultsFilter;
 import com.rmn.testrail.util.HTTPUtils;
 import com.rmn.testrail.util.JSONUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -178,6 +179,8 @@ public class TestRailService implements Serializable {
 
     /**
      * Get the complete list of all test cases in this Project (if the project is operating in single suite mode)
+     * @param projectId The ID of the project
+     * @param apiFilters one or more request filters built on GetCasesFilter enums
      * @return the List of TestCase entities associated with this TestSuite
      */
     public List<TestCase> getTestCasesSingleSuiteMode(int projectId, ApiFilterValue... apiFilters) {
@@ -186,7 +189,9 @@ public class TestRailService implements Serializable {
 
     /**
      * Get the complete list of all test cases in this Project (if the project is operating in single suite mode)
+     * @param projectId The ID of the project
      * @param sectionId The Section ID
+     * @param apiFilters one or more request filters built on GetCasesFilter enums
      * @return the List of TestCase entities associated with this TestSuite
      */
     public List<TestCase> getTestCasesSingleSuiteMode(int projectId, int sectionId, ApiFilterValue... apiFilters) {
@@ -195,7 +200,9 @@ public class TestRailService implements Serializable {
 
     /**
      * Get the complete list of all test cases in this TestSuite
+     * @param projectId The ID of the project
      * @param suiteId The Suite ID (in TestRails, this will be something like 'S7', but just provide the 7)
+     * @param apiFilters one or more request filters built on GetCasesFilter enums
      * @return the List of TestCase entities associated with this TestSuite
      */
     public List<TestCase> getTestCases(int projectId, int suiteId, ApiFilterValue... apiFilters) {
@@ -204,8 +211,10 @@ public class TestRailService implements Serializable {
 
     /**
      * Get the list of test cases in this TestSuite for the Section indicated
+     * @param projectId The ID of the project
      * @param suiteId The Suite ID (in TestRails, this will be something like 'S7', but just provide the 7)
      * @param sectionId The Section ID
+     * @param apiFilters one or more request filters built on GetCasesFilter enums
      * @return A List of the TestCases in this Suite
      */
     public List<TestCase> getTestCases(int projectId, int suiteId, int sectionId, ApiFilterValue... apiFilters) {
@@ -224,6 +233,7 @@ public class TestRailService implements Serializable {
 
     /**
      * Creates a new test case.
+     * @param testCase the new test case
      * @param sectionId The ID of the section the test case should be added to
      */
     public TestCase addTestCase(TestCase testCase, int sectionId) {
@@ -274,7 +284,7 @@ public class TestRailService implements Serializable {
 
     /**
      * Returns a list of available configurations, grouped by configuration groups (requires TestRail 3.1 or later).
-     * @param projectId
+     * @param projectId The ID of the project
      * @return String with JSON response, you must parse the string yourself
      */
     public String getConfigurations(int projectId) {
@@ -408,6 +418,7 @@ public class TestRailService implements Serializable {
     /**
      * The List of TestPlan entities the indicated Project contains
      * @param projectId The id of the project you're interested in
+     * @param apiFilters one or more request filters built on GetPlansFilter enums
      * @return A List of TestPlan entities for the indicated Project
      */
     public List<TestPlan> getTestPlans(int projectId, ApiFilterValue... apiFilters) {
