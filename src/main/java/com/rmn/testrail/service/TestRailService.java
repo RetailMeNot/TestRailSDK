@@ -438,6 +438,57 @@ public class TestRailService implements Serializable {
         return postRESTBodyReturn(TestRailCommand.ADD_PLAN_ENTRY.getCommand(), Integer.toString(planId), planEntry, PlanEntry.class);
     }
 
+    /**
+     * Updates an existing test plan (partial updates are supported, i.e. you can submit and update specific fields only).
+     * With the exception of the entries field, this method supports the same POST fields as add_plan.
+     * @param planId The ID of the test plan
+     * @param testPlan The (partially) updated test plan
+     * @return the updated test plan
+     */
+    public TestPlan updateTestPlan(int planId, TestPlanCreator testPlan) {
+        return postRESTBodyReturn(TestRailCommand.UPDATE_PLAN.getCommand(), Integer.toString(planId), testPlan, TestPlan.class);
+    }
+
+    /**
+     * Updates one or more existing test runs in a plan (partial updates are supported, i.e. you can submit and update specific fields only).
+     * @param planId The ID of the test plan
+     * @param entryId The ID of the test plan entry (note: not the test run ID)
+     * @param updatePlanEntry the (partial) updates to the plan entry
+     * @return the updated plan entry
+     */
+    public PlanEntry updateTestPlanEntry(int planId, int entryId, UpdatePlanEntry updatePlanEntry) {
+        return postRESTBodyReturn(TestRailCommand.UPDATE_PLAN_ENTRY.getCommand(), Integer.toString(planId) + "/" + Integer.toString(entryId), updatePlanEntry, PlanEntry.class)
+    }
+
+    /**
+     * Closes an existing test plan and archives its test runs & results.
+     * Please note: Closing a test plan cannot be undone.
+     * @param planId The ID of the test plan
+     * @return the closed test plan
+     */
+    public TestPlan closeTestPlan(int planId) {
+        return postRESTBodyReturn(TestRailCommand.CLOSE_PLAN.getCommand(), Integer.toString(planId), null, TestPlan.class);
+    }
+
+    /**
+     * Deletes an existing test plan.
+     * Please note: Deleting a test plan cannot be undone and also permanently deletes all test runs & results of the test plan.
+     * @param planId The ID of the test plan
+     */
+    public void deleteTestPlan(int planId) {
+        postRESTBody(TestRailCommand.DELETE_PLAN.getCommand(), Integer.toString(planId), null);
+    }
+
+    /**
+     * Deletes one or more existing test runs from a plan.
+     * Please note: Deleting a test run from a plan cannot be undone and also permanently deletes all related test results.
+     * @param planId The ID of the test plan
+     * @param entryId The ID of the test plan entry (note: not the test run ID)
+     */
+    public void deleteTestPlanEntry(int planId, int entryId) {
+        postRESTBody(TestRailCommand.DELETE_PLAN_ENTRY.getCommand(), Integer.toString(planId) + "/" + Integer.toString(entryId), null);
+    }
+
 
     //API: Priorities-------------------------------------------------
 

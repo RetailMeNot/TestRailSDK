@@ -69,3 +69,18 @@ Remove no longer present field `assignedTo_id`
 
 ### Add Plan Entry:
 Now supports description field in PlanEntry object.
+
+### Update Plan:
+Now supports updating a plan. Method is `updateTestPlan(int planId, TestPlanCreator testPlan)`
+
+### Update Plan Entry:
+Now supports updating a plan entry. Uses UpdatePlanEntry object, similar to PlanEntry but with less fields. Method is `updateTestPlanEntry(int planId, int entryId, UpdatePlanEntry updatePlanEntry)`
+
+### Close Plan:
+Now supports closing a plan. Method is `closeTestPlan(int planId)` **Please note: Closing a test plan cannot be undone.**
+
+### Delete Plan:
+Now supports deleting a plan. Method is `deleteTestPlan(int planId)` **Please note: Deleting a test plan cannot be undone and also permanently deletes all test runs & results of the test plan.**
+
+### Delete Plan Entry:
+Now supports deleting a plan. Method is `deleteTestPlanEntry(int planId, int entryId)` **Please note: Deleting a test run from a plan cannot be undone and also permanently deletes all related test results.**
