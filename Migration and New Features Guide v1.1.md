@@ -84,3 +84,7 @@ Now supports deleting a plan. Method is `deleteTestPlan(int planId)` **Please no
 
 ### Delete Plan Entry:
 Now supports deleting a plan. Method is `deleteTestPlanEntry(int planId, int entryId)` **Please note: Deleting a test run from a plan cannot be undone and also permanently deletes all related test results.**
+
+## Priorities
+### Get Priorities
+Now supports getting priorities. Method is `getPriorities();`

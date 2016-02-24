@@ -492,6 +492,14 @@ public class TestRailService implements Serializable {
 
     //API: Priorities-------------------------------------------------
 
+    /**
+     * Returns a list of available priorities.
+     * @return a list of Priority objects
+     */
+    public List<Priority> getPriorities() {
+        return getEntityList(Priority.class, TestRailCommand.GET_PRIORITIES.getCommand(), null);
+    }
+
 
     //API: Projects---------------------------------------------------
 
