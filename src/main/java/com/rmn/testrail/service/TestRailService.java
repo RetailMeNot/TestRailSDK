@@ -351,12 +351,12 @@ public class TestRailService implements Serializable {
     }
 
     /**
-     * Adds a Milestone in TestRails
-     * @param projectId the ID of the project to add the Milestone to
-     * @param milestone the skeleton Milestone object the TestRails Milestone will be based off of
-     * @return the completed Milestone created in TestRails
+     * Creates a new milestone.
+     * @param milestone The EmptyMilestone object with parameters for creating a new milestone
+     * @param projectId The ID of the project the milestone should be added to
+     * @return Returns the new milestone that was created
      */
-    public Milestone addMilestone(int projectId, Milestone milestone) {
+    public Milestone addMilestone(EmptyMilestone milestone, int projectId) {
         return postRESTBodyReturn(TestRailCommand.ADD_MILESTONE.getCommand(), Integer.toString(projectId), milestone, Milestone.class);
     }
 
