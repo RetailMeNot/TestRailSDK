@@ -273,10 +273,11 @@ public class TestRailService implements Serializable {
 
     /**
      * Returns a list of available configurations, grouped by configuration groups (requires TestRail 3.1 or later).
+     * @param projectId
      * @return String with JSON response, you must parse the string yourself
      */
-    public String getConfigurations() {
-        HttpURLConnection connection = getRESTRequest(TestRailCommand.GET_CONFIGS.getCommand(), null);
+    public String getConfigurations(int projectId) {
+        HttpURLConnection connection = getRESTRequest(TestRailCommand.GET_CONFIGS.getCommand(), Integer.toString(projectId));
         return utils.getContentsFromConnection(connection);
     }
 
@@ -286,6 +287,14 @@ public class TestRailService implements Serializable {
      */
     public void addConfigGroup(ConfigurationGroup configurationGroup, int projectId) {
         postRESTBody(TestRailCommand.ADD_CONFIG_GROUP.getCommand(), null, configurationGroup);
+    }
+
+    /**
+     * Creates a new configuration group.
+     * @param configGroupId The ID of the configuration group the configuration should be added to
+     */
+    public void addConfig(Configuration configuration, int configGroupId) {
+        postRESTBody(TestRailCommand.ADD_CONFIG.getCommand(), Integer.toString(configGroupId), configuration);
     }
 
     //API: Milestones-------------------------------------------------
