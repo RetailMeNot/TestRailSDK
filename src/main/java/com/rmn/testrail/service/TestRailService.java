@@ -1,21 +1,7 @@
 package com.rmn.testrail.service;
 
-import com.rmn.testrail.entity.BaseEntity;
+import com.rmn.testrail.entity.*;
 import com.rmn.testrail.entity.Error;
-import com.rmn.testrail.entity.Milestone;
-import com.rmn.testrail.entity.PlanEntry;
-import com.rmn.testrail.entity.Project;
-import com.rmn.testrail.entity.Section;
-import com.rmn.testrail.entity.TestCase;
-import com.rmn.testrail.entity.TestInstance;
-import com.rmn.testrail.entity.TestPlan;
-import com.rmn.testrail.entity.TestPlanCreator;
-import com.rmn.testrail.entity.TestResult;
-import com.rmn.testrail.entity.TestResults;
-import com.rmn.testrail.entity.TestRun;
-import com.rmn.testrail.entity.TestRunCreator;
-import com.rmn.testrail.entity.TestSuite;
-import com.rmn.testrail.entity.User;
 import com.rmn.testrail.parameters.ApiFilterValue;
 import com.rmn.testrail.parameters.ApiParameter;
 import com.rmn.testrail.parameters.ApiParameters;
@@ -294,6 +280,13 @@ public class TestRailService implements Serializable {
         return utils.getContentsFromConnection(connection);
     }
 
+    /**
+     * Creates a new configuration group.
+     * @param projectId The ID of the project the configuration group should be added to
+     */
+    public void addConfigGroup(ConfigurationGroup configurationGroup, int projectId) {
+        postRESTBody(TestRailCommand.ADD_CONFIG_GROUP.getCommand(), null, configurationGroup);
+    }
 
     //API: Milestones-------------------------------------------------
 
