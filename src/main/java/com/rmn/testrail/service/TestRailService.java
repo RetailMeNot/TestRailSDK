@@ -187,12 +187,20 @@ public class TestRailService implements Serializable {
     }
 
     /**
+     * Get the complete list of all test cases in this Project (if the project is operating in single suite mode)
+     * @return the List of TestCase entities associated with this TestSuite
+     */
+    public List<TestCase> getTestCases(int projectId) {
+        return getTestCases(projectId, -1, -1);
+    }
+
+    /**
      * Get the complete list of all test cases in this TestSuite
      * @param suiteId The Suite ID (in TestRails, this will be something like 'S7', but just provide the 7)
      * @return the List of TestCase entities associated with this TestSuite
      */
     public List<TestCase> getTestCases(int projectId, int suiteId) {
-        return getEntityList(TestCase.class, TestRailCommand.GET_CASES.getCommand(), String.format("%d&suite_id=%d", projectId, suiteId));
+        return getTestCases(projectId, suiteId, -1);
     }
 
     /**
@@ -202,7 +210,14 @@ public class TestRailService implements Serializable {
      * @return A List of the TestCases in this Suite
      */
     public List<TestCase> getTestCases(int projectId, int suiteId, int sectionId) {
-        return getEntityList(TestCase.class, TestRailCommand.GET_CASES.getCommand(), String.format("%d&suite_id=%d&section_id=%d", projectId, suiteId, sectionId));
+        String params = String.format("%d", projectId);
+        if (suiteId > 0) {
+            params += String.format("&suite_id=%d", suiteId);
+        }
+        if (sectionId > 0) {
+            params += String.format("&section_id=%d", sectionId);
+        }
+        return getEntityList(TestCase.class, TestRailCommand.GET_CASES.getCommand(), params);
     }
 
     /**
