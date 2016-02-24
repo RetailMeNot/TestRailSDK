@@ -613,6 +613,35 @@ public class TestRailService implements Serializable {
     }
 
     /**
+     * Returns a list of test results for a test run and case combination.
+     * @param runId The ID of the test run
+     * @param caseId The ID of the test case
+     * @param apiFilters one or more request filters built on GetResultsFilter enums
+     * @return A List of TestResults in descending chronological order (i.e. most recent first)
+     */
+    public List<TestResult> getTestResultsForCase(int runId, int caseId, ApiFilterValue... apiFilters) {
+        String params = Integer.toString(runId) + "/" + Integer.toString(caseId);
+        for (ApiFilterValue apiFilter : apiFilters) {
+            params += apiFilter.append();
+        }
+        return getEntityList(TestResult.class, TestRailCommand.GET_RESULTS_FOR_CASE.getCommand(), params);
+    }
+
+    /**
+     * Returns a list of test results for a test run and case combination.
+     * @param runId The ID of the test run
+     * @param apiFilters one or more request filters built on GetResultsFilter enums
+     * @return A List of TestResults in descending chronological order (i.e. most recent first)
+     */
+    public List<TestResult> getTestResultsForRun(int runId, ApiFilterValue... apiFilters) {
+        String params = Integer.toString(runId);
+        for (ApiFilterValue apiFilter : apiFilters) {
+            params += apiFilter.append();
+        }
+        return getEntityList(TestResult.class, TestRailCommand.GET_RESULTS_FOR_RUN.getCommand(), params);
+    }
+
+    /**
      * Add a TestResult to a particular TestInstance, given the TestInstance id
      * @param testId The id of the TestInstance to which you would like to add a TestResult entity
      * @param result One or more TestResult entities you wish to add to this TestInstance

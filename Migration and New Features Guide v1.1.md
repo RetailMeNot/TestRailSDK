@@ -105,3 +105,9 @@ Now supports deleting a project. Method is `deleteProject(int projectId);` **Ple
 ## Results
 ### Get Results
 Now supports request filters. To add a filter, call `getTestResults` with extra `ApiFilterValue` parameters like so: `getTestCases(testInstanceId, parameter1, parameter2, ... parameterN)`. To create an ApiFilterValue parameter, declare a `new ApiFilterValue(GetResultsFilter.<ENUM>, <VALUE>);`
+
+### Get Results For Case
+Now supports getting results for a particular case. Method is `getTestResultsForCase(int runId, int caseId, ApiFilterValue... apiFilters);`
+
+### Get Results For Run
+Now supports getting results for a particular run. Method is `getTestResultsForRun(int runId, ApiFilterValue... apiFilters);`
