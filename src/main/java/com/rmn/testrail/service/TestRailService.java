@@ -788,7 +788,7 @@ public class TestRailService implements Serializable {
     public TestRun closeTestRun(int runId) throws IOException{
         HttpResponse response = postRESTBody(TestRailCommand.CLOSE_RUN.getCommand(), Integer.toString(runId), null);
         if (response.getStatusLine().getStatusCode() != 200) {
-            throw new RuntimeException(String.format("TestRun was not properly closed, TestRunID [%d]: %s", run.getId(), response.getStatusLine().getReasonPhrase()));
+            throw new RuntimeException(String.format("TestRun was not properly closed, TestRunID [%d]: %s", runId, response.getStatusLine().getReasonPhrase()));
         }
         return JSONUtils.getMappedJsonObject(TestRun.class, utils.getContentsFromHttpResponse(response));
     }
