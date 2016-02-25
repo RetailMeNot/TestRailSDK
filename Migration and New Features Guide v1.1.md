@@ -115,3 +115,9 @@ Now supports getting results for a particular run. Method is `getTestResultsForR
 ### Add Result
 Now returns newly reported result.
 Removed unsupported fields in TestResult object.
+
+### Add Result For Case
+Now supports adding result for a particular case. Method is `addTestResultForCase(int runId, int caseId, TestResult result);`
+
+### Add Results
+Now returns newly reported results as a TestResults object (not a list).

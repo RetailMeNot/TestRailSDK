@@ -658,15 +658,35 @@ public class TestRailService implements Serializable {
     }
 
     /**
+     * Adds a new test result, comment or assigns a test (for a test run and case combination). It's recommended to use add_results_for_cases instead if you plan to add results for multiple test cases.
+     * @param runId The ID of the test run
+     * @param caseId The ID of the test case
+     * @param result TestResult entity you wish to add to this TestInstance
+     * @return the new test result
+     * @throws IOException
+     */
+    public TestResult addTestResultForCase(int runId, int caseId, TestResult result) throws IOException {
+        HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULT_FOR_CASE.getCommand(), Integer.toString(runId) + "/" + Integer.toString(caseId), result);
+        if (response.getStatusLine().getStatusCode() != 200) {
+            throw new RuntimeException(String.format("TestResult was not properly added to Run ID: %d | Case ID: %d: %s", runId, caseId, response.getStatusLine().getReasonPhrase()));
+        }
+        return JSONUtils.getMappedJsonObject(TestResult.class, utils.getContentsFromHttpResponse(response));
+    }
+
+    /**
+     * (Adds one or more new test results, comments or assigns one or more tests. Ideal for test automation to bulk-add multiple test results in one step.)
      * Add a TestResult to a particular TestInstance, given the TestInstance id
      * @param runId The id of the TestRun to which you would like to add a TestResults entity
      * @param results A TestResults entity (which can include multiple TestResult entities) you wish to add to this TestRun
      */
-    public void addTestResults(int runId, TestResults results) {
+    public TestResults addTestResults(int runId, TestResults results) throws IOException {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULTS.getCommand(), Integer.toString(runId), results);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestResults was not properly added to TestRun [%d]: %s", runId, response.getStatusLine().getReasonPhrase()));
         }
+        TestResults returnedResults = new TestResults();
+        returnedResults.setResults(JSONUtils.getMappedJsonObjectList(TestResult.class, utils.getContentsFromHttpResponse(response)));
+        return returnedResults;
     }
 
 
