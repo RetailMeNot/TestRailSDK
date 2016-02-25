@@ -732,10 +732,15 @@ public class TestRailService implements Serializable {
     /**
      * Returns all the Active TestRuns associated with the given Project
      * @param projectId The id of the Project
+     * @param apiFilters one or more request filters built on GetRunsFilter enums
      * @return The List of TestRuns currently active for this Project
      */
-    public List<TestRun> getTestRuns(int projectId) {
-        return getEntityList(TestRun.class, TestRailCommand.GET_RUNS.getCommand(), Integer.toString(projectId));
+    public List<TestRun> getTestRuns(int projectId, ApiFilterValue... apiFilters) {
+        String params = Integer.toString(projectId);
+        for (ApiFilterValue apiFilter : apiFilters) {
+            params += apiFilter.append();
+        }
+        return getEntityList(TestRun.class, TestRailCommand.GET_RUNS.getCommand(), params);
     }
 
     /**

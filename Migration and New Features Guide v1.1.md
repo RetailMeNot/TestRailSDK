@@ -128,3 +128,7 @@ Now supports adding results for a particular case. Method is `addTestResultsForC
 ## Result Fields
 ### Get Result Fields
 Now supports getting result fields. Method is `getResultFields();`
+
+## Runs
+### Get Runs
+Now supports request filters. To add a filter, call `getTestRuns` with extra `ApiFilterValue` parameters like so: `getTestCases(projectId, parameter1, parameter2, ... parameterN)`. To create an ApiFilterValue parameter, declare a `new ApiFilterValue(GetRunsFilter.<ENUM>, <VALUE>);`
