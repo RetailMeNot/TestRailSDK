@@ -650,14 +650,18 @@ public class TestRailService implements Serializable {
      * @param testId The id of the TestInstance to which you would like to add a TestResult entity
      * @param result TestResult entity you wish to add to this TestInstance
      * @return the new test result
-     * @throws IOException occurs when unable to read response code from HttpResponse
      */
-    public TestResult addTestResult(int testId, TestResult result) throws IOException {
+    public TestResult addTestResult(int testId, TestResult result) {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULT.getCommand(), Integer.toString(testId), result);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestResult was not properly added to TestInstance [%d]: %s", testId, response.getStatusLine().getReasonPhrase()));
         }
-        return JSONUtils.getMappedJsonObject(TestResult.class, utils.getContentsFromHttpResponse(response));
+        try {
+            return JSONUtils.getMappedJsonObject(TestResult.class, utils.getContentsFromHttpResponse(response));
+        } catch (IOException e) {
+            System.out.println("IOException occurred: " + e);
+            return null;
+        }
     }
 
     /**
@@ -666,14 +670,18 @@ public class TestRailService implements Serializable {
      * @param caseId The ID of the test case
      * @param result TestResult entity you wish to add to this TestInstance
      * @return the new test result
-     * @throws IOException occurs when unable to read response code from HttpResponse
      */
-    public TestResult addTestResultForCase(int runId, int caseId, TestResult result) throws IOException {
+    public TestResult addTestResultForCase(int runId, int caseId, TestResult result) {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULT_FOR_CASE.getCommand(), Integer.toString(runId) + "/" + Integer.toString(caseId), result);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestResult was not properly added to Run ID: %d | Case ID: %d: %s", runId, caseId, response.getStatusLine().getReasonPhrase()));
         }
-        return JSONUtils.getMappedJsonObject(TestResult.class, utils.getContentsFromHttpResponse(response));
+        try {
+            return JSONUtils.getMappedJsonObject(TestResult.class, utils.getContentsFromHttpResponse(response));
+        } catch (IOException e) {
+            System.out.println("IOException occurred: " + e);
+            return null;
+        }
     }
 
     /**
@@ -681,17 +689,21 @@ public class TestRailService implements Serializable {
      * Add a TestResult to a particular TestInstance, given the TestInstance id
      * @param runId The id of the TestRun to which you would like to add a TestResults entity
      * @param results A TestResults entity (which can include multiple TestResult entities) you wish to add to this TestRun
-     * @throws IOException occurs when unable to read response code from HttpResponse
      * @return the newly created TestResults object
      */
-    public TestResults addTestResults(int runId, TestResults results) throws IOException {
+    public TestResults addTestResults(int runId, TestResults results) {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULTS.getCommand(), Integer.toString(runId), results);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestResults was not properly added to TestRun [%d]: %s", runId, response.getStatusLine().getReasonPhrase()));
         }
         TestResults returnedResults = new TestResults();
-        returnedResults.setResults(JSONUtils.getMappedJsonObjectList(TestResult.class, utils.getContentsFromHttpResponse(response)));
-        return returnedResults;
+        try {
+            returnedResults.setResults(JSONUtils.getMappedJsonObjectList(TestResult.class, utils.getContentsFromHttpResponse(response)));
+            return returnedResults;
+        } catch (IOException e) {
+            System.out.println("IOException occurred: " + e);
+            return null;
+        }
     }
 
     /**
@@ -699,17 +711,21 @@ public class TestRailService implements Serializable {
      * Add a TestResult to a particular TestInstance, given the TestInstance id
      * @param runId The id of the TestRun to which you would like to add a TestResults entity
      * @param results A TestResults entity (which can include multiple TestResult entities) you wish to add to this TestRun
-     * @throws IOException occurs when unable to read response code from HttpResponse
      * @return the newly created TestResults object
      */
-    public TestResults addTestResultsForCases(int runId, TestResults results) throws IOException {
+    public TestResults addTestResultsForCases(int runId, TestResults results) {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULTS_FOR_CASES.getCommand(), Integer.toString(runId), results);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestResults was not properly added to TestRun [%d]: %s", runId, response.getStatusLine().getReasonPhrase()));
         }
         TestResults returnedResults = new TestResults();
-        returnedResults.setResults(JSONUtils.getMappedJsonObjectList(TestResult.class, utils.getContentsFromHttpResponse(response)));
-        return returnedResults;
+        try {
+            returnedResults.setResults(JSONUtils.getMappedJsonObjectList(TestResult.class, utils.getContentsFromHttpResponse(response)));
+            return returnedResults;
+        } catch (IOException e) {
+            System.out.println("IOException occurred: " + e);
+            return null;
+        }
     }
 
     //API: Result Fields----------------------------------------------
@@ -777,14 +793,17 @@ public class TestRailService implements Serializable {
      * Please note: Closing a test run cannot be undone.
      * @param run The TestRun you want to close
      * @return the newly closed test run
-     * @throws IOException occurs when unable to read response code from HttpResponse
      */
-    public TestRun closeTestRun(TestRun run) throws IOException{
+    public TestRun closeTestRun(TestRun run) {
         HttpResponse response = postRESTBody(TestRailCommand.CLOSE_RUN.getCommand(), Integer.toString(run.getId()), run);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestRun was not properly closed, TestRunID [%d]: %s", run.getId(), response.getStatusLine().getReasonPhrase()));
         }
-        return JSONUtils.getMappedJsonObject(TestRun.class, utils.getContentsFromHttpResponse(response));
+        try {
+            return JSONUtils.getMappedJsonObject(TestRun.class, utils.getContentsFromHttpResponse(response));
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     /**
@@ -792,14 +811,18 @@ public class TestRailService implements Serializable {
      * Please note: Closing a test run cannot be undone.
      * @param runId The ID of the test run
      * @return the newly closed test run
-     * @throws IOException occurs when unable to read response code from HttpResponse
      */
-    public TestRun closeTestRun(int runId) throws IOException{
+    public TestRun closeTestRun(int runId) {
         HttpResponse response = postRESTBody(TestRailCommand.CLOSE_RUN.getCommand(), Integer.toString(runId), null);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestRun was not properly closed, TestRunID [%d]: %s", runId, response.getStatusLine().getReasonPhrase()));
         }
-        return JSONUtils.getMappedJsonObject(TestRun.class, utils.getContentsFromHttpResponse(response));
+        try {
+            return JSONUtils.getMappedJsonObject(TestRun.class, utils.getContentsFromHttpResponse(response));
+        } catch (IOException e) {
+            System.out.println("IOException occurred: " + e);
+            return null;
+        }
     }
 
     /**
