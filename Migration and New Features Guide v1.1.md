@@ -146,3 +146,7 @@ Now supports deleting a run. Method is `deleteTestRun(int runId);` **Please note
 ## Sections
 ### Get Section
 Now supports getting a section. Method is `getSection(int sectionId);`
+
+## Statuses
+### Get Statuses
+Now supports getting statuses. Method is `getStatuses();`

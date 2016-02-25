@@ -710,11 +710,10 @@ public class TestRailService implements Serializable {
     /**
      * Returns a list of available test result custom fields.
      * @return String with JSON response, you must parse the string yourself
-     * @throws IOException
      */
     public String getResultFields() {
-        HttpURLConnection connnection = getRESTRequest(TestRailCommand.GET_RESULT_FIELDS.getCommand(), null);
-        return utils.getContentsFromConnection(connnection);
+        HttpURLConnection connection = getRESTRequest(TestRailCommand.GET_RESULT_FIELDS.getCommand(), null);
+        return utils.getContentsFromConnection(connection);
     }
 
 
@@ -825,6 +824,15 @@ public class TestRailService implements Serializable {
 
 
     //API: Statuses---------------------------------------------------
+
+    /**
+     * Returns a list of available test statuses.
+     * @return String with JSON response, you must parse the string yourself
+     */
+    public String getStatuses() {
+        HttpURLConnection connection = getRESTRequest(TestRailCommand.GET_STATUSES.getCommand(), null);
+        return utils.getContentsFromConnection(connection);
+    }
 
 
     //API: Suites-----------------------------------------------------
