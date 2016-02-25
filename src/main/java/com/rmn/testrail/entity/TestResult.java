@@ -13,6 +13,16 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestResult extends BaseEntity implements Serializable {
+    @JsonProperty("case_id")
+    private Integer caseId;
+    public Integer getCaseId() { return caseId; }
+    public void setCaseId(Integer testId) { this.caseId = caseId; }
+
+    @JsonProperty("test_id")
+    private Integer testId;
+    public Integer getTestId() { return testId; }
+    public void setTestId(Integer testId) { this.testId = testId; }
+
     @JsonProperty("status_id")
     private Integer statusId;
     public Integer getStatusId() { return statusId; }

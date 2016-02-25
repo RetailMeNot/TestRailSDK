@@ -689,6 +689,21 @@ public class TestRailService implements Serializable {
         return returnedResults;
     }
 
+    /**
+     * (Adds one or more new test results, comments or assigns one or more tests. Ideal for test automation to bulk-add multiple test results in one step.)
+     * Add a TestResult to a particular TestInstance, given the TestInstance id
+     * @param runId The id of the TestRun to which you would like to add a TestResults entity
+     * @param results A TestResults entity (which can include multiple TestResult entities) you wish to add to this TestRun
+     */
+    public TestResults addTestResultsForCases(int runId, TestResults results) throws IOException {
+        HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULTS_FOR_CASES.getCommand(), Integer.toString(runId), results);
+        if (response.getStatusLine().getStatusCode() != 200) {
+            throw new RuntimeException(String.format("TestResults was not properly added to TestRun [%d]: %s", runId, response.getStatusLine().getReasonPhrase()));
+        }
+        TestResults returnedResults = new TestResults();
+        returnedResults.setResults(JSONUtils.getMappedJsonObjectList(TestResult.class, utils.getContentsFromHttpResponse(response)));
+        return returnedResults;
+    }
 
     //API: Result Fields----------------------------------------------
 

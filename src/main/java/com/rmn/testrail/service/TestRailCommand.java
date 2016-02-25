@@ -62,7 +62,7 @@ public enum TestRailCommand {
     ADD_RESULT("add_result"),
     ADD_RESULT_FOR_CASE("add_result_for_case"),
     ADD_RESULTS("add_results"),
-    ADD_RESULTS_FOR_CASE("add_results_for_case"),
+    ADD_RESULTS_FOR_CASES("add_results_for_cases"),
 
     //API: Result Fields
     GET_RESULT_FIELDS("get_result_fields"),

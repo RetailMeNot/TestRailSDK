@@ -121,3 +121,6 @@ Now supports adding result for a particular case. Method is `addTestResultForCas
 
 ### Add Results
 Now returns newly reported results as a TestResults object (not a list).
+
+### Add Results for Cases
+Now supports adding results for a particular case. Method is `addTestResultsForCases(int runId, TestResults result);`
