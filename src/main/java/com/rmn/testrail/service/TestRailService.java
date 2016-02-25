@@ -757,15 +757,49 @@ public class TestRailService implements Serializable {
     }
 
     /**
-     * Complete a TestRun
+     * Updates an existing test run (partial updates are supported, i.e. you can submit and update specific fields only).
+     * @param runId The ID of the test run
+     * @return the updated test run
      */
-    public HttpResponse closeTestRun(TestRun run) {
+    public TestRun updateTestRun(int runId, TestRun testRun) {
+        return postRESTBodyReturn(TestRailCommand.UPDATE_RUN.getCommand(), Integer.toString(runId), testRun, TestRun.class);
+    }
+
+    /**
+     * Closes an existing test run and archives its tests & results.
+     * Please note: Closing a test run cannot be undone.
+     * @param run The TestRun you want to close
+     * @return the newly closed test run
+     */
+    public TestRun closeTestRun(TestRun run) throws IOException{
         HttpResponse response = postRESTBody(TestRailCommand.CLOSE_RUN.getCommand(), Integer.toString(run.getId()), run);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestRun was not properly closed, TestRunID [%d]: %s", run.getId(), response.getStatusLine().getReasonPhrase()));
         }
+        return JSONUtils.getMappedJsonObject(TestRun.class, utils.getContentsFromHttpResponse(response));
+    }
 
-        return response;
+    /**
+     * Closes an existing test run and archives its tests & results.
+     * Please note: Closing a test run cannot be undone.
+     * @param runId The ID of the test run
+     * @return the newly closed test run
+     */
+    public TestRun closeTestRun(int runId) throws IOException{
+        HttpResponse response = postRESTBody(TestRailCommand.CLOSE_RUN.getCommand(), Integer.toString(runId), null);
+        if (response.getStatusLine().getStatusCode() != 200) {
+            throw new RuntimeException(String.format("TestRun was not properly closed, TestRunID [%d]: %s", run.getId(), response.getStatusLine().getReasonPhrase()));
+        }
+        return JSONUtils.getMappedJsonObject(TestRun.class, utils.getContentsFromHttpResponse(response));
+    }
+
+    /**
+     * The ID of the test run
+     * Please note: Deleting a test run cannot be undone and also permanently deletes all tests & results of the test run.
+     * @param runId The ID of the test run
+     */
+    public void deleteTestRun(int runId) {
+        postRESTBody(TestRailCommand.DELETE_RUN.getCommand(), Integer.toString(runId), null);
     }
 
 

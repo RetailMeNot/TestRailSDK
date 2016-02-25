@@ -132,3 +132,13 @@ Now supports getting result fields. Method is `getResultFields();`
 ## Runs
 ### Get Runs
 Now supports request filters. To add a filter, call `getTestRuns` with extra `ApiFilterValue` parameters like so: `getTestCases(projectId, parameter1, parameter2, ... parameterN)`. To create an ApiFilterValue parameter, declare a `new ApiFilterValue(GetRunsFilter.<ENUM>, <VALUE>);`
+
+### Update Run
+Now supports updating a run. Method is `updateTestRun(int runId, TestRun testRun);`
+
+### Close Run
+Now returns TestRun object on closing.
+Now supports closing a run just by run ID. Method is `closeTestRun(int runId);` **Please note: Closing a test run cannot be undone.**
+
+### Delete Run
+Now supports deleting a run. Method is `deleteTestRun(int runId);` **Please note: Deleting a test run cannot be undone and also permanently deletes all tests & results of the test run.**
