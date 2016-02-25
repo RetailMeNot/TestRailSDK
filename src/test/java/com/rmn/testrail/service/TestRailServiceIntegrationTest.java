@@ -252,7 +252,7 @@ public class TestRailServiceIntegrationTest {
     }
 
     @Test
-    public void testAddTestCaseResultPass() {
+    public void testAddTestCaseResultPass() throws IOException {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -265,7 +265,7 @@ public class TestRailServiceIntegrationTest {
     }
 
     @Test
-    public void testAddTestCaseResultsList() {
+    public void testAddTestCaseResultsList() throws IOException {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -296,7 +296,7 @@ public class TestRailServiceIntegrationTest {
     }
 
     @Test
-    public void testAddTestCaseResultFail() {
+    public void testAddTestCaseResultFail() throws IOException {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -309,7 +309,7 @@ public class TestRailServiceIntegrationTest {
     }
 
     @Test
-    public void testAddTestCaseResultBlocked() {
+    public void testAddTestCaseResultBlocked() throws IOException {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -322,7 +322,7 @@ public class TestRailServiceIntegrationTest {
     }
 
     @Test
-    public void testAddTestCaseResultUntested() {
+    public void testAddTestCaseResultUntested() throws IOException {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -335,7 +335,7 @@ public class TestRailServiceIntegrationTest {
     }
 
     @Test
-    public void testAddTestCaseResultRetest() {
+    public void testAddTestCaseResultRetest() throws IOException {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -348,7 +348,7 @@ public class TestRailServiceIntegrationTest {
     }
 
     @Test
-    public void testAddCustomTestCaseStatus() {
+    public void testAddCustomTestCaseStatus() throws IOException {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
