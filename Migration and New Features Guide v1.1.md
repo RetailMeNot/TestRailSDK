@@ -111,3 +111,7 @@ Now supports getting results for a particular case. Method is `getTestResultsFor
 
 ### Get Results For Run
 Now supports getting results for a particular run. Method is `getTestResultsForRun(int runId, ApiFilterValue... apiFilters);`
+
+### Add Result
+Now returns newly reported result.
+Removed unsupported fields in TestResult object.

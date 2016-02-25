@@ -642,15 +642,19 @@ public class TestRailService implements Serializable {
     }
 
     /**
+     * (Adds a new test result, comment or assigns a test. It's recommended to use add_results instead if you plan to add results for multiple tests.)
      * Add a TestResult to a particular TestInstance, given the TestInstance id
      * @param testId The id of the TestInstance to which you would like to add a TestResult entity
-     * @param result One or more TestResult entities you wish to add to this TestInstance
+     * @param result TestResult entity you wish to add to this TestInstance
+     * @return the new test result
+     * @throws IOException
      */
-    public void addTestResult(int testId, TestResult result) {
+    public TestResult addTestResult(int testId, TestResult result) throws IOException {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULT.getCommand(), Integer.toString(testId), result);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestResult was not properly added to TestInstance [%d]: %s", testId, response.getStatusLine().getReasonPhrase()));
         }
+        return JSONUtils.getMappedJsonObject(TestResult.class, utils.getContentsFromHttpResponse(response));
     }
 
     /**
