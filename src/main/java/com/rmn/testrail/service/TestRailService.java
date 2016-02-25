@@ -707,6 +707,16 @@ public class TestRailService implements Serializable {
 
     //API: Result Fields----------------------------------------------
 
+    /**
+     * Returns a list of available test result custom fields.
+     * @return String with JSON response, you must parse the string yourself
+     * @throws IOException
+     */
+    public String getResultFields() {
+        HttpURLConnection connnection = getRESTRequest(TestRailCommand.GET_RESULT_FIELDS.getCommand(), null);
+        return utils.getContentsFromConnection(connnection);
+    }
+
 
     //API: Runs-------------------------------------------------------
 

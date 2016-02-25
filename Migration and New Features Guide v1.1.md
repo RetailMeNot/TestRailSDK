@@ -124,3 +124,7 @@ Now returns newly reported results as a TestResults object (not a list).
 
 ### Add Results for Cases
 Now supports adding results for a particular case. Method is `addTestResultsForCases(int runId, TestResults result);`
+
+## Result Fields
+### Get Result Fields
+Now supports getting result fields. Method is `getResultFields();`
