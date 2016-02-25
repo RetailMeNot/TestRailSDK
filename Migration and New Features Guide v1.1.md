@@ -142,3 +142,7 @@ Now supports closing a run just by run ID. Method is `closeTestRun(int runId);` 
 
 ### Delete Run
 Now supports deleting a run. Method is `deleteTestRun(int runId);` **Please note: Deleting a test run cannot be undone and also permanently deletes all tests & results of the test run.**
+
+## Sections
+### Get Section
+Now supports getting a section. Method is `getSection(int sectionId);`

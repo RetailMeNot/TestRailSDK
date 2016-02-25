@@ -806,6 +806,14 @@ public class TestRailService implements Serializable {
     //API: Sections---------------------------------------------------
 
     /**
+     * Returns an existing section.
+     * @param sectionId The ID of the section
+     * @return a Section object
+     */
+    public Section getSection(int sectionId) {
+        return getEntitySingle(Section.class, TestRailCommand.GET_SECTION.getCommand(), Integer.toString(sectionId));
+    }
+    /**
      * Returns the List of Section entities the indicated Project and TestSuite entities contain
      * @param projectId The id of the Project you're interested in
      * @param suiteId The id of the TestSuite you're interested in
