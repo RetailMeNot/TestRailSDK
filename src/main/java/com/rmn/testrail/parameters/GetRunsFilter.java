@@ -1,7 +1,7 @@
 package com.rmn.testrail.parameters;
 
 public enum GetRunsFilter implements ApiFilter {
-    //Request filters for get_cases
+    //Request filters for get_runs
     CREATED_AFTER("created_after"),
     CREATED_BEFORE("created_before"),
     CREATED_BY("created_by"),

@@ -539,6 +539,7 @@ public class TestRailService implements Serializable {
 
     /**
      * Returns all Project entities related to this account
+     * @param isCompleted ApiFilterValue object based off of GetProjectsFilter.IS_COMPLETED enum
      * @return The List of ALL Projects available to this user
      */
     public List<Project> getProjects(ApiFilterValue... isCompleted) {
@@ -886,16 +887,35 @@ public class TestRailService implements Serializable {
 
     //API: Templates--------------------------------------------------
 
+    /**
+     * Returns a list of available templates (requires TestRail 5.2 or later).
+     * @return The ID of the project
+     */
+    public String getTemplates() {
+        HttpURLConnection connection = getRESTRequest(TestRailCommand.GET_TEMPLATES.getCommand(), null);
+        return utils.getContentsFromConnection(connection);
+    }
+
 
     //API: Tests------------------------------------------------------
 
     /**
+     * Returns an existing test.
+     * @param testId The ID of the test
+     * @return TestInstance object
+     */
+    public TestInstance getTest(int testId) {
+        return getEntitySingle(TestInstance.class, TestRailCommand.GET_TEST.getCommand(), Integer.toString(testId));
+    }
+
+    /**
      * Returns all TestInstances associated with the given TestRun
      * @param testRunId The id of the TestRun you're interested in
+     * @param isCompleted ApiFilterValue object based off of GetProjectsFilter.IS_COMPLETED enum
      * @return The List of TestInstances associated with this TestRun
      */
-    public List<TestInstance> getTests(int testRunId) {
-        return getEntityList(TestInstance.class, TestRailCommand.GET_TESTS.getCommand(), Integer.toString(testRunId));
+    public List<TestInstance> getTests(int testRunId, ApiFilterValue... statusId) {
+        return getEntityList(TestInstance.class, TestRailCommand.GET_TESTS.getCommand(), Integer.toString(testRunId) + (statusId.length > 0 ? statusId[0].append() : null));
     }
 
 

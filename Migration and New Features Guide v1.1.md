@@ -160,3 +160,15 @@ Now supports adding a suite. Method is `updateTestSuite(int suiteId, TestSuite t
 
 ### Delete Suite
 Now supports deleting a suite. Method is `deleteTestSuite(int suiteId);` **Please note: Deleting a test suite cannot be undone and also deletes all active test runs & results, i.e. test runs & results that weren't closed (archived) yet.**
+
+## Templates
+### Get Templates
+Now supports getting templates. Method is `getTemplates();`
+
+## Tests
+### Get Test
+Now support getting a test. Method is `getTest(int testId);`
+
+### Get Tests
+Now support new fields in TestInstance object.
+Now supports request filter `status_id` in GetTestsFilter.
