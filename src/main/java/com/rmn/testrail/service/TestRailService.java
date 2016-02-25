@@ -550,7 +550,7 @@ public class TestRailService implements Serializable {
      * @param newProject project information of new project to add
      * @return new project that was created
      */
-    public Project addProject(ProjectNew newProject) {
+    public Project addProject(ProjectCreator newProject) {
         return postRESTBodyReturn(TestRailCommand.ADD_PROJECT.getCommand(), null, newProject, Project.class);
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
  *   It returns ALL test runs underneath ALL test plans within the history of the project. Useless. If
  *   you can present me with a good use-case for implementing it, I'll be all ears (and very surprised)
  */
-public class ProjectNew extends BaseEntity {
+public class ProjectCreator extends BaseEntity {
     @JsonProperty("name")
     private String name;
     public String getName() { return name; }
