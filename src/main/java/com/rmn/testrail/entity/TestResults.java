@@ -18,7 +18,7 @@ public class TestResults extends BaseEntity {
 
     /**
      * Allows you to add a test result to the list of results that will be posted
-     * @param result
+     * @param result The TestResult object you want to add
      */
     public void addResult(TestResult result) {
         results.add(result);

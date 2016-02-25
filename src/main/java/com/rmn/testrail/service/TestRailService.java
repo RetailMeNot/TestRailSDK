@@ -53,7 +53,7 @@ public class TestRailService implements Serializable {
 
     /**
      * Construct a new TestRailService with the necessary information to start communication immediately
-     * @param clientId The clientID--usually the "<id>.testrail.com" you are assigned when you first open an account
+     * @param clientId The clientID--usually the "{id}.testrail.com" you are assigned when you first open an account
      * @param username The username you will use to communicate with the API. It is recommended to create an account with minimal privileges, specifically for API use
      * @param password The password to use with this account
      */
@@ -154,6 +154,7 @@ public class TestRailService implements Serializable {
     /**
      * Pings the API, mainly to ensure that your credentials are correct
      * @return Whether or not it was able to establish a successful connection
+     * @throws IOException occurs when unable to read response code from HttpUrlConnection
      */
     public boolean verifyCredentials() throws IOException {
         //At the moment this just grabs a list of projects and makes sure the response code is valid. The API does not have
@@ -235,6 +236,7 @@ public class TestRailService implements Serializable {
      * Creates a new test case.
      * @param testCase the new test case
      * @param sectionId The ID of the section the test case should be added to
+     * @return the newly created TestCase object
      */
     public TestCase addTestCase(TestCase testCase, int sectionId) {
         return postRESTBodyReturn(TestRailCommand.ADD_CASE.getCommand(), Integer.toString(sectionId), testCase, TestCase.class);
@@ -244,7 +246,7 @@ public class TestRailService implements Serializable {
      * Updates an existing test case (partial updates are supported, i.e. you can submit and update specific fields only).
      * @param testCase a TestCase object with fields to be updated set. (i.e. TestCase updateCase = new TestCase(); updateCase.setPriorityId(2); )
      * @param caseId The ID of the test case
-     * @return
+     * @return the updated TestCase object
      */
     public TestCase updateTestCase(TestCase testCase, int caseId) {
         return postRESTBodyReturn(TestRailCommand.UPDATE_CASE.getCommand(), Integer.toString(caseId), testCase, TestCase.class);
@@ -472,7 +474,7 @@ public class TestRailService implements Serializable {
     }
 
     /**
-     * Closes an existing test plan and archives its test runs & results.
+     * Closes an existing test plan and archives its test runs and results.
      * Please note: Closing a test plan cannot be undone.
      * @param planId The ID of the test plan
      * @return the closed test plan
@@ -483,7 +485,7 @@ public class TestRailService implements Serializable {
 
     /**
      * Deletes an existing test plan.
-     * Please note: Deleting a test plan cannot be undone and also permanently deletes all test runs & results of the test plan.
+     * Please note: Deleting a test plan cannot be undone and also permanently deletes all test runs and results of the test plan.
      * @param planId The ID of the test plan
      */
     public void deleteTestPlan(int planId) {
@@ -559,7 +561,7 @@ public class TestRailService implements Serializable {
      * Updates an existing project (admin status required; partial updates are supported, i.e. you can submit and update specific fields only).
      * @param projectId The ID of the project
      * @param isCompleted Specifies whether a project is considered completed or not
-     * @return
+     * @return the updated Project object
      */
     public Project updateProject(int projectId, final boolean isCompleted) {
         return postRESTBodyReturn(TestRailCommand.ADD_PROJECT.getCommand(),
@@ -573,7 +575,7 @@ public class TestRailService implements Serializable {
 
     /**
      * Deletes an existing project (admin status required).
-     * Please note: Deleting a project cannot be undone and also permanently deletes all test suites & cases, test runs & results and everything else that is part of the project.
+     * Please note: Deleting a project cannot be undone and also permanently deletes all test suites and cases, test runs and results and everything else that is part of the project.
      * @param projectId The ID of the project
      */
     public void deleteProject(int projectId) {
@@ -648,7 +650,7 @@ public class TestRailService implements Serializable {
      * @param testId The id of the TestInstance to which you would like to add a TestResult entity
      * @param result TestResult entity you wish to add to this TestInstance
      * @return the new test result
-     * @throws IOException
+     * @throws IOException occurs when unable to read response code from HttpResponse
      */
     public TestResult addTestResult(int testId, TestResult result) throws IOException {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULT.getCommand(), Integer.toString(testId), result);
@@ -664,7 +666,7 @@ public class TestRailService implements Serializable {
      * @param caseId The ID of the test case
      * @param result TestResult entity you wish to add to this TestInstance
      * @return the new test result
-     * @throws IOException
+     * @throws IOException occurs when unable to read response code from HttpResponse
      */
     public TestResult addTestResultForCase(int runId, int caseId, TestResult result) throws IOException {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULT_FOR_CASE.getCommand(), Integer.toString(runId) + "/" + Integer.toString(caseId), result);
@@ -679,6 +681,8 @@ public class TestRailService implements Serializable {
      * Add a TestResult to a particular TestInstance, given the TestInstance id
      * @param runId The id of the TestRun to which you would like to add a TestResults entity
      * @param results A TestResults entity (which can include multiple TestResult entities) you wish to add to this TestRun
+     * @throws IOException occurs when unable to read response code from HttpResponse
+     * @return the newly created TestResults object
      */
     public TestResults addTestResults(int runId, TestResults results) throws IOException {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULTS.getCommand(), Integer.toString(runId), results);
@@ -695,6 +699,8 @@ public class TestRailService implements Serializable {
      * Add a TestResult to a particular TestInstance, given the TestInstance id
      * @param runId The id of the TestRun to which you would like to add a TestResults entity
      * @param results A TestResults entity (which can include multiple TestResult entities) you wish to add to this TestRun
+     * @throws IOException occurs when unable to read response code from HttpResponse
+     * @return the newly created TestResults object
      */
     public TestResults addTestResultsForCases(int runId, TestResults results) throws IOException {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULTS_FOR_CASES.getCommand(), Integer.toString(runId), results);
@@ -747,8 +753,8 @@ public class TestRailService implements Serializable {
      * Add a TestRun via a slimmed down new TestRunCreator entity to get around non-obvious json serialization problems
      * with the TestRun entity
      * @param projectId the id of the project to bind the test run to
-     * @returns The newly created TestRun object
-     * @throws IOException
+     * @param run the TestRunCreator object with information on the new TestRun
+     * @return The newly created TestRun object
      */
     public TestRun addTestRun(int projectId, TestRunCreator run) {
         TestRun newSkeletonTestRun = postRESTBodyReturn(TestRailCommand.ADD_RUN.getCommand(), Integer.toString(projectId), run, TestRun.class);
@@ -759,6 +765,7 @@ public class TestRailService implements Serializable {
     /**
      * Updates an existing test run (partial updates are supported, i.e. you can submit and update specific fields only).
      * @param runId The ID of the test run
+     * @param testRun the TestRun object with updated fields
      * @return the updated test run
      */
     public TestRun updateTestRun(int runId, TestRun testRun) {
@@ -766,10 +773,11 @@ public class TestRailService implements Serializable {
     }
 
     /**
-     * Closes an existing test run and archives its tests & results.
+     * Closes an existing test run and archives its tests and results.
      * Please note: Closing a test run cannot be undone.
      * @param run The TestRun you want to close
      * @return the newly closed test run
+     * @throws IOException occurs when unable to read response code from HttpResponse
      */
     public TestRun closeTestRun(TestRun run) throws IOException{
         HttpResponse response = postRESTBody(TestRailCommand.CLOSE_RUN.getCommand(), Integer.toString(run.getId()), run);
@@ -780,10 +788,11 @@ public class TestRailService implements Serializable {
     }
 
     /**
-     * Closes an existing test run and archives its tests & results.
+     * Closes an existing test run and archives its tests and results.
      * Please note: Closing a test run cannot be undone.
      * @param runId The ID of the test run
      * @return the newly closed test run
+     * @throws IOException occurs when unable to read response code from HttpResponse
      */
     public TestRun closeTestRun(int runId) throws IOException{
         HttpResponse response = postRESTBody(TestRailCommand.CLOSE_RUN.getCommand(), Integer.toString(runId), null);
@@ -795,7 +804,7 @@ public class TestRailService implements Serializable {
 
     /**
      * The ID of the test run
-     * Please note: Deleting a test run cannot be undone and also permanently deletes all tests & results of the test run.
+     * Please note: Deleting a test run cannot be undone and also permanently deletes all tests and results of the test run.
      * @param runId The ID of the test run
      */
     public void deleteTestRun(int runId) {
@@ -820,7 +829,7 @@ public class TestRailService implements Serializable {
      * @return A List of Section entities for the indicated Project/TestSuite
      */
     public List<Section> getSections( int projectId, int suiteId ) {
-        return getEntityList(Section.class, TestRailCommand.GET_SECTIONS.getCommand(), String.format("%d&suite_id=%d", projectId, suiteId));
+        return getEntityList(Section.class, TestRailCommand.GET_SECTIONS.getCommand(), Integer.toString(projectId) + ApiParameters.append(ApiParameter.SUITE_ID, suiteId));
     }
 
 
@@ -878,7 +887,7 @@ public class TestRailService implements Serializable {
 
     /**
      * Deletes an existing test suite.
-     * Please note: Deleting a test suite cannot be undone and also deletes all active test runs & results, i.e. test runs & results that weren't closed (archived) yet.
+     * Please note: Deleting a test suite cannot be undone and also deletes all active test runs and results, i.e. test runs and results that weren't closed (archived) yet.
      * @param suiteId The ID of the test suite
      */
     public void deleteTestSuite(int suiteId) {
@@ -911,7 +920,7 @@ public class TestRailService implements Serializable {
     /**
      * Returns all TestInstances associated with the given TestRun
      * @param testRunId The id of the TestRun you're interested in
-     * @param isCompleted ApiFilterValue object based off of GetProjectsFilter.IS_COMPLETED enum
+     * @param statusId ApiFilterValue object based off of GetTestsFilter.STATUS_ID enum
      * @return The List of TestInstances associated with this TestRun
      */
     public List<TestInstance> getTests(int testRunId, ApiFilterValue... statusId) {
@@ -923,6 +932,8 @@ public class TestRailService implements Serializable {
 
     /**
      * Get a user by id
+     * @param id ID associated with user
+     * @return User object
      */
     public User getUserById(int id) {
         return getEntitySingle(User.class, TestRailCommand.GET_USER_BY_ID.getCommand(), "" + id);
@@ -930,6 +941,8 @@ public class TestRailService implements Serializable {
 
     /**
      * Get a user by email address
+     * @param email Email associated with user
+     * @return User object
      */
     public User getUserByEmail(String email) {
         return getEntitySingle(User.class, TestRailCommand.GET_USER_BY_EMAIL.getCommand(), "&email=" + email);
@@ -937,6 +950,7 @@ public class TestRailService implements Serializable {
 
     /**
      * Get the entire list of users from the API
+     * @return List of User objects
      */
     public List<User> getUsers() {
         return getEntityList(User.class, TestRailCommand.GET_USERS.getCommand(), "");

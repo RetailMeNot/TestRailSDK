@@ -118,7 +118,7 @@ public class TestRailServiceTest {
     /**
      * Returns the contents of the given file as a List of Strings
      * @param filename The name of the file to read. This file must be on the classpath at runtime
-     * @return
+     * @return String with file contents
      */
     public static String getFileContents( String filename ) {
         InputStream stream = TestRailServiceTest.class.getClassLoader().getResourceAsStream( filename );

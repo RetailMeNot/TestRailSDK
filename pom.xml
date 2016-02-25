@@ -29,6 +29,12 @@
             <organization>RetailMeNot, inc</organization>
             <organizationUrl>https://github.com/mmerrell</organizationUrl>
         </developer>
+        <developer>
+            <name>Vincent Liao</name>
+            <email>vliao@rmn.com</email>
+            <organization>RetailMeNot, inc</organization>
+            <organizationUrl>https://github.com/vinceis1337</organizationUrl>
+        </developer>
     </developers>
 
     <scm>
@@ -112,9 +118,6 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
-                                <configuration>
-                                    <additionalparam>-Xdoclint:none</additionalparam>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

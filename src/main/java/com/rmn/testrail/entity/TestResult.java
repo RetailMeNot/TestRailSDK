@@ -70,7 +70,7 @@ public class TestResult extends BaseEntity implements Serializable {
 
     /**
      * Set the Verdict for this TestResult (does not actually send the update to the TestRails Service)
-     * @param verdict
+     * @param verdict the String verdict
      */
     public void setVerdict(String verdict) {
         this.statusId = TestStatus.getStatus(verdict);
@@ -80,7 +80,7 @@ public class TestResult extends BaseEntity implements Serializable {
      * Set the verdict by using the actual StatusId (useful for customizations). Alternatively, you can extend the TestStatus
      *  class and add custom status key-value pairs to it. This method can't be overloaded to match setVerdict(int), because
      *  it confuses Jackson's Serializer
-     * @param verdict
+     * @param verdict the integer verdict
      */
     public void setVerdictId(int verdict) {
         this.statusId = verdict;

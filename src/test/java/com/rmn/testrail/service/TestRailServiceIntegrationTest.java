@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
@@ -252,7 +253,7 @@ public class TestRailServiceIntegrationTest {
     }
 
     @Test
-    public void testAddTestCaseResultPass() throws IOException {
+    public void testAddTestCaseResultPass() {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -261,11 +262,15 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Passed");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("PASS result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        try {
+            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        } catch (IOException e) {
+            Assert.fail("IOException occurred: " + e);
+        }
     }
 
     @Test
-    public void testAddTestCaseResultsList() throws IOException {
+    public void testAddTestCaseResultsList() {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -292,11 +297,15 @@ public class TestRailServiceIntegrationTest {
         result3.setComment("Blocked result worked!!");
         results.addResult(result3);
 
-        TestIntegrationSuite.getService().addTestResults(TestIntegrationSuite.testRun.getId(), results);
+        try {
+            TestIntegrationSuite.getService().addTestResults(TestIntegrationSuite.testRun.getId(), results);
+        } catch (IOException e) {
+            Assert.fail("IOException occurred: " + e);
+        }
     }
 
     @Test
-    public void testAddTestCaseResultFail() throws IOException {
+    public void testAddTestCaseResultFail() {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -305,11 +314,15 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Failed");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("FAIL result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        try {
+            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        } catch (IOException e) {
+            Assert.fail("IOException occurred: " + e);
+        }
     }
 
     @Test
-    public void testAddTestCaseResultBlocked() throws IOException {
+    public void testAddTestCaseResultBlocked() {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -318,11 +331,15 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Blocked");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("BLOCKED result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        try {
+            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        } catch (IOException e) {
+            Assert.fail("IOException occurred: " + e);
+        }
     }
 
     @Test
-    public void testAddTestCaseResultUntested() throws IOException {
+    public void testAddTestCaseResultUntested() {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -331,11 +348,15 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Untested");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("UNTESTED result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        try {
+            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        } catch (IOException e) {
+            Assert.fail("IOException occurred: " + e);
+        }
     }
 
     @Test
-    public void testAddTestCaseResultRetest() throws IOException {
+    public void testAddTestCaseResultRetest() {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -344,11 +365,15 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Retest");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("RETEST result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        try {
+            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        } catch (IOException e) {
+            Assert.fail("IOException occurred: " + e);
+        }
     }
 
     @Test
-    public void testAddCustomTestCaseStatus() throws IOException {
+    public void testAddCustomTestCaseStatus() {
         Assume.assumeTrue(TestIntegrationSuite.destructiveTestsOk);
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
@@ -359,7 +384,11 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Skipped");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("SKIPPED result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        try {
+            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        } catch (IOException e) {
+            Assert.fail("IOException occurred: " + e);
+        }
     }
 
     @Test
@@ -379,13 +408,17 @@ public class TestRailServiceIntegrationTest {
      */
     @Ignore
     @Test
-    public void testFullURL() throws IOException {
+    public void testFullURL() {
         Properties properties = new Properties();
         InputStream resource = TestRailServiceIntegrationTest.class.getClassLoader().getResourceAsStream("testrails.properties");
         if (null == resource) {
             Assert.fail("Cannot run full-url test against your TestRail instance--properties file is blank!");
         }
-        properties.load(resource);
+        try {
+            properties.load(resource);
+        } catch (IOException e) {
+            Assert.fail("IOException occurred" + e);
+        }
 
         //Set up all the credentials
         String apiEndpoint = properties.getProperty("api_endpoint");
@@ -398,12 +431,20 @@ public class TestRailServiceIntegrationTest {
         Assume.assumeNotNull(password);
 
         TestRailService service = new TestRailService();
-        service.setApiEndpoint(new URL(apiEndpoint));
+        try {
+            service.setApiEndpoint(new URL(apiEndpoint));
+        } catch (MalformedURLException e) {
+            Assert.fail("MalformedURLException occurred" + e);
+        }
         service.setUsername(username);
         service.setPassword(password);
 
         //Verify that we can actually talk to the service
-        Assume.assumeTrue(service.verifyCredentials());
+        try {
+            Assume.assumeTrue(service.verifyCredentials());
+        } catch (IOException e) {
+            Assert.fail("IOException occurred: " + e);
+        }
 
     }
 

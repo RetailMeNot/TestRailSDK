@@ -25,9 +25,10 @@ public class HTTPUtils implements Serializable {
     /**
      * Prepare everything about a GET request, including adding the headers, composing the URL, establishing the Connection
      * @param completeUrl The complete URL, including the apiCall, to send to the service
+     * @param authentication a Base64-encoded String representing this username and password pair
      * @param headers A map of header key-value pairs to send along with the HTTP request
      * @return An active, open connection in a post-response state
-     * @throws IOException
+     * @throws IOException occurs when submitRequestFromConnectionWithRetry throws IOException
      */
     public HttpURLConnection getHTTPRequest(String completeUrl, String authentication, Map<String, String> headers) throws IOException {
         //Build the connection, then insert the pid and fp headers
@@ -48,9 +49,9 @@ public class HTTPUtils implements Serializable {
 
     /**
      * Take a fully-baked connection and send it to the server with retry
-     * @param connection
-     * @return
-     * @throws IOException
+     * @param connection A composed HTTP request containing the URL and any headers required
+     * @return An active, open connection in a post-response state
+     * @throws IOException occurs when unable to read response code from HttpUrlConnection
      */
     private HttpURLConnection submitRequestFromConnectionWithRetry(HttpURLConnection connection, int retries) throws IOException {
         boolean connected = false;
@@ -103,7 +104,7 @@ public class HTTPUtils implements Serializable {
      * Take a fully-baked connection and send it to the server
      * @param connection A composed HTTP request containing the URL and any headers required
      * @return An active, open connection in a post-response state
-     * @throws IOException
+     * @throws IOException occurs when unable to read response fields from HttpUrlConnection
      */
     private HttpURLConnection submitRequestFromConnection(HttpURLConnection connection) throws IOException {
         //Send the request
@@ -142,6 +143,7 @@ public class HTTPUtils implements Serializable {
      * Generate the string you'd need to use to re-create this API call
      * @param completeUrl The complete URL, including the apiCall, to send to the service
      * @param headers A map of header key-value pairs to send along with the HTTP request
+     * @param values A list of url parameters attached to the request
      * @return A String representing the exact curl command needed to reproduce this call outside of this method
      */
     public String getCurlCommandStringPost(String completeUrl, Map<String, String> headers, List<NameValuePair> values) {
@@ -178,7 +180,7 @@ public class HTTPUtils implements Serializable {
      * Returns a concatenated String of the contents of an HttpResponse
      * @param response An HttpResponse
      * @return a String containing the contents of the HttpResponse
-     * @throws IOException
+     * @throws IOException occurs when unable to read content from response
      */
     public String getContentsFromHttpResponse(HttpResponse response) throws IOException {
         InputStreamReader in = new InputStreamReader(response.getEntity().getContent());
