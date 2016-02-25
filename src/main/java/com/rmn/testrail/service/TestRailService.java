@@ -843,7 +843,7 @@ public class TestRailService implements Serializable {
      * @return A TestSuite
      */
     public TestSuite getTestSuite( int suiteId ) {
-        return getEntitySingle(TestSuite.class, TestRailCommand.GET_SUITE.getCommand(), Long.toString(suiteId));
+        return getEntitySingle(TestSuite.class, TestRailCommand.GET_SUITE.getCommand(), Integer.toString(suiteId));
     }
 
     /**
@@ -852,9 +852,37 @@ public class TestRailService implements Serializable {
      * @return A List of Suites
      */
     public List<TestSuite> getTestSuites( int projectId ) {
-        return getEntityList(TestSuite.class, TestRailCommand.GET_SUITES.getCommand(), Long.toString(projectId));
+        return getEntityList(TestSuite.class, TestRailCommand.GET_SUITES.getCommand(), Integer.toString(projectId));
     }
 
+    /**
+     * Creates a new test suite.
+     * @param projectId The ID of the project the test suite should be added to
+     * @param testSuite The information needed to create a new test suite
+     * @return the newly created test suite
+     */
+    public TestSuite addTestSuite(int projectId, TestSuiteCreator testSuite) {
+        return postRESTBodyReturn(TestRailCommand.ADD_SUITE.getCommand(), Integer.toString(projectId), testSuite, TestSuite.class);
+    }
+
+    /**
+     * Updates an existing test suite (partial updates are supported, i.e. you can submit and update specific fields only).
+     * @param suiteId The ID of the test suite
+     * @param testSuite The (partially) updated test suite
+     * @return the newly updated test suite
+     */
+    public TestSuite updateTestSuite(int suiteId, TestSuite testSuite) {
+        return postRESTBodyReturn(TestRailCommand.UPDATE_SUITE.getCommand(), Integer.toString(suiteId), testSuite, TestSuite.class);
+    }
+
+    /**
+     * Deletes an existing test suite.
+     * Please note: Deleting a test suite cannot be undone and also deletes all active test runs & results, i.e. test runs & results that weren't closed (archived) yet.
+     * @param suiteId The ID of the test suite
+     */
+    public void deleteTestSuite(int suiteId) {
+        postRESTBody(TestRailCommand.DELETE_SUITE.getCommand(), Integer.toString(suiteId), null);
+    }
 
     //API: Templates--------------------------------------------------
 

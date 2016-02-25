@@ -150,3 +150,13 @@ Now supports getting a section. Method is `getSection(int sectionId);`
 ## Statuses
 ### Get Statuses
 Now supports getting statuses. Method is `getStatuses();`
+
+## Suites
+### Add Suite
+Now supports adding a suite. Method is `addTestSuite(int projectId, TestSuiteCreator testSuite);`
+
+### Update Suite
+Now supports adding a suite. Method is `updateTestSuite(int suiteId, TestSuite testSuite);`
+
+### Delete Suite
+Now supports deleting a suite. Method is `deleteTestSuite(int suiteId);` **Please note: Deleting a test suite cannot be undone and also deletes all active test runs & results, i.e. test runs & results that weren't closed (archived) yet.**
