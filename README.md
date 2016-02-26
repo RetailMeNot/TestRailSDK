@@ -14,7 +14,7 @@ Once the jar has been deployed, you should be able to include a small snippet in
     <dependency>
         <groupId>com.retailmenot</groupId>
         <artifactId>testrailsdk</artifactId>
-        <version>0.9</version>
+        <version>1.1-SNAPSHOT</version>
     </dependency>
 
 If you're currently using Maven, and your repos, paths, and IDE are all set up correctly, you should be able to address the classes in this project immediately.
@@ -28,7 +28,7 @@ To point to the jar file in Maven Central, include this xml snippet in your pom.
     <dependency>
         <groupId>com.retailmenot</groupId>
         <artifactId>testrailsdk</artifactId>
-        <version>0.8</version>
+        <version>1.1</version>
     </dependency>
 ```
 
