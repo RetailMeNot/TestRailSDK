@@ -44,7 +44,7 @@ public class TestRailService implements Serializable {
      * your "client ID", and it will get put into the correct place. If you're hosting a local instance, you'll have to use the (URL, String, String)
      * constructor in order to pass the full URL for your instance
      */
-    private String apiEndpoint = "http://testrail.com/";
+    private String apiEndpoint = "https://%s.testrail.com/";
     private String username;
     private String password;
     private HTTPUtils utils = new HTTPUtils();
