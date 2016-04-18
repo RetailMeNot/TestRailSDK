@@ -262,10 +262,10 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Passed");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("PASS result worked!!");
-        try {
-            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
-        } catch (IOException e) {
-            Assert.fail("IOException occurred: " + e);
+
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
         }
     }
 
@@ -296,11 +296,9 @@ public class TestRailServiceIntegrationTest {
         result3.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result3.setComment("Blocked result worked!!");
         results.addResult(result3);
-
-        try {
-            TestIntegrationSuite.getService().addTestResults(TestIntegrationSuite.testRun.getId(), results);
-        } catch (IOException e) {
-            Assert.fail("IOException occurred: " + e);
+        TestResults returnedResults = TestIntegrationSuite.getService().addTestResults(TestIntegrationSuite.testRun.getId(), results);
+        if (returnedResults == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
         }
     }
 
@@ -314,10 +312,9 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Failed");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("FAIL result worked!!");
-        try {
-            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
-        } catch (IOException e) {
-            Assert.fail("IOException occurred: " + e);
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
         }
     }
 
@@ -331,10 +328,9 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Blocked");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("BLOCKED result worked!!");
-        try {
-            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
-        } catch (IOException e) {
-            Assert.fail("IOException occurred: " + e);
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
         }
     }
 
@@ -348,10 +344,9 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Untested");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("UNTESTED result worked!!");
-        try {
-            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
-        } catch (IOException e) {
-            Assert.fail("IOException occurred: " + e);
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
         }
     }
 
@@ -365,10 +360,9 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Retest");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("RETEST result worked!!");
-        try {
-            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
-        } catch (IOException e) {
-            Assert.fail("IOException occurred: " + e);
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
         }
     }
 
@@ -384,10 +378,9 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Skipped");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("SKIPPED result worked!!");
-        try {
-            TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
-        } catch (IOException e) {
-            Assert.fail("IOException occurred: " + e);
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
         }
     }
 
