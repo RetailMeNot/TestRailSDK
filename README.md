@@ -2,6 +2,8 @@
 
 Integrate TestRail into your projects without having to know their API
 
+[Migration and New Features Guide for Version 1.1](Migration and New Features Guide v1.1.md)
+
 ## Installation
 
 This is a Maven project, so you can either deploy a SNAPSHOT jar to your local Maven repo, or you can just point to the latest version in Maven Central
