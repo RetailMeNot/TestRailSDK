@@ -64,24 +64,29 @@ public class TestCase extends BaseEntity {
     public void setCreatedBy(Integer createdBy) { this.createdBy = createdBy; }
 
     @JsonProperty("created_on")
-    private String createdOn;
-    public String getCreatedOn() { return createdOn; }
-    public void setCreatedOn(String createdOn) { this.createdOn = createdOn; }
+    private Integer createdOn;
+    public Integer getCreatedOn() { return createdOn; }
+    public void setCreatedOn(Integer createdOn) { this.createdOn = createdOn; }
 
     @JsonProperty("updated_by")
-    private String updatedBy;
-    public String getUpdatedBy() { return updatedBy; }
-    public void setUpdatedBy(String updatedBy) { this.updatedBy = updatedBy; }
+    private Integer updatedBy;
+    public Integer getUpdatedBy() { return updatedBy; }
+    public void setUpdatedBy(Integer updatedBy) { this.updatedBy = updatedBy; }
 
     @JsonProperty("updated_on")
-    private String updatedOn;
-    public String getUpdatedOn() { return updatedOn; }
-    public void setUpdatedOn(String updatedOn) { this.updatedOn = updatedOn; }
+    private Integer updatedOn;
+    public Integer getUpdatedOn() { return updatedOn; }
+    public void setUpdatedOn(Integer updatedOn) { this.updatedOn = updatedOn; }
 
     @JsonProperty("suite_id")
     private Integer suiteId;
     public Integer getSuiteId() { return suiteId; }
     public void setSuiteId(Integer suiteId) { this.suiteId = suiteId; }
+
+    @JsonProperty("template_id") //requires TestRail 5.2 or later
+    private Integer templateId;
+    public Integer getTemplateId() { return templateId; }
+    public void setTemplateId(Integer suiteId) { this.suiteId = suiteId; }
 
     @JsonProperty("custom_state")
     private Integer customState;
@@ -89,11 +94,9 @@ public class TestCase extends BaseEntity {
     public void setCustomState(Integer customState) { this.customState = customState; }
 
     /**
-     * Update the type for this TestCase--NOTE: This method actually makes the request to TestRails. Use it carefully!
-     * @param type The type id for the TestCase. This value is determined by your specific TestRails implementation. Consult your
-     *             TestRails administrator to find out the value you need
+     * Update (as in upload changes to TestRail) this TestCase--NOTE: This method actually makes the request to TestRails. Use it carefully!
      */
-    public void updateType( int type ) {
-        getTestRailService().updateTestCaseType(this.getId(), type);
+    public void updateTestCase() {
+        getTestRailService().updateTestCase(this, this.getId());
     }
 }

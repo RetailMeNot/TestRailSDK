@@ -10,6 +10,8 @@ import com.rmn.testrail.entity.TestRunCreator;
 import com.rmn.testrail.entity.TestStatus;
 import com.rmn.testrail.entity.TestSuite;
 import com.rmn.testrail.entity.User;
+import com.rmn.testrail.parameters.ApiFilterValue;
+import com.rmn.testrail.parameters.GetResultsFilter;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Ignore;
@@ -19,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
@@ -213,7 +216,7 @@ public class TestRailServiceIntegrationTest {
     public void testTestResultsReturnLatestToEarliest() {
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
-        List<TestResult> testResults = TestIntegrationSuite.getService().getTestResults(TestIntegrationSuite.testInstance.getId(), 0);
+        List<TestResult> testResults = TestIntegrationSuite.getService().getTestResults(TestIntegrationSuite.testInstance.getId(), new ApiFilterValue(GetResultsFilter.LIMIT, "1"));
         Assert.assertNotNull(testResults);
         TestResult currentTestResult = testResults.get(0);
         for (int index = 1; index < testResults.size(); index++) {
@@ -244,7 +247,7 @@ public class TestRailServiceIntegrationTest {
     public void testGetResults() {
         Assume.assumeTrue(TestIntegrationSuite.testInstance != null);
 
-        List<TestResult> testResults = TestIntegrationSuite.getService().getTestResults(TestIntegrationSuite.testInstance.getId(), 5);
+        List<TestResult> testResults = TestIntegrationSuite.getService().getTestResults(TestIntegrationSuite.testInstance.getId(), new ApiFilterValue(GetResultsFilter.LIMIT, "5"));
         Assert.assertNotNull(testResults);
         Assert.assertTrue(testResults.size() <= 5);
     }
@@ -259,7 +262,11 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Passed");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("PASS result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
+        }
     }
 
     @Test
@@ -289,8 +296,10 @@ public class TestRailServiceIntegrationTest {
         result3.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result3.setComment("Blocked result worked!!");
         results.addResult(result3);
-
-        TestIntegrationSuite.getService().addTestResults(TestIntegrationSuite.testRun.getId(), results);
+        TestResults returnedResults = TestIntegrationSuite.getService().addTestResults(TestIntegrationSuite.testRun.getId(), results);
+        if (returnedResults == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
+        }
     }
 
     @Test
@@ -303,7 +312,10 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Failed");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("FAIL result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
+        }
     }
 
     @Test
@@ -316,7 +328,10 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Blocked");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("BLOCKED result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
+        }
     }
 
     @Test
@@ -329,7 +344,10 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Untested");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("UNTESTED result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
+        }
     }
 
     @Test
@@ -342,7 +360,10 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Retest");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("RETEST result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
+        }
     }
 
     @Test
@@ -357,7 +378,10 @@ public class TestRailServiceIntegrationTest {
         result.setVerdict("Skipped");
         result.setAssignedtoId(TestIntegrationSuite.assignedToId);
         result.setComment("SKIPPED result worked!!");
-        TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        TestResult returnedResult = TestIntegrationSuite.getService().addTestResult(TestIntegrationSuite.testInstance.getId(), result);
+        if (returnedResult == null) {
+            Assert.fail("Response was null, indicating a failure to report result.");
+        }
     }
 
     @Test
@@ -377,13 +401,17 @@ public class TestRailServiceIntegrationTest {
      */
     @Ignore
     @Test
-    public void testFullURL() throws IOException {
+    public void testFullURL() {
         Properties properties = new Properties();
         InputStream resource = TestRailServiceIntegrationTest.class.getClassLoader().getResourceAsStream("testrails.properties");
         if (null == resource) {
             Assert.fail("Cannot run full-url test against your TestRail instance--properties file is blank!");
         }
-        properties.load(resource);
+        try {
+            properties.load(resource);
+        } catch (IOException e) {
+            Assert.fail("IOException occurred" + e);
+        }
 
         //Set up all the credentials
         String apiEndpoint = properties.getProperty("api_endpoint");
@@ -396,12 +424,20 @@ public class TestRailServiceIntegrationTest {
         Assume.assumeNotNull(password);
 
         TestRailService service = new TestRailService();
-        service.setApiEndpoint(new URL(apiEndpoint));
+        try {
+            service.setApiEndpoint(new URL(apiEndpoint));
+        } catch (MalformedURLException e) {
+            Assert.fail("MalformedURLException occurred" + e);
+        }
         service.setUsername(username);
         service.setPassword(password);
 
         //Verify that we can actually talk to the service
-        Assume.assumeTrue(service.verifyCredentials());
+        try {
+            Assume.assumeTrue(service.verifyCredentials());
+        } catch (IOException e) {
+            Assert.fail("IOException occurred: " + e);
+        }
 
     }
 

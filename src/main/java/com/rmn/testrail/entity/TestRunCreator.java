@@ -34,4 +34,13 @@ public class TestRunCreator extends BaseEntity {
     public Boolean isIncludeAll() { return includeAll; }
     public void setIncludeAll(Boolean includeAll) { this.includeAll = includeAll; }
 
+    @JsonProperty("assignedto_id")
+    private Integer assignedToId;
+    public Integer getAssignedToId() { return assignedToId; }
+    public void setAssignedToId(Integer milestoneId) { this.assignedToId = assignedToId; }
+
+    @JsonProperty("case_ids")
+    private Integer[] caseIds;
+    public Integer[] getCaseIds() { return caseIds; }
+    public void setCaseIds(Integer milestoneId) { this.caseIds = caseIds; }
 }

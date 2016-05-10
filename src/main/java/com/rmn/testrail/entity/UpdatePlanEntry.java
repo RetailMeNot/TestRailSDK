@@ -5,14 +5,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.List;
 
 /**
- * @author jsteigel
+ * @author vliao
  */
-public class PlanEntry extends BaseEntity {
-    @JsonProperty("suite_id")
-    private Integer suiteId;
-    public Integer getSuiteId() { return suiteId; }
-    public void setSuiteId(Integer suiteId) { this.suiteId = suiteId; }
-
+public class UpdatePlanEntry extends BaseEntity {
     @JsonProperty("assignedto_id")
     private Integer assignedToId;
     public Integer getAssignedToId() { return assignedToId; }
@@ -22,16 +17,6 @@ public class PlanEntry extends BaseEntity {
     private boolean includeAll;
     public boolean getIncludeAll() { return includeAll; }
     public void setIncludeAll(boolean includeAll) { this.includeAll = includeAll; }
-
-    @JsonProperty("config_ids")
-    private List<Integer> configIds;
-    public List<Integer> getConfigIds() { return configIds; }
-    public void setConfigIds(List<Integer> configIds) { this.configIds = configIds; }
-
-    @JsonProperty("runs")
-    private List<PlanEntryRun> runs;
-    public List<PlanEntryRun> getRuns() { return runs; }
-    public void setRuns(List<PlanEntryRun> runs) { this.runs = runs; }
 
     @JsonProperty("case_ids")
     private List<Integer> caseIds;

@@ -1,5 +1,7 @@
 package com.rmn.testrail.entity;
 
+import com.rmn.testrail.parameters.ApiFilterValue;
+import com.rmn.testrail.parameters.GetResultsFilter;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -63,13 +65,23 @@ public class TestInstance extends BaseEntity {
     public Integer getCaseId() { return caseId; }
     public void setCaseId(Integer caseId) { this.caseId = caseId; }
 
+    @JsonProperty("milestone_id")
+    private Integer milestoneId;
+    public Integer getMilestoneId() { return milestoneId; }
+    public void setMilestoneId(Integer milestoneId) { this.milestoneId = milestoneId; }
+
+    @JsonProperty("refs")
+    private String refs;
+    public String getRefs() { return refs; }
+    public void setRefs(String refs) { this.refs = refs; }
+
     /**
      * Returns the list of test results (most recent first) associated with this TestInstance
      * @param limit A limit to the number of results you want to see (1 will give you the single most recent)
      * @return The number of TestResults specified by the limit, in descending chron order (i.e. newest to oldest)
      */
     public List<TestResult> getResults(int limit) {
-        return getTestRailService().getTestResults(this.getId(), limit);
+        return getTestRailService().getTestResults(this.getId(), new ApiFilterValue(GetResultsFilter.LIMIT, Integer.toString(limit)));
     }
 
     /**

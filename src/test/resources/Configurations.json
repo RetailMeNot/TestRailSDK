@@ -1,0 +1,46 @@
+[
+  {
+    "configs": [
+      {
+        "group_id": 1,
+        "id": 1,
+        "name": "Chrome"
+      },
+      {
+        "group_id": 1,
+        "id": 2,
+        "name": "Firefox"
+      },
+      {
+        "group_id": 1,
+        "id": 3,
+        "name": "Internet Explorer"
+      }
+    ],
+    "id": 1,
+    "name": "Browsers",
+    "project_id": 1
+  },
+  {
+    "configs": [
+      {
+        "group_id": 2,
+        "id": 6,
+        "name": "Ubuntu 12"
+      },
+      {
+        "group_id": 2,
+        "id": 4,
+        "name": "Windows 7"
+      },
+      {
+        "group_id": 2,
+        "id": 5,
+        "name": "Windows 8"
+      }
+    ],
+    "id": 2,
+    "name": "Operating Systems",
+    "project_id": 1
+  }
+]

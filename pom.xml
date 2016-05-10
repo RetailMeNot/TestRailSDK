@@ -3,7 +3,7 @@
 
 	<groupId>com.retailmenot</groupId>
 	<artifactId>testrailsdk</artifactId>
-	<version>0.9.1-SNAPSHOT</version>
+	<version>1.1</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -29,13 +29,19 @@
             <organization>RetailMeNot, inc</organization>
             <organizationUrl>https://github.com/mmerrell</organizationUrl>
         </developer>
+        <developer>
+            <name>Vincent Liao</name>
+            <email>vliao@rmn.com</email>
+            <organization>RetailMeNot, inc</organization>
+            <organizationUrl>https://github.com/vinceis1337</organizationUrl>
+        </developer>
     </developers>
 
     <scm>
         <url>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</url>
         <connection>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</connection>
         <developerConnection>scm:git:git@github.com:RetailMeNot/TestRailSDK.git</developerConnection>
-        <tag>testrailsdk-0.9.1</tag>
+        <tag>testrailsdk-1.1</tag>
     </scm>
 
 	<dependencies>
@@ -112,9 +118,6 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
-                                <configuration>
-                                    <additionalparam>-Xdoclint:none</additionalparam>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

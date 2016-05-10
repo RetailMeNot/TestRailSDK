@@ -1,3 +1,6 @@
+##  Changes between 0.9 and 1.1
+There are many various new helpers for endpoints. Please refer to the [Migration and New Features Guide v1.1.md](Migration and New Features Guide v1.1.md)
+
 ##  Changes between 0.8 and 0.9
 
 There are no breaking API changes. The new features introduced are all backward compatible. Please let the project team know if this turns out not to be the case (open an issue on github)
