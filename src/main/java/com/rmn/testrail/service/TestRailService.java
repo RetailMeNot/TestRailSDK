@@ -382,7 +382,7 @@ public class TestRailService implements Serializable {
      * @return the list of all the Milestones in the project
      */
     public List<Milestone> getMilestones(int projectId, ApiFilterValue... isCompleted) {
-        return getEntityList(Milestone.class, TestRailCommand.GET_MILESTONES.getCommand(), Integer.toString(projectId) + (isCompleted.length > 0 ? isCompleted[0].append() : null));
+        return getEntityList(Milestone.class, TestRailCommand.GET_MILESTONES.getCommand(), Integer.toString(projectId) + (isCompleted.length > 0 ? isCompleted[0].append() : ""));
     }
 
     /**
@@ -545,7 +545,7 @@ public class TestRailService implements Serializable {
      * @return The List of ALL Projects available to this user
      */
     public List<Project> getProjects(ApiFilterValue... isCompleted) {
-        return getEntityList(Project.class, TestRailCommand.GET_PROJECTS.getCommand(), isCompleted.length > 0 ? isCompleted[0].append() : null);
+        return getEntityList(Project.class, TestRailCommand.GET_PROJECTS.getCommand(), isCompleted.length > 0 ? isCompleted[0].append() : "");
     }
 
     /**
@@ -947,7 +947,7 @@ public class TestRailService implements Serializable {
      * @return The List of TestInstances associated with this TestRun
      */
     public List<TestInstance> getTests(int testRunId, ApiFilterValue... statusId) {
-        return getEntityList(TestInstance.class, TestRailCommand.GET_TESTS.getCommand(), Integer.toString(testRunId) + (statusId.length > 0 ? statusId[0].append() : null));
+        return getEntityList(TestInstance.class, TestRailCommand.GET_TESTS.getCommand(), Integer.toString(testRunId) + (statusId.length > 0 ? statusId[0].append() : ""));
     }
 
 
