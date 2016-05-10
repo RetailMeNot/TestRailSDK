@@ -1,3 +1,6 @@
+##  Changes between 1.1 and 1.1.1
+Fixed a bug where "null" was being appended when a field was empty.
+
 ##  Changes between 0.9 and 1.1
 There are many various new helpers for endpoints. Please refer to the [Migration and New Features Guide v1.1.md](Migration and New Features Guide v1.1.md)
 
