@@ -71,7 +71,7 @@ public class TestRailService implements Serializable {
      * @param password The password to use with this account
      */
     public TestRailService(URL apiEndpoint, String username, String password) {
-        this.apiEndpoint = apiEndpoint.toString();
+        this.apiEndpoint = apiEndpoint.toString() + ENDPOINT_SUFFIX;
         this.username = username;
         this.password = password;
     }
