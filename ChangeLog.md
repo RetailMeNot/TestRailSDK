@@ -1,3 +1,6 @@
+##  Changes between 1.1.1 and 1.1.2
+Fixed a bug where the end of the url was not attached to custom TestRail instantiations.
+
 ##  Changes between 1.1 and 1.1.1
 Fixed a bug where "null" was being appended when a field was empty.
 
