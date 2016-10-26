@@ -1,3 +1,6 @@
+##  Changes between 1.1.2 and 1.1.3
+Added ability to override authorization encoding logic in HTTPUtils.
+
 ##  Changes between 1.1.1 and 1.1.2
 Fixed a bug where the end of the url was not attached to custom TestRail instantiations.
 

@@ -212,7 +212,7 @@ public class HTTPUtils implements Serializable {
      * @param password the Password to be encoded
      * @return a Base64-encoded String representing this key-value pair
      */
-    public static String encodeAuthenticationBase64(String username, String password) {
+    public String encodeAuthenticationBase64(String username, String password) {
         return Base64.encodeBase64String(String.format("%s:%s", username, password).getBytes());
     }
 }

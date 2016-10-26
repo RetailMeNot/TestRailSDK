@@ -1022,7 +1022,7 @@ public class TestRailService implements Serializable {
             //Log the curl call for easy reproduction
 //            log.warn(utils.getCurlCommandStringGet(completeUrl, headers));
 
-            String authentication = HTTPUtils.encodeAuthenticationBase64(username, password);
+            String authentication = utils.encodeAuthenticationBase64(username, password);
             return utils.getHTTPRequest(completeUrl, authentication, headers);
         } catch (IOException e) {
             log.error("An IOException was thrown while trying to process a REST Request against URL: {}", completeUrl);
@@ -1044,7 +1044,7 @@ public class TestRailService implements Serializable {
 
         try {
             HttpPost request = new HttpPost( completeUrl );
-            String authentication = HTTPUtils.encodeAuthenticationBase64(username, password);
+            String authentication = utils.encodeAuthenticationBase64(username, password);
             request.addHeader("Authorization", "Basic " + authentication);
             request.addHeader("Content-Type", "application/json");
 
@@ -1085,7 +1085,7 @@ public class TestRailService implements Serializable {
 
         try {
             HttpPost request = new HttpPost( completeUrl );
-            String authentication = HTTPUtils.encodeAuthenticationBase64(username, password);
+            String authentication = utils.encodeAuthenticationBase64(username, password);
             request.addHeader("Authorization", "Basic " + authentication);
             request.addHeader("Content-Type", "application/json");
             request.addHeader("Encoding", "UTF-8");
