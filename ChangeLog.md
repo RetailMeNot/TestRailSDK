@@ -1,3 +1,6 @@
+##  Changes between 1.1.3 and 1.1.4
+Fixed a bug where an http connection for a GET request was being incorrectly set to output.
+
 ##  Changes between 1.1.2 and 1.1.3
 Added ability to override authorization encoding logic in HTTPUtils.
 
