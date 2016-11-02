@@ -58,7 +58,6 @@ public class HTTPUtils implements Serializable {
         int RETRY_DELAY_MS = 500; // initial default value
         int retryDelayInMS;
 
-        connection.setDoOutput(true);
         connection.setReadTimeout(REQUEST_TIMEOUT);
         connection.setConnectTimeout(REQUEST_TIMEOUT);
 
