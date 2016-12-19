@@ -1,3 +1,7 @@
+##  Changes between 1.1.5 and 1.1.6
+Fixed a bug with setAssignedToId method declaring the wrong parameter name
+Added unit tests for TestRunCreator Class
+
 ##  Changes between 1.1.4 and 1.1.5
 Fixed a bug with setCaseIds method declaring the wrong parameter type and name
 
