@@ -1,3 +1,6 @@
+##  Changes between 1.1.4 and 1.1.5
+Fixed a bug with setCaseIds method declaring the wrong parameter type and name
+
 ##  Changes between 1.1.3 and 1.1.4
 Fixed a bug where an http connection for a GET request was being incorrectly set to output.
 
