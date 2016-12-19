@@ -37,7 +37,7 @@ public class TestRunCreator extends BaseEntity {
     @JsonProperty("assignedto_id")
     private Integer assignedToId;
     public Integer getAssignedToId() { return assignedToId; }
-    public void setAssignedToId(Integer milestoneId) { this.assignedToId = assignedToId; }
+    public void setAssignedToId(Integer assignedToId) { this.assignedToId = assignedToId; }
 
     @JsonProperty("case_ids")
     private Integer[] caseIds;
