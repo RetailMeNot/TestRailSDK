@@ -42,5 +42,5 @@ public class TestRunCreator extends BaseEntity {
     @JsonProperty("case_ids")
     private Integer[] caseIds;
     public Integer[] getCaseIds() { return caseIds; }
-    public void setCaseIds(Integer milestoneId) { this.caseIds = caseIds; }
+    public void setCaseIds(Integer[] caseIds) { this.caseIds = caseIds; }
 }
