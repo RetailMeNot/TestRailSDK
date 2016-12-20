@@ -21,7 +21,7 @@ public class TestResult extends BaseEntity implements Serializable {
     @JsonProperty("case_id")
     private Integer caseId;
     public Integer getCaseId() { return caseId; }
-    public void setCaseId(Integer testId) { this.caseId = caseId; }
+    public void setCaseId(Integer caseId) { this.caseId = caseId; }
 
     @JsonProperty("test_id")
     private Integer testId;
