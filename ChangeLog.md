@@ -1,10 +1,13 @@
 ##  Changes between 1.1.6 and 1.2
 Fixed a bug with setCaseId method declaring the wrong parameter name
+<br>
 Added new TestRunUpdater class with limited fields for updating test runs
+<br>
 The updateTestRun method now takes a TestRunUpdater object instead of a TestRun object - please update your code to use it instead
 
 ##  Changes between 1.1.5 and 1.1.6
 Fixed a bug with setAssignedToId method declaring the wrong parameter name
+<br>
 Added unit tests for TestRunCreator Class
 
 ##  Changes between 1.1.4 and 1.1.5
