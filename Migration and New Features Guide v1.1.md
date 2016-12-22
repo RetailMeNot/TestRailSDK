@@ -1,4 +1,5 @@
-# Upgrade guide for TestRailsSDK 1.1
+# Upgrade guide for migration from TestRailSDK <0.9 and below to TestRailSDK 1.1 and above
+Please do NOT use versions below 1.1.6! Certain methods had bugs with them that were fixed.
 
 ## Test Cases
 ### Get Test Cases:
