@@ -1,5 +1,10 @@
 package com.rmn.testrail.parameters;
 
+/**
+ * The GetCasesFilter is used to generate filters specifically for the getTestCases methods.
+ *
+ * @author vliao
+ */
 public enum GetCasesFilter implements ApiFilter {
     //Request filters for get_cases
     CREATED_AFTER("created_after"),

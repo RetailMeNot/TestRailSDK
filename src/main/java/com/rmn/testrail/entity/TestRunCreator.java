@@ -4,6 +4,8 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
+ * This class has all the fields that you can provide when creating a TestRun
+ *
  * @author Colin McCormack
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

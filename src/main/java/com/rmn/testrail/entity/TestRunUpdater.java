@@ -4,8 +4,9 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * @author Sergey Franchuk
  * This class has the available fields when updating a TestRun.
+ *
+ * @author Sergey Franchuk
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestRunUpdater extends BaseEntity {

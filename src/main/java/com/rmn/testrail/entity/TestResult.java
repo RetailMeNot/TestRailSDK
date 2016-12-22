@@ -6,10 +6,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.io.Serializable;
 
 /**
- * @author mmerrell
- *
  * If you have custom fields on TestResults in TestRails, it will be necessary to extend this class and add those fields in order to capture them.
  * Otherwise they will be ignored.
+ *
+ * @author mmerrell
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestResult extends BaseEntity implements Serializable {

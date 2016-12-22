@@ -106,7 +106,7 @@ public class TestRailService implements Serializable {
 
     /**
      * Sets the HTTPUtils object (this is not static because we need to stub these methods for unit testing)
-     * @param utils The HTTPUtils object
+     * @param utils The {@link HTTPUtils} object
      */
     public void setHttpUtils(HTTPUtils utils) { this.utils = utils; }
 
@@ -253,7 +253,7 @@ public class TestRailService implements Serializable {
     }
 
     /**
-     * WARNING: Permanently an existing test case. Please note: Deleting a test case cannot be undone and also permanently deletes all test results in active test runs (i.e. test runs that haven't been closed (archived) yet).
+     * WARNING: Permanently delete an existing test case. Please note: Deleting a test case cannot be undone and also permanently deletes all test results in active test runs (i.e. test runs that haven't been closed (archived) yet).
      * @param caseId The ID of the test case
      */
     public void deleteTestCase(int caseId) {

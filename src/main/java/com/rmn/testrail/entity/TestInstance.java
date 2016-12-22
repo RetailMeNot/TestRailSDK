@@ -8,10 +8,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.List;
 
 /**
- * @author mmerrell
- *
  * The TestRail top-level entity is actually called a "Test", but that collides with the @Test annotation we're
  * using in the unit tests. Calling it a TestInstance will avoid ambiguity
+ *
+ * @author mmerrell
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestInstance extends BaseEntity {

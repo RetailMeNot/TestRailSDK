@@ -1,5 +1,10 @@
 package com.rmn.testrail.parameters;
 
+/**
+ * The GetRunsFilter is used to generate filters specifically for the getTestRun and getTestRuns methods.
+ *
+ * @author vliao
+ */
 public enum GetRunsFilter implements ApiFilter {
     //Request filters for get_runs
     CREATED_AFTER("created_after"),

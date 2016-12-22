@@ -2,6 +2,7 @@ package com.rmn.testrail.service;
 
 /**
  * TestRails end-points
+ *
  * @author mmerrell
  */
 public enum TestRailCommand {

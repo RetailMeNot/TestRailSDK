@@ -1,5 +1,10 @@
 package com.rmn.testrail.parameters;
 
+/**
+ * The GetMilestonesFilter is used to generate filters specifically for the getMilestone and getMilestones methods.
+ *
+ * @author vliao
+ */
 public enum GetPlansFilter implements ApiFilter{
     //Request filter for get_plans
     CREATED_AFTER("created_after"),

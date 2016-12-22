@@ -5,8 +5,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.List;
 
 /**
- * @author mmerrell
- *
  * A Project as defined within the API. This object offers some convenience methods, which will remove some of the busy work about re-querying that
  *  you would have to handle otherwise.
  *
@@ -15,6 +13,8 @@ import java.util.List;
  *   I'm afraid if I implement it, someone will use it and be completely baffled by the results...
  *   It returns ALL test runs underneath ALL test plans within the history of the project. Useless. If
  *   you can present me with a good use-case for implementing it, I'll be all ears (and very surprised)
+ *
+ * @author mmerrell
  */
 public class Project extends BaseEntity {
     @JsonProperty("id")

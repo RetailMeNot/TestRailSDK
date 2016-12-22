@@ -6,6 +6,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.List;
 
 /**
+ * This class has all the fields in a TestRun API request.
+ *
  * @author mmerrell
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

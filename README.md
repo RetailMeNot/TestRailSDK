@@ -9,7 +9,7 @@ Integrate TestRail into your projects without having to know their API
 This is a Maven project, so you can either deploy a SNAPSHOT jar to your local Maven repo, or you can just point to the latest version in Maven Central
 
 ### Building From Source
-Download the source, then from the command-line, run the `mvn install` command. This will deploy a SNAPSHOT jar file to your local Men repo
+Download the source, then from the command-line, run the `mvn install` command. This will deploy a SNAPSHOT jar file to your local Maven repo
 
 Once the jar has been deployed, you should be able to include a small snippet in your pom file:
 
