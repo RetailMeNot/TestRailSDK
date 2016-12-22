@@ -779,13 +779,26 @@ public class TestRailService implements Serializable {
     }
 
     /**
+     * This method is deprecated, because some redundant fields for updating are present in TestRun object and some supported fields are absent. <br/>
+     * Use {@link #updateTestRun(int, TestRunUpdater)} method. <br/>
      * Updates an existing test run (partial updates are supported, i.e. you can submit and update specific fields only).
      * @param runId The ID of the test run
      * @param testRun the TestRun object with updated fields
      * @return the updated test run
      */
+    @Deprecated
     public TestRun updateTestRun(int runId, TestRun testRun) {
         return postRESTBodyReturn(TestRailCommand.UPDATE_RUN.getCommand(), Integer.toString(runId), testRun, TestRun.class);
+    }
+
+    /**
+     * Updates an existing test run (partial updates are supported, i.e. you can submit and update specific fields only).
+     * @param runId The ID of the test run
+     * @param testRunUpdater the {@link TestRunUpdater} object with available for updating fields
+     * @return the updated test run
+     */
+    public TestRun updateTestRun(int runId, TestRunUpdater testRunUpdater) {
+        return postRESTBodyReturn(TestRailCommand.UPDATE_RUN.getCommand(), Integer.toString(runId), testRunUpdater, TestRun.class);
     }
 
     /**
