@@ -1096,15 +1096,16 @@ public class TestRailService implements Serializable {
             request.setEntity(new ByteArrayEntity(body));
 
             HttpResponse response = executeRequestWithRetry(request, 2);
-            if (response.getStatusLine().getStatusCode() != 200) {
-                Error error = JSONUtils.getMappedJsonObject(Error.class, utils.getContentsFromHttpResponse(response));
-                log.error("Response code: {}", response.getStatusLine().getStatusCode());
-                log.error("TestRails reported an error message: {}", error.getError());
-            } else if (response.getStatusLine().getStatusCode() == 200) {
-            	log.info("Returning a JSON mapped object from calling api intergration point");
+            int responseStatusCode = response.getStatusLine().getStatusCode();
+            if (responseStatusCode == 200) {
+                log.info("Returning a JSON mapped object from calling api intergration point");
                 T mappedJsonObject = JSONUtils.getMappedJsonObject(returnEntityType, utils.getContentsFromHttpResponse(response));
                 mappedJsonObject.setTestRailService(this);
                 return mappedJsonObject;
+            } else {
+                Error error = JSONUtils.getMappedJsonObject(Error.class, utils.getContentsFromHttpResponse(response));
+                log.error("Response code: {}", responseStatusCode);
+                log.error("TestRails reported an error message: {}", error.getError());
             }
         }
         catch (IOException e) {
