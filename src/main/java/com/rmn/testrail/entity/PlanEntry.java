@@ -19,9 +19,9 @@ public class PlanEntry extends BaseEntity {
     public void setAssignedToId(Integer assignedToId) { this.assignedToId = assignedToId; }
 
     @JsonProperty("include_all")
-    private boolean includeAll;
-    public boolean getIncludeAll() { return includeAll; }
-    public void setIncludeAll(boolean includeAll) { this.includeAll = includeAll; }
+    private Boolean includeAll;
+    public Boolean getIncludeAll() { return includeAll; }
+    public void setIncludeAll(Boolean includeAll) { this.includeAll = includeAll; }
 
     @JsonProperty("config_ids")
     private List<Integer> configIds;
