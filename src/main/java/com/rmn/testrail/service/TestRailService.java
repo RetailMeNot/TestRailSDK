@@ -1102,7 +1102,9 @@ public class TestRailService implements Serializable {
                 log.error("TestRails reported an error message: {}", error.getError());
             } else if (response.getStatusLine().getStatusCode() == 200) {
             	log.info("Returning a JSON mapped object from calling api intergration point");
-            	return JSONUtils.getMappedJsonObject(returnEntityType, utils.getContentsFromHttpResponse(response));
+                T mappedJsonObject = JSONUtils.getMappedJsonObject(returnEntityType, utils.getContentsFromHttpResponse(response));
+                mappedJsonObject.setTestRailService(this);
+                return mappedJsonObject;
             } else {
             	log.error("Unhandled return code for postRESTBodyReturn");
             }
