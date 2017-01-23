@@ -1098,7 +1098,7 @@ public class TestRailService implements Serializable {
             HttpResponse response = executeRequestWithRetry(request, 2);
             int responseStatusCode = response.getStatusLine().getStatusCode();
             if (responseStatusCode == 200) {
-                log.info("Returning a JSON mapped object from calling api intergration point");
+                log.info("Returning a JSON mapped object from calling api integration point");
                 T mappedJsonObject = JSONUtils.getMappedJsonObject(returnEntityType, utils.getContentsFromHttpResponse(response));
                 mappedJsonObject.setTestRailService(this);
                 return mappedJsonObject;
