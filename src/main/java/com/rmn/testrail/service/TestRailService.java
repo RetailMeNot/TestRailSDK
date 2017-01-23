@@ -1105,8 +1105,6 @@ public class TestRailService implements Serializable {
                 T mappedJsonObject = JSONUtils.getMappedJsonObject(returnEntityType, utils.getContentsFromHttpResponse(response));
                 mappedJsonObject.setTestRailService(this);
                 return mappedJsonObject;
-            } else {
-            	log.error("Unhandled return code for postRESTBodyReturn");
             }
         }
         catch (IOException e) {
