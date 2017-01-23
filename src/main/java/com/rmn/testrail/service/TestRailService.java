@@ -469,8 +469,8 @@ public class TestRailService implements Serializable {
      * @param updatePlanEntry the (partial) updates to the plan entry
      * @return the updated plan entry
      */
-    public PlanEntry updateTestPlanEntry(int planId, int entryId, UpdatePlanEntry updatePlanEntry) {
-        return postRESTBodyReturn(TestRailCommand.UPDATE_PLAN_ENTRY.getCommand(), Integer.toString(planId) + "/" + Integer.toString(entryId), updatePlanEntry, PlanEntry.class);
+    public PlanEntry updateTestPlanEntry(int planId, String entryId, UpdatePlanEntry updatePlanEntry) {
+        return postRESTBodyReturn(TestRailCommand.UPDATE_PLAN_ENTRY.getCommand(), Integer.toString(planId) + "/" + entryId, updatePlanEntry, PlanEntry.class);
     }
 
     /**
