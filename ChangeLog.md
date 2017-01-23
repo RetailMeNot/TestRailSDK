@@ -1,3 +1,12 @@
+##  Changes between 1.2 and 1.2.1
+Added more information to migration guide
+<br>
+Improved documentation on project
+<br>
+PlanEntry and PlanEntryRun classes now use object Boolean (instead of primitive boolean) because requests require null instead of default false
+<br>
+postRESTBodyReturn method logic was simplified, and the returned response has method setTestRailService called to initialize associated service
+
 ##  Changes between 1.1.6 and 1.2
 Fixed a bug with setCaseId method declaring the wrong parameter name
 <br>
