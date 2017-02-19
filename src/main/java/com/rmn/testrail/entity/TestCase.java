@@ -3,6 +3,8 @@ package com.rmn.testrail.entity;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.util.List;
+
 /**
  * A TestRails TestCase entity. In TestRails, a TestCase is more or less a "template" for executing a sequence of steps--you do not report
  * TestResults against a TestCase, but against a TestInstance (represented as a "Test" in TestRail, but named "TestInstance" here as to
@@ -92,6 +94,17 @@ public class TestCase extends BaseEntity {
     private Integer customState;
     public Integer getCustomState() { return customState; }
     public void setCustomState(Integer customState) { this.customState = customState; }
+
+    @JsonProperty("custom_steps_separated")
+    private List<Step> customStepsSeparated;
+    public List<Step> getSteps() { return customStepsSeparated; }
+    public void setSteps(List<Step> customStepsSeparated) { this.customStepsSeparated = customStepsSeparated; }
+    public void addStep(Step step) { this.customStepsSeparated.add(step); }
+
+    @JsonProperty("custom_preconds")
+    private String customPreconditions;
+    public String getCustomPreconditions() { return customPreconditions; }
+    public void setCustomPreconditions(String customPreconditions) { this.customPreconditions = customPreconditions; }
 
     /**
      * Update (as in upload changes to TestRail) this TestCase--NOTE: This method actually makes the request to TestRails. Use it carefully!

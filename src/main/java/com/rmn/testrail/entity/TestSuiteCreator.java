@@ -2,8 +2,6 @@ package com.rmn.testrail.entity;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import java.util.List;
-
 /**
  * @author mmerrell
  */
