@@ -1,3 +1,10 @@
+##  Changes between 1.2.1 and 1.3
+Added SectionCreator
+<br>
+Added Step
+<br>
+Added StepResult
+
 ##  Changes between 1.2 and 1.2.1
 Added more information to migration guide
 <br>
