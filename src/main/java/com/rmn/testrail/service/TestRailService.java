@@ -774,8 +774,7 @@ public class TestRailService implements Serializable {
      */
     public TestRun addTestRun(int projectId, TestRunCreator run) {
         TestRun newSkeletonTestRun = postRESTBodyReturn(TestRailCommand.ADD_RUN.getCommand(), Integer.toString(projectId), run, TestRun.class);
-        TestRun realNewlyCreatedTestRun = getTestRun(newSkeletonTestRun.getId());
-        return realNewlyCreatedTestRun;
+        return getTestRun(newSkeletonTestRun.getId());
     }
 
     /**
@@ -836,6 +835,16 @@ public class TestRailService implements Serializable {
 
 
     //API: Sections---------------------------------------------------
+
+    /**
+     * Creates a new section under suite.
+     * @param projectId The ID of the project the test suite should be added to
+     * @param sectionCreator The information needed to create a new section
+     * @return the newly created section
+     */
+    public Section addSection(int projectId, SectionCreator sectionCreator) {
+        return postRESTBodyReturn(TestRailCommand.ADD_SECTION.getCommand(), Integer.toString(projectId), sectionCreator, Section.class);
+    }
 
     /**
      * Returns an existing section.
@@ -1069,7 +1078,7 @@ public class TestRailService implements Serializable {
             httpClient.getConnectionManager().shutdown();
         }
     }
-    
+
     /**
      * Posts the given String to the given TestRails end-point
      *

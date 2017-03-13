@@ -4,6 +4,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * If you have custom fields on TestResults in TestRails, it will be necessary to extend this class and add those fields in order to capture them.
@@ -67,6 +68,11 @@ public class TestResult extends BaseEntity implements Serializable {
     private String defects;
     public String getDefects() { return defects; }
     public void setDefects(String defects) { this.defects = defects; }
+
+    @JsonProperty("custom_step_results")
+    private List<StepResult> stepResults;
+    public List<StepResult> getStepResults() { return stepResults; }
+    public void setStepResults(List<StepResult> stepResults) { this.stepResults = stepResults; }
 
     /**
      * Set the Verdict for this TestResult (does not actually send the update to the TestRails Service)
