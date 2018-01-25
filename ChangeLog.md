@@ -1,3 +1,6 @@
+##  Changes between 1.3 and 1.3.1
+Fixed setTemplateId to target templateId instead of suiteId field
+
 ##  Changes between 1.2.1 and 1.3
 Added SectionCreator
 <br>
