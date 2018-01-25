@@ -61,6 +61,8 @@ public class TestRailServiceTest {
         Assert.assertEquals(new Integer(4), testCase.getTypeId());
         Assert.assertEquals(new Integer(1), testCase.getUpdatedBy());
         Assert.assertEquals(new Integer(1393586511), testCase.getUpdatedOn());
+        Assert.assertEquals(new Integer(1), testCase.getTemplateId());
+
     }
 
     @Test
