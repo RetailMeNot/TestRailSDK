@@ -88,7 +88,7 @@ public class TestCase extends BaseEntity {
     @JsonProperty("template_id") //requires TestRail 5.2 or later
     private Integer templateId;
     public Integer getTemplateId() { return templateId; }
-    public void setTemplateId(Integer suiteId) { this.suiteId = suiteId; }
+    public void setTemplateId(Integer templateId) { this.templateId = templateId; }
 
     @JsonProperty("custom_state")
     private Integer customState;
