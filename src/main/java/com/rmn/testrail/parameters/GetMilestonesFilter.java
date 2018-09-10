@@ -7,7 +7,8 @@ package com.rmn.testrail.parameters;
  */
 public enum GetMilestonesFilter implements ApiFilter {
     //Request filter for get_milestones
-    IS_COMPLETED("is_completed");
+    IS_COMPLETED("is_completed"),
+    IS_STARTED("is_started");
 
     private String filter;
     GetMilestonesFilter(String filter) { this.filter = filter; }

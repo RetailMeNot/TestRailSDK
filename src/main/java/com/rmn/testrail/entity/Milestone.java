@@ -45,4 +45,9 @@ public class Milestone extends BaseEntity {
     private Integer projectId;
     public Integer getProjectId() { return projectId; }
     public void setProjectId(Integer projectId) { this.projectId = projectId; }
+
+    @JsonProperty("is_started")
+    private String isStarted;
+    public String getIsStarted() { return isStarted; }
+    public void setIsStarted(String isStarted) { this.isStarted = isStarted; }
 }
