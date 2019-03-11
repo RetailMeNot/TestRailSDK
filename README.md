@@ -140,6 +140,13 @@ If you choose to build locally from IDEA, Eclipse, or even command line, you'll 
 ```
 The log output should explain clearly which entities were queried and altered within your account.
 
+## Maintainers Only - Releasing to Production
+
+The following command should sign and upload a jar to the maven repository:
+```
+    mvn clean verify javadoc:jar source:jar gpg:sign deploy
+```
+
 ## License
 
 This project has been released under the MIT license. Please see the license.txt file for more details.
