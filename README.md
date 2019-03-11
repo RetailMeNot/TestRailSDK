@@ -142,6 +142,13 @@ The log output should explain clearly which entities were queried and altered wi
 
 ## Maintainers Only - Releasing to Production
 
+Prerequisite:
+1. Install gnupg
+```
+    brew install gnupg2
+```
+2. You may require a symlink to gpg from gpg2 due to the age of the maven-gpg-plugin. Duplicate the `gpg` symlink and rename it `gpg2` inside of `/usr/bin/local`
+
 The following command should sign and upload a jar to the maven repository:
 ```
     mvn clean verify javadoc:jar source:jar gpg:sign deploy
