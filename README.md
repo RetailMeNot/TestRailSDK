@@ -156,7 +156,7 @@ The following command should sign and upload a jar to the maven repository:
 
 1. Log into `https://oss.sonatype.org/`.
 2. Once you have uploaded a repository go to "Staging Repositories"
-3. Find the module (usually has testrailsdk in the name).
+3. Find the module (usually has com.retailmenot-#### in the name where #### is the build number). Typically at the very bottom.
 4. Select and close the repository.
 5. Once the repository successfully closes (which requires javadocs and signing), select and release the repository.
 6. The repository will be available on maven shortly.
