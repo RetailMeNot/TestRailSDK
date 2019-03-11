@@ -147,6 +147,13 @@ The following command should sign and upload a jar to the maven repository:
     mvn clean verify javadoc:jar source:jar gpg:sign deploy
 ```
 
+1. Log into `https://oss.sonatype.org/`.
+2. Once you have uploaded a repository go to "Staging Repositories"
+3. Find the module (usually has testrailsdk in the name).
+4. Select and close the repository.
+5. Once the repository successfully closes (which requires javadocs and signing), select and release the repository.
+6. The repository will be available on maven shortly.
+
 ## License
 
 This project has been released under the MIT license. Please see the license.txt file for more details.
