@@ -3,6 +3,8 @@
 The mvn-repo branch contains the code for the current snapshot in the repository. If you would like to change the code in the snapshot,
 makes sure to merge this code into the mvn-repo branch and then run the following commands to publish the new snapshot in the public Maven repository.
 
+Snapshot location: `https://oss.sonatype.org/#nexus-search;quick~mgage`
+
 ### Prerequisites
 
 * You will need to create a valid username and password for the Sonatype repository and add this to your `settings.xml` file in your local `.m2` directory.
