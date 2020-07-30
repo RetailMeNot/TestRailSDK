@@ -3,7 +3,7 @@
 
 	<groupId>com.mgage.testrailsdk</groupId>
 	<artifactId>testrailsdk</artifactId>
-	<version>1.3.4</version>
+	<version>1.3.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
