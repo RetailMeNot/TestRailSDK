@@ -60,7 +60,7 @@ public class JSONUtils {
      * @return An instance of the given Class, based on the attributes of the given JSON
      */
     public static <T> List<T> getMappedJsonObjectList(Class<T> jsonObjectClass, String json) {
-        return getMappedJsonObjectList(jsonObjectClass, json, true);
+        return getMappedJsonObjectList(jsonObjectClass, json, false);
     }
 
     /**
