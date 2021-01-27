@@ -1,8 +1,9 @@
 package com.rmn.testrail.util;
 
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.TypeFactory;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,8 @@ public class JSONUtils {
     public static <T> T getMappedJsonObject( Class<T> jsonObjectClass, String json, boolean failOnUnknownProperties ) {
         TypeFactory t = TypeFactory.defaultInstance();
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure( DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, failOnUnknownProperties );
+        mapper.configure( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES , failOnUnknownProperties );
+        //mapper.configure( DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, failOnUnknownProperties );
 
         T mappedObject;
         try {
@@ -74,7 +76,8 @@ public class JSONUtils {
     public static <T> List<T> getMappedJsonObjectList(Class<T> jsonObjectClass, String json, boolean failOnUnknownProperties) {
         List<T> list;
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, failOnUnknownProperties);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, failOnUnknownProperties);
+        //mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, failOnUnknownProperties);
         
         TypeFactory t = TypeFactory.defaultInstance();
         try {

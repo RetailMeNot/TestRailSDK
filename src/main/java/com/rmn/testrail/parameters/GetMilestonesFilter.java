@@ -13,7 +13,5 @@ public enum GetMilestonesFilter implements ApiFilter {
     private String filter;
     GetMilestonesFilter(String filter) { this.filter = filter; }
 
-    public String getFilter() {
-        return filter;
-    }
+    public String getFilter() { return filter; }
 }

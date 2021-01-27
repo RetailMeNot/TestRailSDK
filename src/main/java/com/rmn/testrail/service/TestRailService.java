@@ -1,7 +1,29 @@
 package com.rmn.testrail.service;
 
-import com.rmn.testrail.entity.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.rmn.testrail.entity.BaseEntity;
+import com.rmn.testrail.entity.EmptyMilestone;
 import com.rmn.testrail.entity.Error;
+import com.rmn.testrail.entity.Milestone;
+import com.rmn.testrail.entity.PlanEntry;
+import com.rmn.testrail.entity.Priority;
+import com.rmn.testrail.entity.Project;
+import com.rmn.testrail.entity.ProjectCreator;
+import com.rmn.testrail.entity.Section;
+import com.rmn.testrail.entity.SectionCreator;
+import com.rmn.testrail.entity.TestCase;
+import com.rmn.testrail.entity.TestInstance;
+import com.rmn.testrail.entity.TestPlan;
+import com.rmn.testrail.entity.TestPlanCreator;
+import com.rmn.testrail.entity.TestResult;
+import com.rmn.testrail.entity.TestResults;
+import com.rmn.testrail.entity.TestRun;
+import com.rmn.testrail.entity.TestRunCreator;
+import com.rmn.testrail.entity.TestRunUpdater;
+import com.rmn.testrail.entity.TestSuite;
+import com.rmn.testrail.entity.TestSuiteCreator;
+import com.rmn.testrail.entity.UpdatePlanEntry;
+import com.rmn.testrail.entity.User;
 import com.rmn.testrail.parameters.ApiFilterValue;
 import com.rmn.testrail.parameters.ApiParameter;
 import com.rmn.testrail.parameters.ApiParameters;
@@ -10,13 +32,12 @@ import com.rmn.testrail.util.HTTPUtils;
 import com.rmn.testrail.util.JSONUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -256,7 +277,7 @@ public class TestRailService implements Serializable {
      * WARNING: Permanently delete an existing test case. Please note: Deleting a test case cannot be undone and also permanently deletes all test results in active test runs (i.e. test runs that haven't been closed (archived) yet).
      * @param caseId The ID of the test case
      */
-    public void deleteTestCase(int caseId) {
+    public void deleteTestCase(int caseId) throws IOException {
         postRESTBody(TestRailCommand.DELETE_CASE.getCommand(), Integer.toString(caseId), null);
     }
 
@@ -299,7 +320,7 @@ public class TestRailService implements Serializable {
      * @param name The name of the configuration group
      * @param projectId The ID of the project the configuration group should be added to
      */
-    public void addConfigGroup(final String name, int projectId) {
+    public void addConfigGroup(final String name, int projectId) throws IOException {
         postRESTBody(TestRailCommand.ADD_CONFIG_GROUP.getCommand(), null,
                 new BaseEntity() {
                     @JsonProperty("name")
@@ -312,7 +333,7 @@ public class TestRailService implements Serializable {
      * @param name The name of the configuration
      * @param configGroupId The ID of the configuration group the configuration should be added to
      */
-    public void addConfig(final String name, int configGroupId) {
+    public void addConfig(final String name, int configGroupId) throws IOException {
         postRESTBody(TestRailCommand.ADD_CONFIG.getCommand(), Integer.toString(configGroupId),
                 new BaseEntity() {
                     @JsonProperty("name")
@@ -325,7 +346,7 @@ public class TestRailService implements Serializable {
      * @param name The new name of the configuration group
      * @param configGroupId The ID of the configuration group
      */
-    public void updateConfigGroup(final String name, int configGroupId) {
+    public void updateConfigGroup(final String name, int configGroupId) throws IOException {
         postRESTBody(TestRailCommand.UPDATE_CONFIG_GROUP.getCommand(), Integer.toString(configGroupId),
                 new BaseEntity() {
                     @JsonProperty("name")
@@ -338,7 +359,7 @@ public class TestRailService implements Serializable {
      * @param name The new name of the configuration
      * @param configId The ID of the configuration
      */
-    public void updateConfig(final String name, int configId) {
+    public void updateConfig(final String name, int configId) throws IOException {
         postRESTBody(TestRailCommand.UPDATE_CONFIG.getCommand(), Integer.toString(configId),
                 new BaseEntity() {
                     @JsonProperty("name")
@@ -351,7 +372,7 @@ public class TestRailService implements Serializable {
      * Please note: Deleting a configuration group cannot be undone and also permanently deletes all configurations in this group. It does not, however, affect closed test plans/runs, or active test plans/runs unless they are updated.
      * @param configGroupId The ID of the configuration group
      */
-    public void deleteConfigGroup(int configGroupId) {
+    public void deleteConfigGroup(int configGroupId) throws IOException {
         postRESTBody(TestRailCommand.DELETE_CONFIG_GROUP.getCommand(), Integer.toString(configGroupId), null);
     }
 
@@ -360,7 +381,7 @@ public class TestRailService implements Serializable {
      * Please note: Deleting a configuration cannot be undone. It does not, however, affect closed test plans/runs, or active test plans/runs unless they are updated.
      * @param configId The ID of the configuration
      */
-    public void deleteConfig(int configId) {
+    public void deleteConfig(int configId) throws IOException {
         postRESTBody(TestRailCommand.DELETE_CONFIG.getCommand(), Integer.toString(configId), null);
     }
 
@@ -488,7 +509,7 @@ public class TestRailService implements Serializable {
      * Please note: Deleting a test plan cannot be undone and also permanently deletes all test runs and results of the test plan.
      * @param planId The ID of the test plan
      */
-    public void deleteTestPlan(int planId) {
+    public void deleteTestPlan(int planId) throws IOException {
         postRESTBody(TestRailCommand.DELETE_PLAN.getCommand(), Integer.toString(planId), null);
     }
 
@@ -498,7 +519,7 @@ public class TestRailService implements Serializable {
      * @param planId The ID of the test plan
      * @param entryId The ID of the test plan entry (note: not the test run ID)
      */
-    public void deleteTestPlanEntry(int planId, int entryId) {
+    public void deleteTestPlanEntry(int planId, int entryId) throws IOException {
         postRESTBody(TestRailCommand.DELETE_PLAN_ENTRY.getCommand(), Integer.toString(planId) + "/" + Integer.toString(entryId), null);
     }
 
@@ -578,7 +599,7 @@ public class TestRailService implements Serializable {
      * Please note: Deleting a project cannot be undone and also permanently deletes all test suites and cases, test runs and results and everything else that is part of the project.
      * @param projectId The ID of the project
      */
-    public void deleteProject(int projectId) {
+    public void deleteProject(int projectId) throws IOException {
         postRESTBody(TestRailCommand.DELETE_PROJECT.getCommand(), Integer.toString(projectId), null);
     }
 
@@ -671,7 +692,7 @@ public class TestRailService implements Serializable {
      * @param result TestResult entity you wish to add to this TestInstance
      * @return the new test result
      */
-    public TestResult addTestResultForCase(int runId, int caseId, TestResult result) {
+    public TestResult addTestResultForCase(int runId, int caseId, TestResult result) throws IOException {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULT_FOR_CASE.getCommand(), Integer.toString(runId) + "/" + Integer.toString(caseId), result);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestResult was not properly added to Run ID: %d | Case ID: %d: %s", runId, caseId, response.getStatusLine().getReasonPhrase()));
@@ -713,7 +734,7 @@ public class TestRailService implements Serializable {
      * @param results A TestResults entity (which can include multiple TestResult entities) you wish to add to this TestRun
      * @return the newly created TestResults object
      */
-    public TestResults addTestResultsForCases(int runId, TestResults results) {
+    public TestResults addTestResultsForCases(int runId, TestResults results) throws IOException {
         HttpResponse response = postRESTBody(TestRailCommand.ADD_RESULTS_FOR_CASES.getCommand(), Integer.toString(runId), results);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestResults was not properly added to TestRun [%d]: %s", runId, response.getStatusLine().getReasonPhrase()));
@@ -793,7 +814,7 @@ public class TestRailService implements Serializable {
      * @param run The TestRun you want to close
      * @return the newly closed test run
      */
-    public TestRun closeTestRun(TestRun run) {
+    public TestRun closeTestRun(TestRun run) throws IOException {
         HttpResponse response = postRESTBody(TestRailCommand.CLOSE_RUN.getCommand(), Integer.toString(run.getId()), run);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestRun was not properly closed, TestRunID [%d]: %s", run.getId(), response.getStatusLine().getReasonPhrase()));
@@ -811,7 +832,7 @@ public class TestRailService implements Serializable {
      * @param runId The ID of the test run
      * @return the newly closed test run
      */
-    public TestRun closeTestRun(int runId) {
+    public TestRun closeTestRun(int runId) throws IOException {
         HttpResponse response = postRESTBody(TestRailCommand.CLOSE_RUN.getCommand(), Integer.toString(runId), null);
         if (response.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException(String.format("TestRun was not properly closed, TestRunID [%d]: %s", runId, response.getStatusLine().getReasonPhrase()));
@@ -829,7 +850,7 @@ public class TestRailService implements Serializable {
      * Please note: Deleting a test run cannot be undone and also permanently deletes all tests and results of the test run.
      * @param runId The ID of the test run
      */
-    public void deleteTestRun(int runId) {
+    public void deleteTestRun(int runId) throws IOException {
         postRESTBody(TestRailCommand.DELETE_RUN.getCommand(), Integer.toString(runId), null);
     }
 
@@ -884,7 +905,7 @@ public class TestRailService implements Serializable {
      * @param suiteId The Suite ID (in TestRails, this will be something like 'S7', but just provide the 7)
      * @return A TestSuite
      */
-    public TestSuite getTestSuite( int suiteId ) {
+    public TestSuite getTestSuite(int suiteId ) {
         return getEntitySingle(TestSuite.class, TestRailCommand.GET_SUITE.getCommand(), Integer.toString(suiteId));
     }
 
@@ -922,7 +943,7 @@ public class TestRailService implements Serializable {
      * Please note: Deleting a test suite cannot be undone and also deletes all active test runs and results, i.e. test runs and results that weren't closed (archived) yet.
      * @param suiteId The ID of the test suite
      */
-    public void deleteTestSuite(int suiteId) {
+    public void deleteTestSuite(int suiteId) throws IOException {
         postRESTBody(TestRailCommand.DELETE_SUITE.getCommand(), Integer.toString(suiteId), null);
     }
 
@@ -1048,7 +1069,7 @@ public class TestRailService implements Serializable {
      * @return The Content of the HTTP Response
      */
     private HttpResponse postRESTBody(String apiCall, String urlParams, BaseEntity entity) {
-        HttpClient httpClient = new DefaultHttpClient();
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String completeUrl = buildRequestURL( apiCall, urlParams );
 
         try {
@@ -1058,7 +1079,7 @@ public class TestRailService implements Serializable {
             request.addHeader("Content-Type", "application/json");
 
             ObjectMapper mapper = new ObjectMapper();
-            mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL.NON_NULL);
             byte[] body = mapper.writeValueAsBytes(entity);
             request.setEntity(new ByteArrayEntity(body));
 
@@ -1075,7 +1096,14 @@ public class TestRailService implements Serializable {
             log.error(String.format("An IOException was thrown while trying to process a REST Request against URL: [%s]", completeUrl), e.toString());
             throw new RuntimeException(String.format("Connection is null, check URL: %s", completeUrl));
         } finally {
-            httpClient.getConnectionManager().shutdown();
+            try {
+                httpClient.close();
+            }
+            catch (IOException ex) {
+                log.error("An IOException thrown while trying to close the HTTP client against URL: {}", completeUrl);
+                throw new RuntimeException("Unable to close HTTP client against URL: " + completeUrl, ex);
+            }
+            //httpClient.getConnectionManager().shutdown();
         }
     }
 
@@ -1089,7 +1117,7 @@ public class TestRailService implements Serializable {
      * @return The Content of the HTTP Response
      */
     private <T extends BaseEntity> T postRESTBodyReturn(String apiCall, String urlParams, BaseEntity entity, Class<T> returnEntityType) {
-        HttpClient httpClient = new DefaultHttpClient();
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String completeUrl = buildRequestURL( apiCall, urlParams );
 
         try {
@@ -1100,7 +1128,7 @@ public class TestRailService implements Serializable {
             request.addHeader("Encoding", "UTF-8");
 
             ObjectMapper mapper = new ObjectMapper();
-            mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             byte[] body = mapper.writeValueAsBytes(entity);
             request.setEntity(new ByteArrayEntity(body));
 
@@ -1121,7 +1149,14 @@ public class TestRailService implements Serializable {
             log.error(String.format("An IOException was thrown while trying to process a REST Request against URL: [%s]", completeUrl), e);
             throw new RuntimeException(String.format("Connection is null, check URL: %s", completeUrl), e);
         } finally {
-            httpClient.getConnectionManager().shutdown();
+            try {
+                httpClient.close();
+            }
+            catch (IOException ex) {
+                log.error("An IOException thrown while trying to close the HTTP client against URL: {}", completeUrl);
+                throw new RuntimeException("Unable to close HTTP client against URL: " + completeUrl, ex);
+            }
+            //httpClient.getConnectionManager().shutdown();
         }
 		return null;
     }
@@ -1138,7 +1173,7 @@ public class TestRailService implements Serializable {
         int RETRY_DELAY_MS = 0;
         int retryDelayInMS;
 
-        HttpClient httpClient = new DefaultHttpClient();
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpResponse response = null;
 
         for (int retry = 0; retry < retries && !connected; retry++) {
