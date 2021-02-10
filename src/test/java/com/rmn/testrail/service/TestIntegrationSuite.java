@@ -27,7 +27,7 @@ import java.util.Properties;
 @RunWith(value = Suite.class)
 @Suite.SuiteClasses(value = { TestRailServiceIntegrationTest.class })
 public class TestIntegrationSuite {
-    private static Logger log = LoggerFactory.getLogger(TestIntegrationSuite.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(TestIntegrationSuite.class);
 
     //The setUp method initializes the list of projects, and the rest of the suite uses information from there
     protected static TestRailService service = new TestRailService();
@@ -45,7 +45,7 @@ public class TestIntegrationSuite {
     protected static boolean destructiveTestsOk = false;
 
     @BeforeClass
-    public static void setUp() throws IOException, InterruptedException {
+    public static void setUp() throws IOException {
         //Get the TestRails credentials from the testrails.properties file
         Properties properties = new Properties();
         InputStream resource = TestRailServiceIntegrationTest.class.getClassLoader().getResourceAsStream("testrails.properties");
@@ -65,7 +65,7 @@ public class TestIntegrationSuite {
             destructiveTestsOk = false;
             log.info("Your testrails.properties file does not contain the 'destructiveTestsOk' property--shutting off destructive tests");
         } else {
-            destructiveTestsOk = Boolean.valueOf(destructiveTestsOkProperty);
+            destructiveTestsOk = Boolean.parseBoolean(destructiveTestsOkProperty);
             log.info("Located 'destructiveTestsOk' property--setting to " + destructiveTestsOk);
         }
 

@@ -8,6 +8,9 @@ import java.util.List;
 /**
  * This class has all the fields in a TestRun API request.
  *
+ * 'updated_on' - optional field is not implemented (timestamp)
+ * 'refs' - optional field is not implemented (string)
+ *
  * @author mmerrell
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

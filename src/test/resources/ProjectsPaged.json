@@ -1,0 +1,61 @@
+{
+  "offset": 0,
+  "limit": 250,
+  "size": 5,
+  "_links": {
+    "next": null,
+    "prev": null
+  },
+  "projects": [
+    {
+      "id": 3,
+      "name": "Sandbox",
+      "announcement": "Evaluate :: Test Run & Test Plan - multiple Test Suite",
+      "show_announcement": true,
+      "is_completed": false,
+      "completed_on": null,
+      "suite_mode": 3,
+      "url": "https://company_name.testrail.net/index.php?/projects/overview/3"
+    },
+    {
+      "id": 10,
+      "name": "Name Project 10",
+      "announcement": "Sin City Gateway System",
+      "show_announcement": false,
+      "is_completed": false,
+      "completed_on": null,
+      "suite_mode": 3,
+      "url": "https://company_name.testrail.net/index.php?/projects/overview/10"
+    },
+    {
+      "id": 11,
+      "name": "Name Project 11",
+      "announcement": "Sin City Gateway System",
+      "show_announcement": false,
+      "is_completed": false,
+      "completed_on": null,
+      "suite_mode": 3,
+      "url": "https://company_name.testrail.net/index.php?/projects/overview/11"
+    },
+    {
+      "id": 12,
+      "name": "Name Project 12",
+      "announcement": null,
+      "show_announcement": false,
+      "is_completed": false,
+      "completed_on": null,
+      "suite_mode": 3,
+      "url": "https://company_name.testrail.net/index.php?/projects/overview/12"
+    },
+    {
+      "id": 43,
+      "name": "SName Project 43",
+      "announcement": null,
+      "show_announcement": false,
+      "is_completed": false,
+      "completed_on": null,
+      "suite_mode": 3,
+      "url": "https://company_name.testrail.net/index.php?/projects/overview/43"
+    }
+  ]
+}

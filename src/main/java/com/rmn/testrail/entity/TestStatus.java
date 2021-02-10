@@ -12,7 +12,7 @@ import java.util.Map;
  * @author mmerrell
  */
 public class TestStatus {
-    private static Map<String, Integer> allStatus = new HashMap<String, Integer>();
+    private static Map<String, Integer> allStatus = new HashMap<>();
 
     static {
         allStatus.put("Passed", 1);

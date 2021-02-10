@@ -11,6 +11,8 @@ import java.util.List;
  * The TestRail top-level entity is actually called a "Test", but that collides with the @Test annotation we're
  * using in the unit tests. Calling it a TestInstance will avoid ambiguity
  *
+ * Note: Custom Fields are ignored in this object
+ *
  * @author mmerrell
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

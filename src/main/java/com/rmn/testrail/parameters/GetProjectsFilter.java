@@ -7,10 +7,14 @@ package com.rmn.testrail.parameters;
  */
 public enum GetProjectsFilter implements ApiFilter {
     //Request filter for get_projects
-    IS_COMPLETED("is_completed");
+    IS_COMPLETED("is_completed"),
+    LIMIT("limit"),                 //250 by default.  requires TestRail 6.7 or later
+    OFFSET("offset");               //requires TestRail 6.7 or later
 
-    private String filter;
-    GetProjectsFilter(String filter) { this.filter = filter; }
+    private final String filter;
+    GetProjectsFilter(String filter) {
+        this.filter = filter;
+    }
 
     public String getFilter() {
         return filter;

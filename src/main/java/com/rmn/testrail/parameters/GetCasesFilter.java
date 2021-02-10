@@ -10,7 +10,9 @@ public enum GetCasesFilter implements ApiFilter {
     CREATED_AFTER("created_after"),
     CREATED_BEFORE("created_before"),
     CREATED_BY("created_by"),
+    LIMIT("limit"),                 //250 by default.  requires TestRail 6.7 or later
     MILESTONE_ID("milestone_id"),
+    OFFSET("offset"),               //requires TestRail 6.7 or later
     PRIORITY_ID("priority_id"),
     TEMPLATE_ID("template_id"),
     TYPE_ID("type_id"),
@@ -18,8 +20,10 @@ public enum GetCasesFilter implements ApiFilter {
     UPDATED_BEFORE("updated_before"),
     UPDATED_BY("updated_by");
 
-    private String filter;
-    GetCasesFilter(String filter) { this.filter = filter; }
+    private final String filter;
+    GetCasesFilter(String filter) {
+        this.filter = filter;
+    }
 
     public String getFilter() {
         return filter;

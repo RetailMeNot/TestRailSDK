@@ -12,10 +12,13 @@ public enum GetPlansFilter implements ApiFilter{
     CREATED_BY("created_by"),
     IS_COMPLETED("is_completed"),
     LIMIT("limit"),
-    MILESTONE_ID("milestone_id");
+    MILESTONE_ID("milestone_id"),
+    OFFSET("offset");               //requires TestRail 6.7 or later
 
-    private String filter;
-    GetPlansFilter(String filter) { this.filter = filter; }
+    private final String filter;
+    GetPlansFilter(String filter) {
+        this.filter = filter;
+    }
 
     public String getFilter() {
         return filter;

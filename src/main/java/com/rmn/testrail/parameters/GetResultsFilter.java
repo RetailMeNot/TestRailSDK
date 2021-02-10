@@ -11,8 +11,10 @@ public enum GetResultsFilter implements ApiFilter {
     OFFSET("offset"),
     STATUS_ID("status_id");
 
-    private String filter;
-    GetResultsFilter(String filter) { this.filter = filter; }
+    private final String filter;
+    GetResultsFilter(String filter) {
+        this.filter = filter;
+    }
 
     public String getFilter() {
         return filter;

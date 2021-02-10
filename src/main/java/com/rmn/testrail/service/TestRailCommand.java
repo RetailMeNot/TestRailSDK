@@ -105,7 +105,7 @@ public enum TestRailCommand {
     GET_USER_BY_EMAIL("get_user_by_email"),
     GET_USERS("get_users");
 
-    private String command;
+    private final String command;
     private TestRailCommand(String command) {
         this.command = command;
     }

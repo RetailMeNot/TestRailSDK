@@ -14,9 +14,9 @@ Download the source, then from the command-line, run the `mvn install` command. 
 Once the jar has been deployed, you should be able to include a small snippet in your pom file:
 
     <dependency>
-        <groupId>com.retailmenot</groupId>
+        <groupId>com.mgage</groupId>
         <artifactId>testrailsdk</artifactId>
-        <version>1.3.1</version>
+        <version>1.3.4.1</version>
     </dependency>
 
 If you're currently using Maven, and your repos, paths, and IDE are all set up correctly, you should be able to address the classes in this project immediately.
@@ -28,9 +28,9 @@ To point to the jar file in Maven Central, include this xml snippet in your pom.
 
 ```xml
     <dependency>
-        <groupId>com.retailmenot</groupId>
+        <groupId>com.mgage</groupId>
         <artifactId>testrailsdk</artifactId>
-        <version>1.3.1</version>
+        <version>1.3.4.1</version>
     </dependency>
 ```
 
@@ -56,6 +56,10 @@ This project has been in general use within our offices for over a year, having 
 * TestRun - An execution plan for a given Release, which acts as a "record" of the state of a release
 * TestInstance - A single instance of a Test Case in the context of a Test Run. Results of "PASS", "FAIL", "WARNING", etc are reported directly against this entity
 * TestResult - The execution record of a single Test Instance within a given Test Run
+
+## Entities NOT supported
+
+* Attachment entity is not implemented
 
 ## Modeling Custom Fields
 

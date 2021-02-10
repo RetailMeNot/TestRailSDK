@@ -13,10 +13,13 @@ public enum GetRunsFilter implements ApiFilter {
     IS_COMPLETED("is_completed"),
     LIMIT("limit"),
     MILESTONE_ID("milestone_id"),
-    SUITE_ID("suite_id");
+    SUITE_ID("suite_id"),
+    OFFSET("offset");
 
-    private String filter;
-    GetRunsFilter(String filter) { this.filter = filter; }
+    private final String filter;
+    GetRunsFilter(String filter) {
+        this.filter = filter;
+    }
 
     public String getFilter() {
         return filter;

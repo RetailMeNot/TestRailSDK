@@ -1,8 +1,16 @@
 package com.rmn.testrail.service;
 
-import com.rmn.testrail.entity.*;
+
+import com.rmn.testrail.entity.Project;
+import com.rmn.testrail.entity.Section;
+import com.rmn.testrail.entity.TestCase;
+import com.rmn.testrail.entity.TestInstance;
+import com.rmn.testrail.entity.TestPlan;
+import com.rmn.testrail.entity.TestResult;
+import com.rmn.testrail.entity.TestRun;
+import com.rmn.testrail.entity.TestSuite;
 import com.rmn.testrail.util.MockHTTPUtils;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -24,7 +32,7 @@ public class TestRailServiceTest {
 
     @Test
     public void testGetProjects() {
-        TestRailService service = getTestRailsEntities("Projects.json");
+        TestRailService service = getTestRailsEntities("ProjectsPaged.json");
         List<Project> projects = service.getProjects();
         Assert.assertEquals("Sandbox", projects.get(0).getName());
     }
@@ -38,7 +46,7 @@ public class TestRailServiceTest {
 
     @Test
     public void testGetSections() {
-        TestRailService service = getTestRailsEntities("Sections.json");
+        TestRailService service = getTestRailsEntities("SectionsPaged.json");
         List<Section> sections = service.getSections(0, 0);
         Assert.assertEquals("All Test Cases",  sections.get(0).getName());
     }
@@ -47,27 +55,27 @@ public class TestRailServiceTest {
     public void testGetTestCase() {
         TestRailService service = getTestRailsEntities("TestCase.json");
         TestCase testCase = service.getTestCase(0);
-        Assert.assertEquals(new Integer(5), testCase.getCreatedBy());
-        Assert.assertEquals(new Integer(1392300984), testCase.getCreatedOn());
+        Assert.assertEquals(Integer.valueOf(5), testCase.getCreatedBy());
+        Assert.assertEquals(Integer.valueOf(1392300984), testCase.getCreatedOn());
         Assert.assertEquals("1m 5s", testCase.getEstimate());
-        Assert.assertEquals(null, testCase.getEstimateForecast());
-        Assert.assertEquals(new Integer(1), testCase.getId());
-        Assert.assertEquals(new Integer(7), testCase.getMilestoneId());
-        Assert.assertEquals(new Integer(2), testCase.getPriorityId());
+        Assert.assertNull(testCase.getEstimateForecast());
+        Assert.assertEquals(Integer.valueOf(1), testCase.getId());
+        Assert.assertEquals(Integer.valueOf(7), testCase.getMilestoneId());
+        Assert.assertEquals(Integer.valueOf(2), testCase.getPriorityId());
         Assert.assertEquals("RF-1, RF-2", testCase.getRefs());
-        Assert.assertEquals(new Integer(1), testCase.getSectionId());
-        Assert.assertEquals(new Integer(1), testCase.getSuiteId());
+        Assert.assertEquals(Integer.valueOf(1), testCase.getSectionId());
+        Assert.assertEquals(Integer.valueOf(1), testCase.getSuiteId());
         Assert.assertEquals("Change document attributes (author, title, organization)", testCase.getTitle());
-        Assert.assertEquals(new Integer(4), testCase.getTypeId());
-        Assert.assertEquals(new Integer(1), testCase.getUpdatedBy());
-        Assert.assertEquals(new Integer(1393586511), testCase.getUpdatedOn());
-        Assert.assertEquals(new Integer(1), testCase.getTemplateId());
+        Assert.assertEquals(Integer.valueOf(4), testCase.getTypeId());
+        Assert.assertEquals(Integer.valueOf(1), testCase.getUpdatedBy());
+        Assert.assertEquals(Integer.valueOf(1393586511), testCase.getUpdatedOn());
+        Assert.assertEquals(Integer.valueOf(1), testCase.getTemplateId());
 
     }
 
     @Test
     public void testGetTestCases() {
-        TestRailService service = getTestRailsEntities("TestCases.json");
+        TestRailService service = getTestRailsEntities("TestCasesPaged.json");
         List<TestCase> testCases = service.getTestCases(0, 0);
         Assert.assertEquals("Test Case",  testCases.get(0).getTitle());
         Assert.assertEquals("Steve - First Test Case",  testCases.get(1).getTitle());
@@ -105,16 +113,30 @@ public class TestRailServiceTest {
 
     @Test
     public void testGetTestRuns() {
-        TestRailService service = getTestRailsEntities("TestRuns.json");
+        TestRailService service = getTestRailsEntities("TestRunsPaged.json");
         List<TestRun> testRuns = service.getTestRuns(0);
         Assert.assertEquals("Test Suite", testRuns.get(0).getName());
     }
 
     @Test
     public void testGetTestPlans() {
-        TestRailService service = getTestRailsEntities("TestPlans.json");
+        TestRailService service = getTestRailsEntities("TestPlansPaged.json");
         List<TestPlan> testPlans = service.getTestPlans(0);
         Assert.assertEquals("Test Plan 2",  testPlans.get(0).getName());
+    }
+
+    @Test
+    public void testGetTestResults() {
+        TestRailService service = getTestRailsEntities("TestResultsPaged.json");
+        List<TestResult> testResults = service.getTestResults(0);
+        Assert.assertEquals(186187, (int) testResults.get(0).getId());
+    }
+
+    @Test
+    public void testGetTests() {
+        TestRailService service = getTestRailsEntities("TestInstancesPaged.json");
+        List<TestInstance> testResults = service.getTests(0);
+        Assert.assertEquals(6408, (int) testResults.get(0).getCaseId());
     }
 
     /**

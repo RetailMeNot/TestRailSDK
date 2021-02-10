@@ -1,0 +1,56 @@
+{
+  "offset": 0,
+  "limit": 250,
+  "size": 5,
+  "_links": {
+    "next": null,
+    "prev": null
+  },
+  "sections": [
+    {
+      "id": 63892,
+      "suite_id": 3398,
+      "name": "All Test Cases",
+      "description": null,
+      "parent_id": null,
+      "display_order": 1,
+      "depth": 0
+    },
+    {
+      "id": 146508,
+      "suite_id": 3398,
+      "name": "Error Handling",
+      "description": null,
+      "parent_id": 63892,
+      "display_order": 2,
+      "depth": 1
+    },
+    {
+      "id": 88174,
+      "suite_id": 3398,
+      "name": "Management",
+      "description": null,
+      "parent_id": null,
+      "display_order": 5,
+      "depth": 0
+    },
+    {
+      "id": 88175,
+      "suite_id": 3398,
+      "name": "Logging",
+      "description": null,
+      "parent_id": 88174,
+      "display_order": 6,
+      "depth": 1
+    },
+    {
+      "id": 88178,
+      "suite_id": 3398,
+      "name": "Config",
+      "description": null,
+      "parent_id": 88174,
+      "display_order": 10,
+      "depth": 1
+    }
+  ]
+}

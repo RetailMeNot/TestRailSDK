@@ -1,10 +1,19 @@
 package com.rmn.testrail.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
+ * 'milestones' - optional field is not implemented.  TestRail 5.3 data type 'array'.  Only available with get_milestone
+ * Note: milestone could be included with {@link JsonInclude}
+ *       example: @JsonInclude(value=Include.NON_NULL, content=Include.NON_NULL)
+ *                or consider @JsonInclude(value=Include.NON_ABSENT)
+ *
  * @author jsteigel
  */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Milestone extends BaseEntity {
     @JsonProperty("id")
     private Integer id;
