@@ -1,12 +1,14 @@
 package com.rmn.testrail.entity;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 'refs' - optional field is not implemented.  TestRail 6.3 data type 'string'.
+ *
  * @author mmerrell
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -122,7 +124,7 @@ public class TestPlan extends BaseEntity {
 
         //Get the first TestRun in each "entry:run" element and pile it up with the first entries in all the other TestRunGroups to form one list of TestRuns. Not sure this is the ideal way to do
         // things, but by leaving getEntries() public you can get to the other test runs on your own
-        List<TestRun> testRuns = new ArrayList<TestRun>(entries.size());
+        List<TestRun> testRuns = new ArrayList<>(entries.size());
         for (TestRunGroup group: entries) {
             TestRun testRun = group.getRuns().get(0);
             if (null != testRun) {

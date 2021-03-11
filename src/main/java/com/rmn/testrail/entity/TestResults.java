@@ -1,6 +1,6 @@
 package com.rmn.testrail.entity;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class TestResults extends BaseEntity {
     @JsonProperty("results")
-    private List<TestResult> results = new ArrayList<TestResult>();
+    private List<TestResult> results = new ArrayList<>();
     public List<TestResult> getResults() { return results; }
     public void setResults(List<TestResult> results) { this.results = results; }
 

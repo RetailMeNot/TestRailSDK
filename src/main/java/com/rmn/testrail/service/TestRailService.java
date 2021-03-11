@@ -1,7 +1,29 @@
 package com.rmn.testrail.service;
 
-import com.rmn.testrail.entity.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.rmn.testrail.entity.BaseEntity;
+import com.rmn.testrail.entity.EmptyMilestone;
 import com.rmn.testrail.entity.Error;
+import com.rmn.testrail.entity.Milestone;
+import com.rmn.testrail.entity.PlanEntry;
+import com.rmn.testrail.entity.Priority;
+import com.rmn.testrail.entity.Project;
+import com.rmn.testrail.entity.ProjectCreator;
+import com.rmn.testrail.entity.Section;
+import com.rmn.testrail.entity.SectionCreator;
+import com.rmn.testrail.entity.TestCase;
+import com.rmn.testrail.entity.TestInstance;
+import com.rmn.testrail.entity.TestPlan;
+import com.rmn.testrail.entity.TestPlanCreator;
+import com.rmn.testrail.entity.TestResult;
+import com.rmn.testrail.entity.TestResults;
+import com.rmn.testrail.entity.TestRun;
+import com.rmn.testrail.entity.TestRunCreator;
+import com.rmn.testrail.entity.TestRunUpdater;
+import com.rmn.testrail.entity.TestSuite;
+import com.rmn.testrail.entity.TestSuiteCreator;
+import com.rmn.testrail.entity.UpdatePlanEntry;
+import com.rmn.testrail.entity.User;
 import com.rmn.testrail.parameters.ApiFilterValue;
 import com.rmn.testrail.parameters.ApiParameter;
 import com.rmn.testrail.parameters.ApiParameters;
@@ -10,13 +32,12 @@ import com.rmn.testrail.util.HTTPUtils;
 import com.rmn.testrail.util.JSONUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +53,7 @@ import java.util.Map;
  * @author mmerrell
  */
 public class TestRailService implements Serializable {
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(TestRailService.class);
 
     /**
      * This might not last forever--we'll need to make "v2" a variable at some point--but this works for the moment
@@ -123,7 +144,7 @@ public class TestRailService implements Serializable {
      */
     protected  <T extends BaseEntity> List<T> getEntityList(Class<T> clazz, String apiCall, String param) {
         HttpURLConnection connection = getRESTRequest(apiCall, param);
-        log.debug("");
+        log.debug("Get Entity List for '{}' class type.", clazz.getSimpleName().toLowerCase());
         String contents = utils.getContentsFromConnection(connection);
         List<T> entities = JSONUtils.getMappedJsonObjectList(clazz, contents);
         for (T suite: entities) {
@@ -1021,15 +1042,15 @@ public class TestRailService implements Serializable {
         String completeUrl = buildRequestURL(apiCall, urlParams);
 
         try {
-            //log the complete url
-            log.debug("url: {}", completeUrl);
+            log.debug("Complete url: {}", completeUrl);
 
             //Add the application/json header
-            Map<String, String> headers = new HashMap<String, String>();
+            Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json");
+            headers.put("x-api-ident", "beta");   //Temporary header for beta API on TestRail 6.7 TODO - remove
 
-            //Log the curl call for easy reproduction
-//            log.warn(utils.getCurlCommandStringGet(completeUrl, headers));
+            /*Log the curl call for easy reproduction
+            log.warn(utils.getCurlCommandStringGet(completeUrl, headers));*/
 
             String authentication = utils.encodeAuthenticationBase64(username, password);
             return utils.getHTTPRequest(completeUrl, authentication, headers);
@@ -1048,7 +1069,7 @@ public class TestRailService implements Serializable {
      * @return The Content of the HTTP Response
      */
     private HttpResponse postRESTBody(String apiCall, String urlParams, BaseEntity entity) {
-        HttpClient httpClient = new DefaultHttpClient();
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String completeUrl = buildRequestURL( apiCall, urlParams );
 
         try {
@@ -1058,7 +1079,7 @@ public class TestRailService implements Serializable {
             request.addHeader("Content-Type", "application/json");
 
             ObjectMapper mapper = new ObjectMapper();
-            mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             byte[] body = mapper.writeValueAsBytes(entity);
             request.setEntity(new ByteArrayEntity(body));
 
@@ -1075,7 +1096,13 @@ public class TestRailService implements Serializable {
             log.error(String.format("An IOException was thrown while trying to process a REST Request against URL: [%s]", completeUrl), e.toString());
             throw new RuntimeException(String.format("Connection is null, check URL: %s", completeUrl));
         } finally {
-            httpClient.getConnectionManager().shutdown();
+            try {
+                httpClient.close();
+            }
+            catch (IOException ex) {
+                log.error("An IOException thrown while trying to close the HTTP client against URL: {}", completeUrl);
+                throw new RuntimeException("Unable to close HTTP client against URL: " + completeUrl, ex);
+            }
         }
     }
 
@@ -1089,7 +1116,7 @@ public class TestRailService implements Serializable {
      * @return The Content of the HTTP Response
      */
     private <T extends BaseEntity> T postRESTBodyReturn(String apiCall, String urlParams, BaseEntity entity, Class<T> returnEntityType) {
-        HttpClient httpClient = new DefaultHttpClient();
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String completeUrl = buildRequestURL( apiCall, urlParams );
 
         try {
@@ -1100,7 +1127,7 @@ public class TestRailService implements Serializable {
             request.addHeader("Encoding", "UTF-8");
 
             ObjectMapper mapper = new ObjectMapper();
-            mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             byte[] body = mapper.writeValueAsBytes(entity);
             request.setEntity(new ByteArrayEntity(body));
 
@@ -1121,7 +1148,13 @@ public class TestRailService implements Serializable {
             log.error(String.format("An IOException was thrown while trying to process a REST Request against URL: [%s]", completeUrl), e);
             throw new RuntimeException(String.format("Connection is null, check URL: %s", completeUrl), e);
         } finally {
-            httpClient.getConnectionManager().shutdown();
+            try {
+                httpClient.close();
+            }
+            catch (IOException ex) {
+                log.error("An IOException thrown while trying to close the HTTP client against URL: {}", completeUrl);
+                throw new RuntimeException("Unable to close HTTP client against URL: " + completeUrl, ex);
+            }
         }
 		return null;
     }
@@ -1138,7 +1171,7 @@ public class TestRailService implements Serializable {
         int RETRY_DELAY_MS = 0;
         int retryDelayInMS;
 
-        HttpClient httpClient = new DefaultHttpClient();
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpResponse response = null;
 
         for (int retry = 0; retry < retries && !connected; retry++) {

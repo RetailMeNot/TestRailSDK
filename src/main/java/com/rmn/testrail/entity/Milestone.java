@@ -1,10 +1,19 @@
 package com.rmn.testrail.entity;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
+ * 'milestones' - optional field is not implemented.  TestRail 5.3 data type 'array'.  Only available with get_milestone
+ * Note: milestone could be included with {@link JsonInclude}
+ *       example: @JsonInclude(value=Include.NON_NULL, content=Include.NON_NULL)
+ *                or consider @JsonInclude(value=Include.NON_ABSENT)
+ *
  * @author jsteigel
  */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Milestone extends BaseEntity {
     @JsonProperty("id")
     private Integer id;
@@ -45,4 +54,24 @@ public class Milestone extends BaseEntity {
     private Integer projectId;
     public Integer getProjectId() { return projectId; }
     public void setProjectId(Integer projectId) { this.projectId = projectId; }
+
+    @JsonProperty("start_on")
+    private String startOn;
+    public String getStartOn() { return startOn; }
+    public void setStartOn(String startOn) { this.startOn = startOn; }
+
+    @JsonProperty("started_on")
+    private String startedOn;
+    public String getStartedOn() { return startedOn; }
+    public void setStartedOn(String startedOn) { this.startedOn = startedOn; }
+
+    @JsonProperty("is_started")
+    private String isStarted;
+    public String getIsStarted() { return isStarted; }
+    public void setIsStarted(String isStarted) { this.isStarted = isStarted; }
+
+    @JsonProperty("parent_id")
+    private String parentId;
+    public String getParentId() { return parentId; }
+    public void setParentId(String parentId) { this.parentId = parentId; }
 }

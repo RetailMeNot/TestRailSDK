@@ -59,6 +59,7 @@ public class TestRunCreatorTest {
 		Assert.assertNull(testRunCreator.getCaseIds());
 		testRunCreator.setCaseIds(new Integer[]{111, 22, 3});
 		Integer[] expectedCasesId = {111, 22, 3};
-		Assert.assertEquals(expectedCasesId, testRunCreator.getCaseIds());
+		//Assert.assertEquals(expectedCasesId, testRunCreator.getCaseIds());
+		Assert.assertArrayEquals(expectedCasesId, testRunCreator.getCaseIds());
 	}
 }

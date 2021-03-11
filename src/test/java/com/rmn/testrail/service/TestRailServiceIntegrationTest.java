@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class TestRailServiceIntegrationTest {
-    private static Logger log = LoggerFactory.getLogger(TestRailServiceIntegrationTest.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(TestRailServiceIntegrationTest.class);
 
     /**
      * Test the getTestSuites (plural) API call

@@ -57,6 +57,10 @@ This project has been in general use within our offices for over a year, having 
 * TestInstance - A single instance of a Test Case in the context of a Test Run. Results of "PASS", "FAIL", "WARNING", etc are reported directly against this entity
 * TestResult - The execution record of a single Test Instance within a given Test Run
 
+## Entities NOT supported
+
+* Attachment entity is not implemented
+
 ## Modeling Custom Fields
 
 TestRail allows you to add custom fields to many entities. We support this, but you'll have to work a little harder to implement. When parsing the JSON entities that support custom fields, the Jackson processor ignores "unknown" fields
